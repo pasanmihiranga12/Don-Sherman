@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don Sherman — The Singing Chef</title>
+<meta name="description" content="Don Sherman — The Singing Chef. Chef, TV personality, singer, entertainer. 33+ years of culinary artistry and performance.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0a0a;
+  --black-2:#121110;
+  --gold:#c9a227;
+  --gold-soft:#e4c968;
+  --gold-deep:#7a5a15;
+  --cream:#f2efe9;
+  --cream-dim:#e7e1d3;
+  --copper:#d97b3f;
+  --line: rgba(242,239,233,0.14);
+  --line-dark: rgba(10,10,10,0.12);
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--black);}
+html.lenis{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto;}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;background:none;border:none;color:inherit;cursor:pointer;}
+@media (max-width:860px){ button{cursor:pointer;} }
+
+::selection{background:var(--gold);color:var(--black);}
+
+.eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:'';
+  width:22px;height:1px;
+  background:currentColor;
+  opacity:.6;
+}
+
+.display{
+  font-family:'Bodoni Moda',serif;
+  font-weight:700;
+  letter-spacing:-0.01em;
+  line-height:.92;
+  text-transform:uppercase;
+}
+.display-alt{
+  font-family:'Inter',sans-serif;
+  font-weight:900;
+  letter-spacing:-0.01em;
+  line-height:.92;
+  text-transform:uppercase;
+}
+.display-italic{
+  font-family:'Bodoni Moda',serif;
+  font-style:italic;
+  font-weight:500;
+}
+.scribble{
+  font-family:'Caveat',cursive;
+  font-weight:700;
+  text-transform:none;
+  display:inline-block;
+  transform:rotate(-4deg);
+}
+
+/* ---------- custom cursor ---------- */
+#cursor{
+  position:fixed;top:0;left:0;
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--gold);
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .25s var(--ease),height .25s var(--ease),background .25s var(--ease);
+}
+#cursor-label{
+  position:fixed;top:0;left:0;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:9998;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--black);
+  background:var(--gold);
+  padding:7px 12px;
+  border-radius:20px;
+  opacity:0;
+  white-space:nowrap;
+}
+@media (max-width:860px){ #cursor,#cursor-label{display:none;} }
+
+/* ---------- preloader ---------- */
+#preloader{
+  position:fixed;inset:0;z-index:10000;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:26px;
+  overflow:hidden;
+}
+#preloader .pl-logo-wrap{
+  position:relative;
+  width:min(64vw,420px);
+}
+#preloader .pl-logo-wrap img{
+  width:100%;height:auto;display:block;
+  filter:drop-shadow(0 0 40px rgba(201,162,39,0.25));
+  opacity:0;
+  transform:scale(0.92);
+}
+#preloader .pl-bar{
+  width:min(50vw,260px);height:1px;
+  background:rgba(242,239,233,0.14);
+  position:relative;overflow:hidden;
+}
+#preloader .pl-bar-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0%;
+  background:var(--gold);
+}
+#preloader .pl-pct{
+  font-family:'Inter',sans-serif;
+  font-size:11px;letter-spacing:.24em;color:rgba(242,239,233,0.5);
+  font-variant-numeric:tabular-nums;
+}
+#preloader .pl-tag{
+  position:absolute;bottom:40px;left:0;right:0;
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;
+  color:rgba(242,239,233,0.35);
+}
+
+/* ---------- nav ---------- */
+header#site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px clamp(20px,4vw,56px);
+  background:none;
+}
+header#site-nav .nav-logo, header#site-nav .nav-pill{
+  transition:opacity .3s ease;
+}
+header#site-nav.menu-is-open .nav-logo,
+header#site-nav.menu-is-open .nav-pill{
+  opacity:0;pointer-events:none;
+}
+.nav-logo-img{
+  height:clamp(34px,4vw,46px);
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--black);
+  padding:11px 22px;border-radius:30px;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  font-family:'Inter',sans-serif;
+}
+.nav-pill svg{width:13px;height:13px;}
+.nav-circle{
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(242,239,233,0.35);
+  background:rgba(10,10,10,0.35);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cream);
+  flex-shrink:0;
+  position:relative;
+  z-index:1100;
+}
+.nav-circle svg{width:15px;height:15px;position:absolute;transition:opacity .3s ease, transform .3s ease;}
+.nav-circle .icon-close{opacity:0;transform:rotate(-45deg);}
+.nav-circle.is-open .icon-burger{opacity:0;transform:rotate(45deg);}
+.nav-circle.is-open .icon-close{opacity:1;transform:rotate(0deg);}
+
+/* ---------- full-screen menu overlay ---------- */
+.menu-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:var(--black);
+  clip-path:circle(0px at calc(100% - 52px) 40px);
+  transition:clip-path .75s cubic-bezier(.7,0,.2,1);
+  pointer-events:none;
+}
+.menu-overlay.is-open{
+  clip-path:circle(150% at calc(100% - 52px) 40px);
+  pointer-events:all;
+}
+.menu-overlay-inner{
+  height:100%;width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:110px clamp(24px,7vw,100px) 40px;
+  max-width:1400px;margin:0 auto;
+  flex-wrap:wrap;gap:40px;
+  overflow-y:auto;
+  box-sizing:border-box;
+}
+.menu-list{display:flex;flex-direction:column;gap:6px;}
+.menu-item{
+  display:flex;align-items:baseline;gap:22px;
+  padding:14px 0;
+  overflow:hidden;
+}
+.menu-item .menu-num{
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+  color:var(--gold);letter-spacing:.1em;
+}
+.menu-item .menu-word{
+  font-family:'Fraunces',serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(38px,7vw,88px);line-height:1;
+  color:var(--cream);
+  transition:color .4s ease, transform .4s ease;
+  display:inline-block;
+}
+.menu-item:hover .menu-word{color:var(--gold);transform:translateX(14px);}
+.menu-side{
+  display:flex;flex-direction:column;gap:14px;
+  min-width:180px;
+}
+.menu-side-label{
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;
+  color:rgba(242,239,233,0.4);margin-bottom:6px;
+}
+.menu-social{
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+  color:var(--cream);
+}
+.menu-social:hover{color:var(--gold);}
+.menu-side-tag{
+  margin-top:auto;padding-top:40px;
+  font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+  color:rgba(242,239,233,0.3);font-size:14px;
+}
+@media (max-width:760px){
+  .menu-overlay-inner{flex-direction:column;align-items:flex-start;justify-content:flex-start;padding-top:100px;}
+  .menu-item .menu-word{font-size:clamp(32px,11vw,52px);}
+  .menu-side{flex-direction:row;flex-wrap:wrap;gap:20px;align-items:baseline;}
+  .menu-side-tag{display:none;}
+}
+.nav-logo{
+  font-family:'Bodoni Moda',serif;font-weight:900;
+  font-size:15px;letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--cream);
+  display:flex;flex-direction:column;line-height:1.15;
+}
+.nav-logo span{font-size:9px;letter-spacing:.32em;font-family:'Inter',sans-serif;font-weight:600;color:var(--gold);}
+
+.nav-toggle{
+  display:none;
+  width:44px;height:44px;border:1px solid var(--cream);border-radius:50%;
+  align-items:center;justify-content:center;
+}
+@media (max-width:860px){ .nav-toggle{display:flex;} }
+
+/* ---------- section base ---------- */
+section{position:relative;width:100%;}
+.wrap{max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px);}
+.split{overflow:hidden;}
+.split .line{display:block;}
+
+/* ============ HERO ============ */
+#hero{
+  height:100svh;min-height:640px;
+  background:var(--black);
+  overflow:hidden;
+  display:flex;align-items:flex-end;
+}
+#hero .hero-photo-stage{
+  position:absolute;inset:0;
+  overflow:hidden;
+  background:#0a0a0a;
+}
+#hero .hero-photo-fallback{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center center;
+  z-index:1;
+}
+#hero .hero-fluid-canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  z-index:2;
+  display:block;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity .5s ease;
+}
+#hero .hero-fluid-canvas.is-ready{opacity:1;}
+#hero .hero-scrim{
+  position:absolute;inset:0;z-index:4;
+  background:transparent;
+  pointer-events:none;
+}
+#hero .hero-content{
+  position:relative;z-index:5;
+  padding:0 clamp(20px,4vw,56px) 64px;
+  width:100%;
+  display:flex;flex-direction:column;gap:20px;
+}
+#hero .hero-eyebrow{color:var(--gold);}
+#hero h1{
+  display:block;
+}
+#hero h1 .line{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.28em .32em;
+}
+#hero h1 .w-sans{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;
+  letter-spacing:-.01em;line-height:.9;
+  font-size:clamp(34px, calc(4.4vw + 3.6vh), 118px);
+  color:var(--cream);
+}
+#hero h1 .w-serif{
+  font-family:'Fraunces',serif;font-weight:600;font-style:normal;text-transform:uppercase;
+  font-optical-sizing:auto;
+  letter-spacing:0;line-height:.9;
+  font-size:clamp(34px, calc(4.4vw + 3.6vh), 118px);
+  background:linear-gradient(100deg, #F6E3A8 0%, #E4BD5C 22%, #C99A34 42%, #F8ECBB 58%, #D9AC3E 76%, #F3D98A 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+@keyframes goldShimmer{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+#hero .hero-sub{
+  max-width:460px;
+  font-family:'Inter',sans-serif;
+  font-size:15px;line-height:1.7;
+  color:rgba(242,239,233,0.72);
+  font-weight:400;
+}
+#hero .hero-meta{
+  display:flex;align-items:center;gap:26px;
+  margin-top:8px;flex-wrap:wrap;
+}
+#hero .hero-hint{
+  position:absolute;z-index:6;
+  right:clamp(20px,4vw,56px);bottom:64px;
+  text-align:right;
+  font-family:'Inter',sans-serif;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:rgba(242,239,233,0.4);
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+#hero .hero-hint span.on{color:var(--gold);}
+#hero .hero-hint span.off{color:rgba(242,239,233,0.4);}
+@media (max-width:860px){ #hero .hero-hint{display:none;} }
+.scroll-cue{
+  position:absolute;left:clamp(20px,4vw,56px);bottom:28px;z-index:6;
+  display:flex;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+  color:rgba(242,239,233,0.55);
+}
+.scroll-cue .cue-line{width:1px;height:34px;background:rgba(242,239,233,0.3);position:relative;overflow:hidden;}
+.scroll-cue .cue-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:cueMove 1.8s ease-in-out infinite;}
+@keyframes cueMove{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+/* magnetic button */
+.mag-btn{
+  position:relative;display:inline-flex;align-items:center;gap:10px;
+  padding:15px 28px;border:1px solid var(--gold);border-radius:40px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--gold);overflow:hidden;
+}
+.mag-btn .mb-bg{position:absolute;inset:0;background:var(--gold);transform:scale(0);border-radius:50%;transition:transform .5s var(--ease);z-index:0;}
+.mag-btn:hover .mb-bg{transform:scale(1.6);}
+.mag-btn span,.mag-btn svg{position:relative;z-index:1;transition:color .4s var(--ease);}
+.mag-btn:hover span,.mag-btn:hover svg{color:var(--black);}
+.mag-btn svg{width:13px;height:13px;transition:transform .4s var(--ease), color .4s var(--ease);}
+.mag-btn:hover svg{transform:translate(3px,-3px);}
+
+/* ============ ABOUT ============ */
+#about{
+  background:var(--cream);
+  color:var(--black);
+  padding:140px 0 120px;
+}
+#about .eyebrow{color:var(--copper);}
+#about .about-grid{
+  display:grid;grid-template-columns:0.85fr 1.15fr;gap:80px;align-items:start;
+}
+@media (max-width:900px){ #about .about-grid{grid-template-columns:1fr;gap:56px;} }
+.about-portrait{
+  position:sticky;top:110px;
+  border-radius:6px;overflow:hidden;
+  aspect-ratio:4/5;
+}
+.about-portrait img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);}
+@media (max-width:900px){ .about-portrait{position:relative;top:0;} }
+
+.about-copy h2{
+  font-family:'Inter',sans-serif;font-weight:800;
+  font-size:clamp(30px,4vw,52px);
+  line-height:1.1;
+  letter-spacing:-0.01em;
+  text-transform:uppercase;
+  margin-bottom:28px;
+  max-width:640px;
+}
+.about-accent{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #e4c968 50%, #a9781f 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.about-copy em{font-style:italic;font-family:'Fraunces',serif;}
+.about-copy p{
+  font-size:16px;line-height:1.85;
+  color:rgba(10,10,10,0.72);
+  max-width:560px;
+  margin-bottom:20px;
+  font-weight:400;
+}
+.role-list{
+  margin-top:48px;
+  display:flex;flex-direction:column;
+}
+.role-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:18px 0;
+  border-top:1px solid var(--line-dark);
+  gap:20px;
+  opacity:0;
+  transform:translateY(24px);
+}
+.role-list .role-row:last-child{border-bottom:1px solid var(--line-dark);}
+.role-row .role-name{
+  font-family:'Inter',sans-serif;font-weight:900;
+  font-size:clamp(22px,3vw,34px);
+  letter-spacing:-0.01em;
+  text-transform:uppercase;
+}
+.role-row .role-num{font-size:11px;letter-spacing:.15em;color:#a7791e;font-weight:700;font-variant-numeric:tabular-nums;}
+
+/* ============ CULINARY ============ */
+#culinary{
+  background:var(--black);
+  padding:130px 0 0;
+  overflow:hidden;
+}
+#culinary .eyebrow{color:var(--copper);}
+.culinary-head{padding-bottom:40px;text-align:center;}
+.culinary-head .eyebrow{justify-content:center;}
+.culinary-head h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(36px,5.6vw,80px);color:var(--cream);
+  max-width:900px;margin:20px auto 0;
+}
+.culinary-head h2 em{
+  font-style:italic;font-family:'Fraunces',serif;font-weight:500;text-transform:none;
+  background:linear-gradient(100deg, #b5762c 0%, #e4a94f 25%, #f6d99a 50%, #d9863a 75%, #b5762c 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.culinary-head p{
+  max-width:480px;margin:24px auto 0;font-size:15px;line-height:1.8;
+  color:rgba(242,239,233,0.65);
+}
+
+/* fan-card gallery — cards spread from a shared bottom pivot; the
+   active one (hover on desktop, tap on touch) lifts to the front and
+   straightens for a full reveal */
+.fan-wrap{
+  position:relative;
+  height:clamp(480px,58vw,620px);
+  margin-top:20px;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.fan-card{
+  position:absolute;bottom:0;left:50%;
+  width:min(19vw,210px);height:min(52vw,460px);
+  border-radius:14px;overflow:hidden;
+  background:var(--black-2);
+  box-shadow:0 25px 50px rgba(0,0,0,.55);
+  transform-origin:bottom center;
+  transition:transform .55s cubic-bezier(.22,1,.36,1), box-shadow .5s ease, z-index 0s;
+  cursor:pointer;
+}
+.fan-card img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 1s var(--ease);}
+.fan-card-scrim{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.85) 100%);
+  opacity:.75;transition:opacity .5s ease;
+}
+.fan-card-index{
+  position:absolute;top:16px;left:18px;z-index:2;
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:13px;
+  background:linear-gradient(100deg, #f6d99a 0%, #e4a94f 50%, #f6d99a 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 6s ease-in-out infinite;
+  opacity:0;transition:opacity .4s ease;
+}
+.fan-card-tag{
+  position:absolute;left:18px;bottom:16px;right:14px;z-index:2;
+  font-family:'Inter',sans-serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--cream);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.fan-card.is-active{
+  z-index:20 !important;
+  box-shadow:0 40px 90px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,39,0.4);
+}
+.fan-card.is-active .fan-card-scrim{opacity:.55;}
+.fan-card.is-active .fan-card-index,
+.fan-card.is-active .fan-card-tag{opacity:1;transform:translateY(0);}
+.fan-card.is-active img{transform:scale(1.08);}
+
+.culinary-hint{
+  text-align:center;margin-top:28px;
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(242,239,233,0.35);font-weight:600;
+}
+.fan-dots{display:none;justify-content:center;gap:10px;margin-top:20px;}
+.fan-dots button{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(242,239,233,0.25);border:none;padding:0;
+}
+.fan-dots button.is-active{background:var(--gold);}
+@media (max-width:860px){
+  .fan-wrap{height:auto;padding:20px 0 10px;}
+  .fan-card{position:relative;left:auto;bottom:auto;transform:none !important;
+    width:100%;height:56vw;margin-bottom:16px;display:none;}
+  .fan-card.is-active{display:block;}
+  .fan-dots{display:flex;}
+}
+
+.fan-card[data-i="0"]{ transform: translateX(calc(-50% - 210px)) rotate(-22deg); z-index:1; }
+.fan-card[data-i="1"]{ transform: translateX(calc(-50% - 125px)) rotate(-13deg); z-index:2; }
+.fan-card[data-i="2"]{ transform: translateX(calc(-50% - 42px))  rotate(-4deg);  z-index:3; }
+.fan-card[data-i="3"]{ transform: translateX(calc(-50% + 42px))  rotate(4deg);   z-index:4; }
+.fan-card[data-i="4"]{ transform: translateX(calc(-50% + 125px)) rotate(13deg);  z-index:5; }
+.fan-card[data-i="5"]{ transform: translateX(calc(-50% + 210px)) rotate(22deg);  z-index:6; }
+.fan-card.is-active[data-i="0"]{ transform: translateX(calc(-50% - 210px)) rotate(-22deg) translateY(-50px) scale(1.1); }
+.fan-card.is-active[data-i="1"]{ transform: translateX(calc(-50% - 125px)) rotate(-13deg) translateY(-50px) scale(1.1); }
+.fan-card.is-active[data-i="2"]{ transform: translateX(calc(-50% - 42px))  rotate(-4deg)  translateY(-50px) scale(1.1); }
+.fan-card.is-active[data-i="3"]{ transform: translateX(calc(-50% + 42px))  rotate(4deg)   translateY(-50px) scale(1.1); }
+.fan-card.is-active[data-i="4"]{ transform: translateX(calc(-50% + 125px)) rotate(13deg)  translateY(-50px) scale(1.1); }
+.fan-card.is-active[data-i="5"]{ transform: translateX(calc(-50% + 210px)) rotate(22deg)  translateY(-50px) scale(1.1); }
+
+/* ============ RHYTHM (food x music) ============ */
+#rhythm{
+  background:linear-gradient(180deg, var(--black) 0%, var(--black-2) 100%);
+  padding:160px 0;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+#rhythm::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.rhythm-waveform{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  height:70px;margin-bottom:40px;
+}
+.rhythm-waveform .bar{
+  width:4px;border-radius:3px;background:var(--gold);
+  opacity:.75;
+}
+#rhythm .eyebrow{justify-content:center;color:var(--gold-soft);margin:0 auto 28px;}
+#rhythm h2{
+  font-size:clamp(38px,7vw,110px);
+  color:var(--cream);
+  line-height:.95;
+}
+#rhythm h2 span{
+  display:block;font-style:italic;font-family:'Fraunces',serif;font-weight:500;
+  text-transform:none;font-size:.5em;margin-top:14px;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+#rhythm p.rhythm-sub{
+  max-width:520px;margin:34px auto 0;
+  font-size:15px;line-height:1.8;color:rgba(242,239,233,0.6);
+}
+
+/* ============ MUSIC / PERFORMANCE ============ */
+#performance{
+  background:var(--black);
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+.perf-reveal{
+  height:100vh;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.perf-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;
+}
+.perf-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;filter:sepia(.35) saturate(1.3) hue-rotate(-8deg);}
+.perf-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(201,162,39,0.18) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.96) 100%);
+  z-index:1;
+}
+.perf-overlay::after{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);
+  mix-blend-mode:color;
+  opacity:.22;
+}
+.perf-glow{
+  position:absolute;inset:-20%;z-index:1;
+  background:radial-gradient(circle at 50% 55%, rgba(201,162,39,0.16) 0%, transparent 55%);
+  animation:perfGlowPulse 6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes perfGlowPulse{
+  0%,100%{opacity:.6;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.08);}
+}
+.perf-lines{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:0 24px;}
+.perf-lines .pl{
+  position:absolute;left:0;right:0;text-align:center;
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;
+  font-size:clamp(36px,7.2vw,104px);color:var(--cream);
+  line-height:1.05;opacity:0;
+  will-change:transform, filter, opacity;
+}
+.perf-lines .pl .hi{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;text-transform:uppercase;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.perf-spacer{height:230vh;}
+
+.perf-gallery{
+  padding:120px 0 140px;background:var(--black);
+  position:relative;z-index:3;overflow:hidden;
+}
+.perf-gallery .eyebrow{color:var(--gold-soft);}
+.perf-gallery h3{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(28px,3.6vw,48px);color:var(--cream);margin-top:18px;max-width:680px;
+}
+.perf-row{
+  position:relative;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:60px;margin-top:90px;align-items:center;
+}
+@media (max-width:860px){ .perf-row{grid-template-columns:1fr;gap:80px;margin-top:60px;} }
+.perf-composition{position:relative;}
+.perf-media{border-radius:10px;overflow:hidden;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.5);}
+.perf-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:sepia(.3) saturate(1.1) brightness(.95);}
+.perf-media.tallmedia::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:var(--gold);mix-blend-mode:color;opacity:.35;
+  pointer-events:none;
+}
+.perf-media:hover img{transform:scale(1.06);}
+.perf-media.tallmedia{aspect-ratio:4/5;}
+.perf-media.floatcard{
+  position:absolute;right:-8%;bottom:-12%;z-index:2;
+  width:52%;aspect-ratio:1/1;
+  border:4px solid var(--black);
+  box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+@media (max-width:860px){ .perf-media.floatcard{right:-4%;bottom:-10%;width:48%;} }
+.perf-stats{display:flex;flex-direction:column;gap:44px;}
+.perf-stat-num{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  font-size:clamp(48px,6vw,88px);line-height:1;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.perf-stat-label{
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(242,239,233,0.55);font-weight:700;margin-top:6px;
+}
+.perf-caption{
+  margin-top:14px;font-size:12px;letter-spacing:.08em;color:rgba(242,239,233,0.55);
+}
+
+/* ============ ORIGINAL SONG ============ */
+#song{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg, #6b4e13 0%, #c9a227 35%, #f0d888 55%, #b5872a 75%, #6b4e13 100%);
+  background-size:220% 220%;
+  animation:songBgShift 14s ease-in-out infinite;
+  padding:140px 0;
+}
+@keyframes songBgShift{
+  0%,100%{background-position:0% 30%;}
+  50%{background-position:100% 70%;}
+}
+.song-grid{
+  display:grid;grid-template-columns:0.85fr 1.15fr;gap:70px;align-items:center;
+}
+@media (max-width:900px){ .song-grid{grid-template-columns:1fr;gap:44px;} }
+.song-art{
+  position:relative;
+  border-radius:10px;overflow:hidden;
+  aspect-ratio:3/4;
+  box-shadow:0 40px 90px rgba(0,0,0,.45);
+  transform:rotate(-3deg);
+}
+.song-art img{width:100%;height:100%;object-fit:cover;}
+.song-copy .eyebrow{color:rgba(10,10,10,0.6);}
+.song-copy h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(34px,5vw,68px);color:var(--black);line-height:1.05;margin-top:18px;max-width:560px;
+}
+.song-copy p{
+  font-size:16px;line-height:1.85;color:rgba(10,10,10,0.72);
+  max-width:520px;margin-top:24px;
+}
+.song-title-tag{
+  display:inline-flex;align-items:center;gap:12px;margin-top:32px;
+  padding:14px 24px;border-radius:40px;
+  background:rgba(10,10,10,0.9);color:var(--gold-soft);
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:18px;
+  transition:background .3s ease, transform .3s ease;
+}
+.song-title-tag:hover{background:var(--black);transform:translateY(-2px);}
+.song-title-tag svg{width:16px;height:16px;flex-shrink:0;}
+
+/* ============ MEDIA / CAREER TIMELINE ============ */
+#career{
+  background:var(--black);padding:150px 0 130px;position:relative;
+}
+#career .eyebrow{color:var(--gold);}
+#career h2{font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;font-size:clamp(30px,4.4vw,56px);color:var(--cream);max-width:760px;margin-top:20px;}
+.career-grid{
+  display:grid;grid-template-columns:1.25fr 0.9fr;gap:80px;align-items:start;
+}
+@media (max-width:960px){ .career-grid{grid-template-columns:1fr;gap:0;} }
+.career-media{
+  position:sticky;top:110px;
+  display:flex;flex-direction:column;gap:20px;
+}
+@media (max-width:960px){ .career-media{position:relative;top:0;display:none;} }
+.career-media-main{
+  border-radius:10px;overflow:hidden;aspect-ratio:4/5;
+  box-shadow:0 30px 70px rgba(0,0,0,.5);
+}
+.career-media-main img{width:100%;height:100%;object-fit:cover;}
+.career-media-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.career-media-row div{border-radius:10px;overflow:hidden;aspect-ratio:1/1;}
+.career-media-row img{width:100%;height:100%;object-fit:cover;}
+.timeline{margin-top:80px;position:relative;}
+.timeline-line{
+  position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--line);
+}
+.timeline-line-fill{
+  position:absolute;left:0;top:0;width:100%;height:0%;background:var(--gold);
+}
+.t-item{
+  position:relative;padding-left:64px;padding-bottom:74px;
+}
+.t-item:last-child{padding-bottom:0;}
+.t-dot{
+  position:absolute;left:14px;top:4px;width:13px;height:13px;border-radius:50%;
+  background:var(--black);border:2px solid var(--gold);
+}
+.t-item .t-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;}
+.t-item h4{font-family:'Inter',sans-serif;font-weight:900;font-size:clamp(22px,3vw,34px);color:var(--cream);margin-bottom:12px;text-transform:uppercase;letter-spacing:-0.01em;}
+.t-item p{font-size:15px;line-height:1.75;color:rgba(242,239,233,0.62);max-width:640px;}
+.t-stat{
+  display:inline-flex;align-items:baseline;gap:8px;margin-top:16px;
+  font-family:'Fraunces',serif;
+}
+.t-stat .num{
+  font-size:38px;font-weight:900;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.t-stat .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,239,233,0.55);font-family:'Inter',sans-serif;font-weight:600;}
+
+/* ============ GALLERY ============ */
+#gallery{
+  background:var(--cream);color:var(--black);
+  padding:140px 0 130px;
+}
+#gallery .eyebrow{color:var(--gold-deep);}
+#gallery h2{font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;font-size:clamp(30px,4.4vw,56px);margin-top:20px;max-width:640px;}
+.gallery-grid{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:18px;
+}
+.g-item{
+  position:relative;border-radius:6px;overflow:hidden;cursor:pointer;
+  grid-column:span 3;
+}
+@media(max-width:860px){ .g-item{grid-column:span 6 !important;transform:none !important;} }
+.g-item .g-item-clip{
+  position:absolute;inset:0;
+  clip-path:inset(0 0 100% 0);
+}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}
+.g-item:hover img{transform:scale(1.06);}
+.g-item.g1{grid-column:span 4;aspect-ratio:5/6;}
+.g-item.g2{grid-column:span 2;aspect-ratio:3/6;}
+.g-item.g3{grid-column:span 2;aspect-ratio:1/1;}
+.g-item.g4{grid-column:span 2;aspect-ratio:1/1;}
+.g-item.g5{grid-column:span 2;aspect-ratio:1/1;}
+.g-item.g6{grid-column:span 3;aspect-ratio:4/5;}
+.g-item.g7{grid-column:span 3;aspect-ratio:4/5;}
+
+/* ---- circular rotating carousel ---- */
+.g-carousel-wrap{position:relative;padding:70px 0 40px;}
+.g-carousel-stage{
+  perspective:1700px;height:clamp(360px,48vw,520px);
+  display:flex;align-items:center;justify-content:center;
+  touch-action:pan-y;
+}
+.g-carousel-ring{
+  position:relative;width:1px;height:1px;
+  transform-style:preserve-3d;
+}
+.g-carousel-card{
+  position:absolute;top:50%;left:50%;
+  width:clamp(170px,20vw,260px);height:clamp(240px,29vw,370px);
+  margin:clamp(-185px,-14.5vw,-120px) 0 0 clamp(-130px,-10vw,-85px);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 25px 55px rgba(0,0,0,.28);
+  backface-visibility:hidden;
+  cursor:pointer;
+}
+.g-carousel-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.85);transition:filter .6s ease;}
+.g-carousel-card.is-front img{filter:brightness(1) saturate(1);}
+.g-carousel-card-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.8) 100%);
+  opacity:0;transition:opacity .6s ease;
+}
+.g-carousel-card.is-front .g-carousel-card-scrim{opacity:1;}
+.g-carousel-card-cap{
+  position:absolute;left:18px;bottom:16px;right:14px;z-index:2;
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--cream);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.g-carousel-card.is-front .g-carousel-card-cap{opacity:1;transform:translateY(0);}
+.g-carousel-controls{
+  display:flex;align-items:center;justify-content:center;gap:28px;margin-top:36px;
+}
+.g-carousel-arrow{
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--line-dark);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--black);transition:background .3s ease, border-color .3s ease, transform .3s ease;
+}
+.g-carousel-arrow:hover{background:var(--black);color:var(--cream);border-color:var(--black);}
+.g-carousel-arrow svg{width:16px;height:16px;}
+.g-carousel-hint{
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:rgba(10,10,10,0.4);
+}
+@media (max-width:640px){ .g-carousel-hint{display:none;} }
+
+.lightbox{
+  position:fixed;inset:0;z-index:9000;background:rgba(10,10,10,0.95);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+}
+.lightbox.active{opacity:1;pointer-events:all;}
+.lightbox img{max-width:88vw;max-height:86vh;object-fit:contain;border-radius:4px;}
+.lightbox-close{
+  position:absolute;top:28px;right:32px;
+  width:44px;height:44px;border:1px solid var(--cream);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+}
+
+/* ============ CONTACT ============ */
+#contact{
+  background:var(--black);color:var(--cream);
+  padding:180px 0 90px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+#contact .eyebrow{justify-content:center;color:var(--gold);margin:0 auto 30px;}
+#contact h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(40px,7.5vw,120px);line-height:.98;
+}
+#contact h2 em{
+  font-style:italic;font-family:'Fraunces',serif;font-weight:500;text-transform:none;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+#contact .contact-sub{
+  max-width:480px;margin:32px auto 48px;
+  font-size:15px;line-height:1.8;color:rgba(242,239,233,0.62);
+}
+.contact-links{
+  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:10px;
+}
+
+footer{
+  background:var(--black);border-top:1px solid var(--line);
+  padding:44px clamp(20px,4vw,56px) 34px;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;
+}
+.footer-brand{display:flex;flex-direction:column;gap:14px;}
+.footer-brand img{height:40px;width:auto;}
+.footer-brand .footer-name{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--cream);}
+.footer-brand .footer-tag{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.28em;color:var(--gold);font-weight:600;margin-top:4px;text-transform:uppercase;}
+.footer-social{display:flex;gap:22px;}
+.footer-social a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:rgba(242,239,233,0.6);}
+.footer-social a:hover{color:var(--gold);}
+.footer-bottom{
+  margin-top:34px;padding-top:20px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;
+}
+.footer-credit{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.4);
+  transition:color .3s ease;
+}
+.footer-credit span{color:rgba(242,239,233,0.65);font-weight:600;}
+.footer-credit:hover{color:var(--gold);}
+.footer-credit:hover span{color:var(--gold);}
+
+/* ---------- mobile hero override ---------- */
+@media (max-width:860px){
+  #hero h1 .w-sans, #hero h1 .w-serif{font-size:clamp(38px,12vw,58px);}
+  #hero .hero-content{padding-bottom:56px;}
+  #hero .hero-sub{max-width:100%;}
+  .scroll-cue{bottom:16px;}
+  .about-grid{gap:40px;}
+  .role-row .role-name{font-size:22px;}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="pl-logo-wrap">
+    <img src="images/singin-chef-logo.png" alt="Singin' Chef" id="plLogoImg">
+  </div>
+  <div class="pl-bar"><div class="pl-bar-fill" id="plFill"></div></div>
+  <div class="pl-pct" id="plPct">0%</div>
+  <div class="pl-tag">The Singing Chef</div>
+</div>
+
+
+<header id="site-nav">
+  <a href="#hero" class="nav-logo"><img src="images/singin-chef-logo.png" alt="Singin' Chef — Don Sherman" class="nav-logo-img"></a>
+  <div class="nav-right">
+    <a href="#contact" class="nav-pill"><span>Contact</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <button class="nav-circle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none" class="icon-burger"><path d="M0 1H16M0 9H16" stroke="currentColor" stroke-width="1.4"/></svg>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="icon-close"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="menuOverlay" class="menu-overlay">
+  <div class="menu-overlay-inner" data-lenis-prevent>
+    <nav class="menu-list">
+      <a href="#about" class="menu-item"><span class="menu-num">01</span><span class="menu-word">About</span></a>
+      <a href="#culinary" class="menu-item"><span class="menu-num">02</span><span class="menu-word">Culinary</span></a>
+      <a href="#performance" class="menu-item"><span class="menu-num">03</span><span class="menu-word">Music</span></a>
+      <a href="#career" class="menu-item"><span class="menu-num">04</span><span class="menu-word">Media</span></a>
+      <a href="#gallery" class="menu-item"><span class="menu-num">05</span><span class="menu-word">Gallery</span></a>
+      <a href="#contact" class="menu-item"><span class="menu-num">06</span><span class="menu-word">Contact</span></a>
+    </nav>
+    <div class="menu-side">
+      <div class="menu-side-label">Follow</div>
+      <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener" class="menu-social">Instagram</a>
+      <a href="#" target="_blank" rel="noopener" class="menu-social">YouTube</a>
+      <div class="menu-side-tag">The Singing Chef</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="hero-photo-stage">
+    <img src="images/chef-don.webp" alt="Don Sherman, the chef" class="hero-photo-fallback" id="heroFallback">
+    <canvas id="fluidCanvas" class="hero-fluid-canvas"></canvas>
+  </div>
+  <div class="hero-hint" id="heroHint">
+    <span class="off">Cook</span><span class="on">Sing</span>
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow hero-eyebrow split"><span class="line">Chef · Entertainer · Since 1991</span></div>
+    <h1 class="split">
+      <span class="line"><span class="w-sans">The</span> <span class="w-serif">Singing</span></span>
+      <span class="line"><span class="w-sans">Chef</span></span>
+    </h1>
+    <p class="hero-sub">Thirty-three years across the stove and the stage — food, music, and performance, told as one story.</p>
+    <div class="hero-meta">
+      <a href="#about" class="mag-btn"><span>Enter His World</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="cue-line"></span></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">His Story</span></div>
+    <div class="about-grid">
+      <div class="about-portrait" data-parallax-img>
+        <img src="images/acf-plates.webp" alt="Don Sherman presenting plated dishes as an Australian Culinary Federation chef">
+      </div>
+      <div class="about-copy">
+        <h2 class="reveal-up">Known around the world as <span class="about-accent">'The Singing Chef.'</span></h2>
+        <p class="reveal-up">Don is renowned in his home country of Sri Lanka and around the world for a vibrant, unique style of presentation paired with dynamic culinary skill. Over 33 years, he's worked as a chef, TV personality, and restaurant owner — travelling the world to perform in food events, demonstrations, and shows.</p>
+        <p class="reveal-up">His main-stream television cooking show, <em>"Cook with Don,"</em> brought joy into Sri Lankan households for ten years. He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
+        <p class="reveal-up">Don writes and performs his own music, featured on his YouTube channel, and is passionate about fusing Eastern and Western flavours — innovations that have inspired popular cooking-song videos online. Today, alongside his performance work, Don serves as a Certificate III Trainer at a Registered Training Organisation.</p>
+
+        <div class="role-list">
+          <div class="role-row"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="33">0</span>+ YRS</span></div>
+          <div class="role-row"><span class="role-name">Singer</span><span class="role-num">EN · SI · HI</span></div>
+          <div class="role-row"><span class="role-name">Entertainer</span><span class="role-num">HOST / MC</span></div>
+          <div class="role-row"><span class="role-name">TV Personality</span><span class="role-num"><span class="count-up" data-count="10">0</span> YRS</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CULINARY ================= -->
+<section id="culinary">
+  <div class="wrap culinary-head">
+    <div class="eyebrow split"><span class="line">Culinary</span></div>
+    <h2 class="reveal-up">A plate built like a <em>performance</em> — precise, warm, unmistakably his.</h2>
+    <p class="reveal-up">From fine-dining plating to national brand campaigns, Don treats every dish as a small piece of theatre.</p>
+  </div>
+
+  <div class="fan-wrap" id="fanWrap">
+    <div class="fan-card" data-i="0"><img src="images/duck-mash.webp" alt="Seared duck with mash, asparagus and glazed carrot"><div class="fan-card-scrim"></div><span class="fan-card-index">01</span><span class="fan-card-tag">Plated Fine Dining</span></div>
+    <div class="fan-card" data-i="1"><img src="images/duck-pesto.webp" alt="Sliced duck breast with pesto and heirloom tomato"><div class="fan-card-scrim"></div><span class="fan-card-index">02</span><span class="fan-card-tag">Signature Plating</span></div>
+    <div class="fan-card" data-i="2"><img src="images/campaign-apron.webp" alt="Don Sherman at the Nature's Pearls Legumes from Europe campaign"><div class="fan-card-scrim"></div><span class="fan-card-index">03</span><span class="fan-card-tag">Brand Campaign</span></div>
+    <div class="fan-card" data-i="3"><img src="images/food-spread.webp" alt="Editorial spread of plated dishes"><div class="fan-card-scrim"></div><span class="fan-card-index">04</span><span class="fan-card-tag">Editorial Spread</span></div>
+    <div class="fan-card" data-i="4"><img src="images/chicken-vert.webp" alt="Roasted chicken carved tableside"><div class="fan-card-scrim"></div><span class="fan-card-index">05</span><span class="fan-card-tag">Tableside Service</span></div>
+    <div class="fan-card" data-i="5"><img src="images/noodles-thumbsup.webp" alt="Don Sherman approving a finished noodle dish"><div class="fan-card-scrim"></div><span class="fan-card-index">06</span><span class="fan-card-tag">Approved by Don</span></div>
+  </div>
+  <div class="culinary-hint" id="culinaryHint">Hover a plate</div>
+  <div class="fan-dots" id="fanDots"></div>
+</section>
+
+<!-- ================= RHYTHM (food x music transition) ================= -->
+<section id="rhythm">
+  <div class="wrap">
+    <div class="rhythm-waveform" id="waveform"></div>
+    <div class="eyebrow"><span class="line">The Connection</span></div>
+    <h2 class="reveal-up">Food has<span>a rhythm.</span></h2>
+    <p class="rhythm-sub reveal-up">Every dish is timed like a set — build, crescendo, resolve. It's why the same instincts that plate a service also carry a room.</p>
+  </div>
+</section>
+
+<!-- ================= MUSIC / PERFORMANCE ================= -->
+<section id="performance">
+  <div class="perf-spacer">
+    <div class="perf-reveal">
+      <div class="perf-bg" data-bg="0"><img src="images/studio-wide.webp" alt="Don Sherman cooking on his television set"></div>
+      <div class="perf-bg" data-bg="1"><img src="images/stage-red.webp" alt="Don Sherman performing on stage"></div>
+      <div class="perf-bg" data-bg="2"><img src="images/mc-birthday.webp" alt="Don Sherman singing and hosting live"></div>
+      <div class="perf-glow"></div>
+      <div class="perf-overlay"></div>
+      <div class="perf-lines" id="perfLines">
+        <div class="pl" data-pl>He <span class="hi">Cooks.</span></div>
+        <div class="pl" data-pl>He <span class="hi">Performs.</span></div>
+        <div class="pl" data-pl>He <span class="hi">Sings.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="perf-gallery wrap">
+    <div class="eyebrow split"><span class="line">On Stage</span></div>
+    <h3 class="reveal-up">A career that never left the microphone far from the pass.</h3>
+    <div class="perf-row">
+      <div class="perf-composition reveal-up">
+        <div class="perf-media tallmedia" data-parallax-img><img src="images/stage-red.webp" alt="Don Sherman singing on stage"></div>
+        <div class="perf-media floatcard" data-parallax-img><img src="images/mc-birthday.webp" alt="Don Sherman hosting as an MC and singer"></div>
+      </div>
+      <div class="perf-stats">
+        <div class="reveal-up">
+          <div class="perf-stat-num">3</div>
+          <div class="perf-stat-label">Languages On Stage — EN · SI · HI</div>
+        </div>
+        <div class="reveal-up">
+          <div class="perf-stat-num">33+</div>
+          <div class="perf-stat-label">Years Performing Live</div>
+        </div>
+        <p class="perf-caption reveal-up">Don performing and hosting live — English, Sinhala, and Hindi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ORIGINAL SONG ================= -->
+<section id="song">
+  <div class="wrap song-grid">
+    <div class="song-art reveal-up">
+      <img src="images/gumuka-poster-clean.webp" alt="Poster for Don Sherman's original single, Gumuka Chupa">
+    </div>
+    <div class="song-copy">
+      <div class="eyebrow split"><span class="line">His Own Sound</span></div>
+      <h2 class="reveal-up">He writes it. He sings it. He owns it.</h2>
+      <p class="reveal-up">Beyond the kitchen, Don writes and performs his own music — original songs featured on his YouTube channel, blending the same showmanship that defines his cooking with a genuine passion for melody and performance.</p>
+      <a class="song-title-tag reveal-up" href="https://youtu.be/jScLjMCUoeM?si=kFB_pJylV7ER0IRK" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>"Gumuka Chupa" — Original Single</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEDIA / CAREER TIMELINE ================= -->
+<section id="career">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">Media &amp; Career</span></div>
+    <h2 class="reveal-up">Three decades of television, brands, and the stage.</h2>
+
+    <div class="career-grid">
+      <div class="timeline">
+      <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-eyebrow">Television</div>
+        <h4>Cook With Don</h4>
+        <p>Don's main-stream television cooking show brought joy into Sri Lankan households, blending culinary instruction with his signature entertainment style.</p>
+        <div class="t-stat"><span class="num">10</span><span class="label">Years on Air</span></div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-eyebrow">Brand Ambassador</div>
+        <h4>Philips · Kenwood · Panasonic</h4>
+        <p>Trusted as the face of international kitchen and appliance brands, bringing culinary demonstrations to audiences across markets.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-eyebrow">Recognition</div>
+        <h4>Australian Culinary Federation</h4>
+        <p>Recognised within the professional chef community, competing and presenting alongside the Australian Culinary Federation.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-eyebrow">Music</div>
+        <h4>Original Songs &amp; YouTube</h4>
+        <p>Writes and performs his own music — including the single "Gumuka Chupa" — reaching audiences through his YouTube channel alongside his cooking content.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-eyebrow">Today</div>
+        <h4>Certificate III Trainer</h4>
+        <p>Currently shares his craft as a Certificate III Trainer within a Registered Training Organisation (RTO), shaping the next generation of chefs.</p>
+      </div>
+      </div>
+
+      <div class="career-media">
+        <div class="career-media-main reveal-up"><img src="images/studio-wide.webp" alt="Don Sherman on his television cooking set" loading="lazy"></div>
+        <div class="career-media-row">
+          <div class="reveal-up"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"></div>
+          <div class="reveal-up"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish on set" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">Gallery</span></div>
+    <h2 class="reveal-up">Moments from the pass, the stage, and everywhere between.</h2>
+  </div>
+
+  <div class="g-carousel-wrap">
+    <div class="g-carousel-stage" id="gCarouselStage">
+      <div class="g-carousel-ring" id="gCarouselRing">
+        <div class="g-carousel-card" data-lightbox="images/studio-wide.webp"><img src="images/studio-wide.webp" alt="Don Sherman on his television cooking set" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">On Set</span></div>
+        <div class="g-carousel-card" data-lightbox="images/duck-pesto.webp"><img src="images/duck-pesto.webp" alt="Plated duck dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Signature Plate</span></div>
+        <div class="g-carousel-card" data-lightbox="images/studio-smell.webp"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Behind the Scenes</span></div>
+        <div class="g-carousel-card" data-lightbox="images/campaign-apron.webp"><img src="images/campaign-apron.webp" alt="Nature's Pearls campaign shoot" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Nature's Pearls</span></div>
+        <div class="g-carousel-card" data-lightbox="images/chicken-wide.webp"><img src="images/chicken-wide.webp" alt="Roasted chicken plated dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Plated &amp; Ready</span></div>
+        <div class="g-carousel-card" data-lightbox="images/studio-tongs.webp"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">In the Kitchen</span></div>
+        <div class="g-carousel-card" data-lightbox="images/mc-birthday.webp"><img src="images/mc-birthday.webp" alt="Don Sherman performing as an MC" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Live Hosting</span></div>
+      </div>
+    </div>
+    <div class="g-carousel-controls">
+      <button class="g-carousel-arrow" id="gPrev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="g-carousel-hint">Scroll or drag to rotate</span>
+      <button class="g-carousel-arrow" id="gNext" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">Get In Touch</span></div>
+    <h2 class="reveal-up">Let's create<br><em>something memorable.</em></h2>
+    <p class="contact-sub reveal-up">For bookings, brand collaborations, media appearances, or event hosting — reach out below.</p>
+    <div class="contact-links">
+      <a href="mailto:hello@donsherman.example" class="mag-btn"><span>hello@donsherman.example</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/singin-chef-logo.png" alt="Singin' Chef logo">
+      <div>
+        <div class="footer-name">Don Sherman</div>
+        <span class="footer-tag">The Singing Chef</span>
+      </div>
+    </div>
+    <div class="footer-social">
+      <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Don Sherman. All rights reserved.</span>
+    <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
+    <span>Chef · Singer · Entertainer · Storyteller</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 1L15 15M15 1L1 15" stroke="currentColor" stroke-width="1.4"/></svg></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="fluid-sim.js?v=5"></script>
+<script src="main.js?v=5"></script>
+</body>
+</html>
