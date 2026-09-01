@@ -222,19 +222,12 @@ function initHeroFluid(){
   const hintOn = hint ? hint.querySelector('.on') : null;
   if(!stage || !canvas || typeof THREE === 'undefined' || typeof FluidReveal === 'undefined') return;
 
-  // WebGL fluid rendering varies too much across real mobile GPUs to
-  // risk it — confirmed on at least one real device it can render as
-  // dark broken static/noise directly over the headline text, making
-  // it unreadable. Mobile just keeps the clean static photo instead;
-  // the interactive reveal stays a desktop-only touch of polish.
-  if(isTouch) return;
-
   let fluid;
   let texturesReady = false;
   try{
     fluid = new FluidReveal(canvas, {
-      simRes: 128,
-      dyeRes: 720,
+      simRes: isTouch ? 96 : 128,
+      dyeRes: isTouch ? 480 : 720,
       splatRadius: 1.05,
       splatForce: 6200,
       dissipation: 0.94,

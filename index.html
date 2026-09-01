@@ -318,8 +318,13 @@ section{position:relative;width:100%;}
 #hero .hero-fluid-canvas.is-ready{opacity:1;}
 #hero .hero-scrim{
   position:absolute;inset:0;z-index:4;
-  background:transparent;
+  background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 38%, rgba(10,10,10,0.45) 62%, rgba(10,10,10,0.8) 85%, rgba(10,10,10,0.88) 100%);
   pointer-events:none;
+}
+@media (max-width:860px){
+  #hero .hero-scrim{
+    background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.15) 30%, rgba(10,10,10,0.6) 55%, rgba(10,10,10,0.9) 78%, rgba(10,10,10,0.94) 100%);
+  }
 }
 #hero .hero-content{
   position:relative;z-index:5;
