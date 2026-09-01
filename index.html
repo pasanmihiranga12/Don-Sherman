@@ -323,8 +323,10 @@ section{position:relative;width:100%;}
 }
 @media (max-width:860px){
   #hero .hero-scrim{
-    background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.15) 30%, rgba(10,10,10,0.6) 55%, rgba(10,10,10,0.9) 78%, rgba(10,10,10,0.94) 100%);
+    background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.25) 32%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.94) 65%, rgba(10,10,10,0.97) 100%);
   }
+  #hero .hero-sub, #hero .hero-meta{display:none !important;}
+  #hero .hero-content{gap:12px;}
 }
 #hero .hero-content{
   position:relative;z-index:5;
@@ -985,8 +987,7 @@ footer{
 /* ---------- mobile hero override ---------- */
 @media (max-width:860px){
   #hero h1 .w-sans, #hero h1 .w-serif{font-size:clamp(38px,12vw,58px);}
-  #hero .hero-content{padding-bottom:56px;}
-  #hero .hero-sub{max-width:100%;}
+  #hero .hero-content{padding-bottom:40px;}
   .scroll-cue{bottom:16px;}
   .about-grid{gap:40px;}
   .role-row .role-name{font-size:22px;}
