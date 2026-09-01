@@ -222,12 +222,19 @@ function initHeroFluid(){
   const hintOn = hint ? hint.querySelector('.on') : null;
   if(!stage || !canvas || typeof THREE === 'undefined' || typeof FluidReveal === 'undefined') return;
 
+  // WebGL fluid rendering varies too much across real mobile GPUs to
+  // risk it — confirmed on at least one real device it can render as
+  // dark broken static/noise directly over the headline text, making
+  // it unreadable. Mobile just keeps the clean static photo instead;
+  // the interactive reveal stays a desktop-only touch of polish.
+  if(isTouch) return;
+
   let fluid;
   let texturesReady = false;
   try{
     fluid = new FluidReveal(canvas, {
-      simRes: isTouch ? 96 : 128,
-      dyeRes: isTouch ? 480 : 720,
+      simRes: 128,
+      dyeRes: 720,
       splatRadius: 1.05,
       splatForce: 6200,
       dissipation: 0.94,
@@ -369,8 +376,15 @@ function initGalleryCarousel(){
 
   const angleStep = 360 / count;
   let radius = 460;
+  // rawIndex accumulates freely (can go negative or past count) so
+  // rotation is always continuous — current (wrapped 0..count-1) is
+  // only derived from it for display/lightbox purposes. This is what
+  // stops the "spins fast at the wrap point" bug: previously the code
+  // snapped rotation to a fixed value for the wrapped index, which
+  // meant going from the last card back to the first jumped almost a
+  // full turn instead of taking one small step.
+  let rawIndex = 0;
   let current = 0;
-  let rotation = 0;
 
   function layout(){
     // radius scales with the actual card size so the ring never looks
@@ -385,18 +399,28 @@ function initGalleryCarousel(){
 
   function updateRing(animate){
     ring.style.transition = animate ? 'transform .7s cubic-bezier(.22,1,.36,1)' : 'none';
-    ring.style.transform = `translateZ(-${radius}px) rotateY(${rotation}deg)`;
+    ring.style.transform = `translateZ(-${radius}px) rotateY(${-rawIndex*angleStep}deg)`;
     cards.forEach((card, i)=> card.classList.toggle('is-front', i===current));
   }
 
-  function goTo(index, animate=true){
-    current = ((index % count) + count) % count;
-    rotation = -current * angleStep;
+  function goTo(newRawIndex, animate=true){
+    rawIndex = newRawIndex;
+    current = ((rawIndex % count) + count) % count;
     updateRing(animate);
   }
 
-  prevBtn?.addEventListener('click', ()=> goTo(current-1));
-  nextBtn?.addEventListener('click', ()=> goTo(current+1));
+  // for a direct card click, step by the SHORTEST wrapped distance
+  // from the current card rather than jumping straight to that card's
+  // fixed angle (same fast-spin problem as above)
+  function goToShortest(targetWrapped){
+    let delta = targetWrapped - current;
+    if(delta > count/2) delta -= count;
+    if(delta < -count/2) delta += count;
+    goTo(rawIndex + delta);
+  }
+
+  prevBtn?.addEventListener('click', ()=> goTo(rawIndex-1));
+  nextBtn?.addEventListener('click', ()=> goTo(rawIndex+1));
 
   cards.forEach((card, i)=>{
     card.addEventListener('click', ()=>{
@@ -404,7 +428,7 @@ function initGalleryCarousel(){
         const url = card.getAttribute('data-lightbox');
         if(url) window.__openLightbox?.(url);
       } else {
-        goTo(i);
+        goToShortest(i);
       }
     });
   });
@@ -419,7 +443,7 @@ function initGalleryCarousel(){
     if(wheelLocked) return;
     if(Math.abs(e.deltaY) < 12 && Math.abs(e.deltaX) < 12) return;
     wheelLocked = true;
-    goTo(current + (e.deltaY > 0 || e.deltaX > 0 ? 1 : -1));
+    goTo(rawIndex + (e.deltaY > 0 || e.deltaX > 0 ? 1 : -1));
     setTimeout(()=> wheelLocked = false, 550);
   }, {passive:false});
 
@@ -430,7 +454,7 @@ function initGalleryCarousel(){
     if(!dragging) return;
     dragging = false;
     const dx = e.clientX - dragStartX;
-    if(Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    if(Math.abs(dx) > 40) goTo(rawIndex + (dx < 0 ? 1 : -1));
   });
 
   window.addEventListener('resize', layout);

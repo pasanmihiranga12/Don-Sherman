@@ -26,7 +26,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-html{background:var(--black);}
+html{background:var(--black);overflow-x:hidden;}
 html.lenis{height:auto;}
 .lenis.lenis-smooth{scroll-behavior:auto;}
 body{
@@ -637,6 +637,7 @@ section{position:relative;width:100%;}
   opacity:0;
 }
 .perf-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;filter:sepia(.35) saturate(1.3) hue-rotate(-8deg);}
+.perf-bg[data-bg="0"] img{object-position:center 18%;}
 .perf-overlay{
   position:absolute;inset:0;
   background:radial-gradient(ellipse at center, rgba(201,162,39,0.18) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.96) 100%);
@@ -858,7 +859,7 @@ section{position:relative;width:100%;}
 /* ---- circular rotating carousel ---- */
 .g-carousel-wrap{position:relative;padding:70px 0 40px;}
 .g-carousel-stage{
-  perspective:1700px;height:clamp(360px,48vw,520px);
+  perspective:1900px;height:clamp(420px,58vw,620px);
   display:flex;align-items:center;justify-content:center;
   touch-action:pan-y;
 }
@@ -868,8 +869,8 @@ section{position:relative;width:100%;}
 }
 .g-carousel-card{
   position:absolute;top:50%;left:50%;
-  width:clamp(170px,20vw,260px);height:clamp(240px,29vw,370px);
-  margin:clamp(-185px,-14.5vw,-120px) 0 0 clamp(-130px,-10vw,-85px);
+  width:clamp(200px,24vw,320px);height:clamp(280px,34.5vw,450px);
+  margin:clamp(-225px,-17.25vw,-140px) 0 0 clamp(-160px,-12vw,-100px);
   border-radius:12px;overflow:hidden;
   box-shadow:0 25px 55px rgba(0,0,0,.28);
   backface-visibility:hidden;
@@ -1120,7 +1121,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
   <div class="perf-spacer">
     <div class="perf-reveal">
       <div class="perf-bg" data-bg="0"><img src="images/studio-wide.webp" alt="Don Sherman cooking on his television set"></div>
-      <div class="perf-bg" data-bg="1"><img src="images/stage-red.webp" alt="Don Sherman performing on stage"></div>
+      <div class="perf-bg" data-bg="1"><img src="images/stage-red-clean.webp" alt="Don Sherman performing on stage"></div>
       <div class="perf-bg" data-bg="2"><img src="images/mc-birthday.webp" alt="Don Sherman singing and hosting live"></div>
       <div class="perf-glow"></div>
       <div class="perf-overlay"></div>
@@ -1137,7 +1138,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
     <h3 class="reveal-up">A career that never left the microphone far from the pass.</h3>
     <div class="perf-row">
       <div class="perf-composition reveal-up">
-        <div class="perf-media tallmedia" data-parallax-img><img src="images/stage-red.webp" alt="Don Sherman singing on stage"></div>
+        <div class="perf-media tallmedia" data-parallax-img><img src="images/stage-red-clean.webp" alt="Don Sherman singing on stage"></div>
         <div class="perf-media floatcard" data-parallax-img><img src="images/mc-birthday.webp" alt="Don Sherman hosting as an MC and singer"></div>
       </div>
       <div class="perf-stats">
