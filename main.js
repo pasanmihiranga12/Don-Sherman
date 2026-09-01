@@ -228,7 +228,7 @@ function initHeroFluid(){
     fluid = new FluidReveal(canvas, {
       simRes: isTouch ? 96 : 128,
       dyeRes: isTouch ? 480 : 720,
-      splatRadius: 1.05,
+      splatRadius: 0.35, // Shrunk from 1.05 down to 0.35 for a much tighter manual brush
       splatForce: 6200,
       dissipation: 0.94,
       velocityDissipation: 0.94,
@@ -297,21 +297,61 @@ function initHeroFluid(){
     const rect = stage.getBoundingClientRect();
     const aspect = rect.width / (rect.height || 1);
 
-    // idle autonomous flow: Fast up/down vertical sweep (Lando style)
-    if(!window.__disableIdle && now - lastMoveTime > 1100){
-      lastIdleSplat = now;
-      idleAngle += 0.04; // Fast movement
+    // idle autonomous flow: Invisible mouse (Zigzag / Sigsak swipes, strict breaks, small brush)
+    if(!window.__disableIdle && now - lastMoveTime > 1500){
+      if (!window.__autoState) {
+        window.__autoState = { phase: 'wait', lastTime: now, startX: 0.5, startY: 0.5, endX: 0.5, endY: 0.5, prevX: 0.5, prevY: 0.5 };
+      }
+      
+      const state = window.__autoState;
+      const elapsed = now - state.lastTime;
 
-      // Sweep strictly up and down with very little side-to-side wobble
-      const ix = 0.5 + Math.sin(idleAngle * 0.3) * 0.1; 
-      const iy = 0.5 + Math.sin(idleAngle) * 0.35;      
+      // Phase 1: Take a strict 2.5 second break
+      if (state.phase === 'wait' && elapsed > 2500) { 
+        state.phase = 'swipe';
+        state.lastTime = now;
+        
+        state.startX = 0.4 + Math.random() * 0.2;
+        state.startY = 0.15 + Math.random() * 0.2;
+        state.endX = state.startX;
+        state.endY = 0.65 + Math.random() * 0.2;
+        
+        // 50% chance to wipe bottom-to-top
+        if (Math.random() > 0.5) {
+          const ty = state.startY; state.startY = state.endY; state.endY = ty;
+        }
+        
+        state.prevX = state.startX;
+        state.prevY = state.startY;
+      } 
+      // Phase 2: Do a fast zigzag wipe
+      else if (state.phase === 'swipe') {
+        const duration = 650; // 0.65 second fast wipe
+        if (elapsed > duration) {
+          state.phase = 'wait';
+          state.lastTime = now;
+        } else {
+          const prog = elapsed / duration;
+          const easeProg = 0.5 - Math.cos(prog * Math.PI) / 2; 
+          
+          // ZIGZAG MATH: Creates the "Sigsak" side-to-side motion
+          const zigZagWidth = 0.2; // How wide the zigzag swings
+          const zigZagSpeed = 3.5; // How many zigs and zags it makes
+          const zigZagOffset = Math.sin(prog * Math.PI * zigZagSpeed) * zigZagWidth;
 
-      // Push the fluid strongly in the vertical direction it is moving
-      const idx = 0; 
-      const idy = Math.cos(idleAngle) * 4.0; 
+          const currentX = state.startX + (state.endX - state.startX) * easeProg + zigZagOffset;
+          const currentY = state.startY + (state.endY - state.startY) * easeProg;
 
-      // Smaller brush (1.2) so it draws a clean fast line, not a smoke cloud
-      fluid.splat(ix, iy, idx, idy, aspect, 1.2);
+          const dx = (currentX - state.prevX) * 7;
+          const dy = (currentY - state.prevY) * 7;
+
+          // Brush strength is 0.7 here to keep the auto-reveal small and sharp
+          fluid.splat(currentX, 1 - currentY, dx, -dy, aspect, 0.7);
+
+          state.prevX = currentX;
+          state.prevY = currentY;
+        }
+      }
     }
 
     fluid.step(1/60, aspect);

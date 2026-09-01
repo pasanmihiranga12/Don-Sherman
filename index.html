@@ -318,12 +318,14 @@ section{position:relative;width:100%;}
 #hero .hero-fluid-canvas.is-ready{opacity:1;}
 #hero .hero-scrim{
   position:absolute;inset:0;z-index:4;
-  background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 38%, rgba(10,10,10,0.45) 62%, rgba(10,10,10,0.8) 85%, rgba(10,10,10,0.88) 100%);
+  /* Lighter desktop gradient: 100% clear until the bottom half, softer fade */
+  background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.2) 75%, rgba(10,10,10,0.7) 100%);
   pointer-events:none;
 }
 @media (max-width:860px){
   #hero .hero-scrim{
-    background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.25) 32%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.94) 65%, rgba(10,10,10,0.97) 100%);
+    /* Lighter mobile gradient: Top 45% is totally clear, smooth fade for the text */
+    background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 45%, rgba(10,10,10,0.5) 70%, rgba(10,10,10,0.85) 100%);
   }
   #hero .hero-sub, #hero .hero-meta{display:none !important;}
   #hero .hero-content{gap:12px;}
