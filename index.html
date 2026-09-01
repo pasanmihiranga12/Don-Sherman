@@ -396,6 +396,22 @@ section{position:relative;width:100%;}
 .scroll-cue .cue-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:cueMove 1.8s ease-in-out infinite;}
 @keyframes cueMove{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
 
+/* ---------- Mobile Scroll Lock Button ---------- */
+.hero-lock-btn{
+  position:absolute;z-index:10;
+  right:clamp(20px,4vw,56px);bottom:28px;
+  display:flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--black);
+  padding:12px 18px;border-radius:40px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  transition: background 0.3s ease;
+}
+.hero-lock-btn svg{width:14px;height:14px;}
+.hero-lock-btn.is-locked{background:var(--cream);}
+@media (min-width:861px){ .hero-lock-btn{display:none;} }
+
 /* magnetic button */
 .mag-btn{
   position:relative;display:inline-flex;align-items:center;gap:10px;
@@ -1066,6 +1082,13 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><span class="cue-line"></span></div>
+  
+  <!-- Mobile Lock Button -->
+  <button class="hero-lock-btn" id="heroLockBtn">
+    <span class="lock-label">Tap to Lock</span>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 10-8 0v4h8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
 </section>
 
 <!-- ================= ABOUT ================= -->

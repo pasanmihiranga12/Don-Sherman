@@ -297,21 +297,21 @@ function initHeroFluid(){
     const rect = stage.getBoundingClientRect();
     const aspect = rect.width / (rect.height || 1);
 
-    // idle autonomous flow: Single, slow, lazy drifting reveal (Lando style)
+    // idle autonomous flow: Fast up/down vertical sweep (Lando style)
     if(!window.__disableIdle && now - lastMoveTime > 1100){
       lastIdleSplat = now;
-      idleAngle += 0.005; // Much slower, smoother drift
+      idleAngle += 0.04; // Fast movement
 
-      // Gentle, tighter wandering path around the center
-      const ix = 0.5 + Math.sin(idleAngle * 1.2) * 0.25;
-      const iy = 0.5 + Math.cos(idleAngle * 0.8) * 0.25;
+      // Sweep strictly up and down with very little side-to-side wobble
+      const ix = 0.5 + Math.sin(idleAngle * 0.3) * 0.1; 
+      const iy = 0.5 + Math.sin(idleAngle) * 0.35;      
 
-      // Very subtle push so the fluid flows lazily instead of splashing wildly
-      const idx = Math.cos(idleAngle * 1.2) * 0.4;
-      const idy = Math.sin(idleAngle * 0.8) * 0.4;
+      // Push the fluid strongly in the vertical direction it is moving
+      const idx = 0; 
+      const idy = Math.cos(idleAngle) * 4.0; 
 
-      // A single, moderately sized brush (1.8 instead of 3.5)
-      fluid.splat(ix, iy, idx, idy, aspect, 1.8);
+      // Smaller brush (1.2) so it draws a clean fast line, not a smoke cloud
+      fluid.splat(ix, iy, idx, idy, aspect, 1.2);
     }
 
     fluid.step(1/60, aspect);
@@ -731,9 +731,33 @@ function initMenuOverlay(){
   window.addEventListener('keydown', e=>{ if(e.key==='Escape' && open) closeMenu(); });
 }
 
+/* ---------------- Mobile Scroll Lock ---------------- */
+function initMobileLock(){
+  const lockBtn = document.getElementById('heroLockBtn');
+  const lockLabel = lockBtn ? lockBtn.querySelector('.lock-label') : null;
+  if(!lockBtn) return;
+
+  let isLocked = false;
+  lockBtn.addEventListener('click', ()=>{
+    isLocked = !isLocked;
+    if(isLocked){
+      document.body.style.overflow = 'hidden';
+      if(lenis) lenis.stop();
+      lockBtn.classList.add('is-locked');
+      if(lockLabel) lockLabel.textContent = 'Unlock';
+    } else {
+      document.body.style.overflow = '';
+      if(lenis) lenis.start();
+      lockBtn.classList.remove('is-locked');
+      if(lockLabel) lockLabel.textContent = 'Tap to Lock';
+    }
+  });
+}
+
 function initSite(){
   document.body.style.overflow='';
   initLenis();
+  initMobileLock();
   initMagnetic();
   initTextReveals();
   initAboutRoles();
