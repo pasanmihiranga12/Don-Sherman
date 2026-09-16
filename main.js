@@ -244,10 +244,10 @@ function initHeroFluid(){
   let texturesReady = false;
   try{
     fluid = new FluidReveal(canvas, {
-      simRes: isTouch ? 96 : 128,
+      simRes: isTouch ? 128 : 128,
       dyeRes: isTouch ? 480 : 720,
       splatRadius: 0.35, // Shrunk from 1.05 down to 0.35 for a much tighter manual brush
-      splatForce: 6200,
+      splatForce: isTouch ? 4200 : 6200,
       dissipation: 0.94,
       velocityDissipation: 0.94,
       curlStrength: 0,
@@ -474,16 +474,29 @@ function initShowAccordion(){
 
     modal.classList.add('active');
     if(lenis) lenis.stop();
+    document.body.style.overflow = 'hidden';
   }
 
   function closeModal(){
     modal.classList.remove('active');
     if(lenis) lenis.start();
+    document.body.style.overflow = '';
   }
 
   cards.forEach(card=>{
     card.addEventListener('click', ()=> openModal(card));
+    // touchend alone can't tell a tap from "finger happened to lift
+    // here after scrolling past the card" — track how far the touch
+    // actually moved and only treat it as a tap below a small threshold
+    let touchStartX = 0, touchStartY = 0;
+    card.addEventListener('touchstart', e=>{
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, {passive:true});
     card.addEventListener('touchend', e=>{
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if(Math.hypot(dx, dy) > 10) return; // was a scroll/swipe, not a tap
       e.preventDefault();
       openModal(card);
     }, {passive:false});
@@ -780,6 +793,7 @@ function initLightbox(){
     lbImg.alt = alt || '';
     lb.classList.add('active');
     if(lenis) lenis.stop();
+    document.body.style.overflow = 'hidden';
   }
   window.__openLightbox = openLb;
 
@@ -795,6 +809,7 @@ function initLightbox(){
   function closeLb(){
     lb.classList.remove('active');
     if(lenis) lenis.start();
+    document.body.style.overflow = '';
   }
   closeBtn.addEventListener('click', closeLb);
   lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
@@ -926,7 +941,6 @@ function initSite(){
   initGalleryCarousel();
   initFanGallery();
   initWaveform();
-  initPerformanceReveal();
   initTimelineFill();
   initGalleryTilt();
   initLightbox();
