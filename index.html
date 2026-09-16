@@ -540,7 +540,7 @@ section{position:relative;width:100%;}
 /* ============ CULINARY ============ */
 #culinary{
   background:var(--black);
-  padding:130px 0 0;
+  padding:130px 0 110px;
   overflow:hidden;
 }
 #culinary .eyebrow{color:var(--copper);}
@@ -630,7 +630,7 @@ section{position:relative;width:100%;}
 @media (max-width:860px){
   .fan-wrap{height:auto;padding:20px 0 10px;}
   .fan-card{position:relative;left:auto;bottom:auto;transform:none !important;
-    width:100%;height:56vw;margin-bottom:16px;display:none;}
+    width:min(72vw,300px);aspect-ratio:3/4;height:auto;margin:0 auto 16px;display:none;}
   .fan-card.is-active{display:block;}
   .fan-dots{display:flex;}
 }

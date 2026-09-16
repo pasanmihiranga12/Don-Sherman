@@ -616,7 +616,7 @@ function initFanGallery(){
     });
     wrap.addEventListener('mouseleave', clearActive);
   } else {
-    if(hint) hint.textContent = 'Tap to browse';
+    if(hint) hint.textContent = 'Swipe to browse';
     // build tap-through dot navigation so all photos are reachable
     if(dotsWrap){
       cards.forEach((card, i)=>{
@@ -628,6 +628,23 @@ function initFanGallery(){
       });
     }
     setActive(cards[0]);
+
+    // real swipe gesture — the dots alone don't match how anyone
+    // actually expects to browse a stack of photos on a phone
+    let touchStartX = 0, touchStartY = 0;
+    wrap.addEventListener('touchstart', e=>{
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, {passive:true});
+    wrap.addEventListener('touchend', e=>{
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if(Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return; // not a real horizontal swipe
+      const currentIdx = cards.findIndex(c=> c.classList.contains('is-active'));
+      let nextIdx = dx < 0 ? currentIdx + 1 : currentIdx - 1;
+      nextIdx = Math.max(0, Math.min(cards.length - 1, nextIdx));
+      setActive(cards[nextIdx]);
+    }, {passive:true});
   }
 }
 
@@ -922,6 +939,21 @@ function initSite(){
 
   ScrollTrigger.refresh();
   window.addEventListener('resize', ()=> ScrollTrigger.refresh());
+
+  // images (especially large hero/gallery photos) can still be loading
+  // when the line above runs, which bakes every pin's start/end position
+  // in against a too-short page — refreshing again once everything has
+  // actually finished loading corrects that drift for good
+  window.addEventListener('load', ()=> ScrollTrigger.refresh());
+  let imgRefreshTimer;
+  document.querySelectorAll('img').forEach(img=>{
+    if(!img.complete){
+      img.addEventListener('load', ()=>{
+        clearTimeout(imgRefreshTimer);
+        imgRefreshTimer = setTimeout(()=> ScrollTrigger.refresh(), 150);
+      });
+    }
+  });
 }
 
 document.body.style.overflow='hidden';
