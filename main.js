@@ -44,8 +44,23 @@ images.forEach(img=>{
   }
 });
 
+// the hero photo specifically must be fully decoded before the
+// preloader is allowed to finish — otherwise on a slow connection the
+// generic 4s fallback below can reveal the hero while that image is
+// still downloading, and it visibly "pops in" and snaps to its real
+// crop once it finally finishes loading, moments after first paint
+const heroImg = document.getElementById('heroFallback');
+let heroImgReady = !heroImg || heroImg.complete;
+if(heroImg && !heroImgReady){
+  heroImg.addEventListener('load', ()=>{ heroImgReady = true; if(loaded >= totalAssets) finishPreload(); });
+  heroImg.addEventListener('error', ()=>{ heroImgReady = true; if(loaded >= totalAssets) finishPreload(); });
+}
+
 // fallback in case nothing loads quickly
-setTimeout(()=>{ if(loaded < totalAssets){ finishPreload(); } }, 4000);
+setTimeout(()=>{ if(loaded < totalAssets && heroImgReady){ finishPreload(); } }, 4000);
+// absolute hard cap — never let the preloader hang forever even if the
+// hero image request itself stalls or fails silently
+setTimeout(()=>{ finishPreload(); }, 8000);
 
 let preloadDone = false;
 function finishPreload(){
@@ -247,9 +262,9 @@ function initHeroFluid(){
       simRes: isTouch ? 128 : 128,
       dyeRes: isTouch ? 480 : 720,
       splatRadius: 0.35, // Shrunk from 1.05 down to 0.35 for a much tighter manual brush
-      splatForce: isTouch ? 4200 : 6200,
-      dissipation: 0.94,
-      velocityDissipation: 0.94,
+      splatForce: isTouch ? 3200 : 6200,
+      dissipation: isTouch ? 0.90 : 0.94,
+      velocityDissipation: isTouch ? 0.90 : 0.94,
       curlStrength: 0,
       pressureIterations: 20,
       baseTexUrl: 'images/chef-don.webp',
@@ -377,8 +392,11 @@ function initHeroFluid(){
     // hard safety reset — wipes the fluid state completely every few
     // seconds. Guarantees it is physically impossible for density to
     // ever build up into a full-canvas overlay no matter what, since
-    // state can never persist longer than this interval
-    if(now - lastHardClear > 5000){
+    // state can never persist longer than this interval. Much shorter
+    // on mobile, where the coarser simulation grid is more prone to
+    // visible dark instability artifacts building up if left longer.
+    const clearInterval = isTouch ? 2000 : 5000;
+    if(now - lastHardClear > clearInterval){
       lastHardClear = now;
       fluid.clear();
     }
