@@ -288,8 +288,11 @@ class FluidReveal {
         uniform vec2 uBaseScale;
         uniform vec2 uRevealScale;
         uniform vec2 uDyeTexel;
-        vec2 coverUv(vec2 uv, vec2 scale){
-          return (uv - 0.5) * scale + 0.5;
+        uniform float uYBias;
+        vec2 coverUv(vec2 uv, vec2 scale, float yBias){
+          vec2 c = (uv - 0.5) * scale;
+          c.y += yBias;
+          return c + 0.5;
         }
         float sampleDensity(vec2 uv){
           return length(texture2D(uDye, uv).rgb);
@@ -310,15 +313,15 @@ class FluidReveal {
           d += sampleDensity(vUv + vec2(-t.x, -t.y)) * 0.07;
 
           float density = smoothstep(0.04, 0.62, d * 2.2);
-          vec2 baseUv = coverUv(vUv, uBaseScale);
-          vec2 revealUv = coverUv(vUv, uRevealScale);
+          vec2 baseUv = coverUv(vUv, uBaseScale, uYBias);
+          vec2 revealUv = coverUv(vUv, uRevealScale, uYBias);
           vec4 baseCol = texture2D(uBase, baseUv);
           vec4 revealCol = texture2D(uReveal, revealUv);
           vec3 col = mix(baseCol.rgb, revealCol.rgb, density);
           gl_FragColor = vec4(col, 1.0);
         }
       `,
-      uniforms:{ uDye:{value:null}, uBase:{value:null}, uReveal:{value:null}, uBaseScale:{value:new THREE.Vector2(1,1)}, uRevealScale:{value:new THREE.Vector2(1,1)}, uDyeTexel:{value:new THREE.Vector2(1/this.dyeRes,1/this.dyeRes)} }
+      uniforms:{ uDye:{value:null}, uBase:{value:null}, uReveal:{value:null}, uBaseScale:{value:new THREE.Vector2(1,1)}, uRevealScale:{value:new THREE.Vector2(1,1)}, uDyeTexel:{value:new THREE.Vector2(1/this.dyeRes,1/this.dyeRes)}, uYBias:{value:0.12} }
     });
   }
 

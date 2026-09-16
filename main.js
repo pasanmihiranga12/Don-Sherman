@@ -162,6 +162,24 @@ function initAboutRoles(){
       });
     }
   });
+
+  // expand on hover (desktop — cursor getting close feels natural) or
+  // tap (touch), revealing a photo + short description per role
+  const roleEls = document.querySelectorAll('[data-role]');
+  if(!isTouch){
+    roleEls.forEach(row=>{
+      row.addEventListener('mouseenter', ()=> row.classList.add('is-open'));
+      row.addEventListener('mouseleave', ()=> row.classList.remove('is-open'));
+    });
+  } else {
+    roleEls.forEach(row=>{
+      row.addEventListener('click', ()=>{
+        const wasOpen = row.classList.contains('is-open');
+        roleEls.forEach(r=> r.classList.remove('is-open'));
+        if(!wasOpen) row.classList.add('is-open');
+      });
+    });
+  }
 }
 
 function initTextReveals(){
@@ -396,6 +414,85 @@ function initImageParallax(){
 }
 
 /* ---------------- Gallery: staggered curtain reveal + drifting parallax ---------------- */
+/* ---------------- TV Shows: cards + modal ---------------- */
+function initShowAccordion(){
+  const cards = document.querySelectorAll('[data-show]');
+  const modal = document.getElementById('showModal');
+  if(!cards.length || !modal) return;
+
+  const modalImg1 = document.getElementById('showModalImg1');
+  const modalGallery = document.getElementById('showModalGallery');
+  const modalChannels = document.getElementById('showModalChannels');
+  const modalName = document.getElementById('showModalName');
+  const modalSchedule = document.getElementById('showModalSchedule');
+  const modalDesc = document.getElementById('showModalDesc');
+  const modalLinks = document.getElementById('showModalLinks');
+  const closeBtn = document.getElementById('showModalClose');
+
+  function linkSvg(){
+    return `<svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+
+  function openModal(card){
+    modalImg1.src = card.getAttribute('data-img1') || '';
+    modalImg1.alt = card.getAttribute('data-name');
+
+    // gallery supports however many data-imgN attributes a card has
+    // (FreshX has more photos than Cook With Don, for example) — it
+    // just keeps checking data-img2, data-img3, data-img4... until
+    // one is missing, rather than assuming a fixed count
+    modalGallery.innerHTML = '';
+    let n = 2;
+    while(true){
+      const src = card.getAttribute(`data-img${n}`);
+      if(!src) break;
+      const photo = document.createElement('div');
+      photo.className = 'sm-photo';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = card.getAttribute('data-name');
+      img.onerror = function(){ photo.style.display = 'none'; };
+      photo.appendChild(img);
+      modalGallery.appendChild(photo);
+      n++;
+    }
+
+    modalChannels.textContent = card.getAttribute('data-channels');
+    modalName.textContent = card.getAttribute('data-name');
+    modalSchedule.textContent = card.getAttribute('data-schedule');
+    modalDesc.textContent = card.getAttribute('data-desc');
+
+    let linksHtml = '';
+    for(const n of [1,2]){
+      const label = card.getAttribute(`data-link${n}-label`);
+      const href = card.getAttribute(`data-link${n}-href`);
+      if(label && href){
+        linksHtml += `<a class="show-modal-link" href="${href}" target="_blank" rel="noopener">${linkSvg()}<span>${label}</span></a>`;
+      }
+    }
+    modalLinks.innerHTML = linksHtml;
+
+    modal.classList.add('active');
+    if(lenis) lenis.stop();
+  }
+
+  function closeModal(){
+    modal.classList.remove('active');
+    if(lenis) lenis.start();
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=> openModal(card));
+    card.addEventListener('touchend', e=>{
+      e.preventDefault();
+      openModal(card);
+    }, {passive:false});
+  });
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+  window.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
+}
+
 function initGalleryCarousel(){
   const stage = document.getElementById('gCarouselStage');
   const ring = document.getElementById('gCarouselRing');
@@ -609,7 +706,7 @@ function initPerformanceReveal(){
   });
 
   // hold the final frame, then a gentle late dim right at the very end
-  tl.to(bgs[bgs.length-1], {opacity:.6, duration:.5}, tl.duration());
+  tl.to(bgs[bgs.length-1], {opacity:.25, duration:.5}, tl.duration());
 }
 
 /* ---------------- Timeline fill ---------------- */
@@ -751,8 +848,14 @@ function initMenuOverlay(){
   toggle.addEventListener('click', ()=> open ? closeMenu() : openMenu());
   overlay.querySelectorAll('.menu-item').forEach(el=>{
     el.addEventListener('click', e=>{
+      const href = el.getAttribute('href');
+      if(!href.startsWith('#')){
+        // real page link (e.g. restaurant.html) — let the browser
+        // navigate normally, don't treat it as an in-page anchor
+        return;
+      }
       e.preventDefault();
-      const target = document.querySelector(el.getAttribute('href'));
+      const target = document.querySelector(href);
       closeMenu();
       if(target){
         // lenis must be resumed (closeMenu just called lenis.start())
@@ -802,6 +905,7 @@ function initSite(){
   initTextReveals();
   initAboutRoles();
   initImageParallax();
+  initShowAccordion();
   initGalleryCarousel();
   initFanGallery();
   initWaveform();

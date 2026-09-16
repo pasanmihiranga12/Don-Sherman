@@ -127,7 +127,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 #preloader .pl-logo-wrap{
   position:relative;
-  width:min(64vw,420px);
+  width:min(38vw,260px);
 }
 #preloader .pl-logo-wrap img{
   width:100%;height:auto;display:block;
@@ -168,6 +168,7 @@ header#site-nav .nav-logo, header#site-nav .nav-pill{
   transition:opacity .3s ease;
 }
 header#site-nav.menu-is-open .nav-logo,
+header#site-nav.menu-is-open .nav-logo-divider,
 header#site-nav.menu-is-open .nav-pill{
   opacity:0;pointer-events:none;
 }
@@ -176,6 +177,20 @@ header#site-nav.menu-is-open .nav-pill{
   width:auto;
   display:block;
   filter:drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+}
+.nav-logo-group{display:flex;align-items:center;gap:12px;}
+.nav-logo-group .nav-logo-personal{height:clamp(38px,4.6vw,52px);}
+.nav-logo-group .nav-logo-institute{height:clamp(26px,3vw,34px);}
+.nav-logo-divider{width:1px;height:22px;background:rgba(242,239,233,0.25);flex-shrink:0;}
+@media (max-width:640px){
+  .nav-logo-group{gap:8px;}
+  .nav-logo-divider{height:18px;}
+  .nav-logo-group .nav-logo-personal{height:32px;}
+  .nav-logo-group img:not(.nav-logo-personal){height:22px;}
+}
+@media (max-width:400px){
+  .nav-logo-group .nav-logo-institute{display:none;}
+  .nav-logo-group .nav-logo-divider:last-of-type{display:none;}
 }
 .nav-right{display:flex;align-items:center;gap:14px;}
 .nav-pill{
@@ -303,7 +318,7 @@ section{position:relative;width:100%;}
 #hero .hero-photo-fallback{
   position:absolute;inset:0;
   width:100%;height:100%;
-  object-fit:cover;object-position:center center;
+  object-fit:cover;object-position:center 20%;
   z-index:1;
 }
 #hero .hero-fluid-canvas{
@@ -332,9 +347,14 @@ section{position:relative;width:100%;}
 }
 #hero .hero-content{
   position:relative;z-index:5;
-  padding:0 clamp(20px,4vw,56px) 64px;
+  padding:0 clamp(20px,4vw,56px) 148px;
   width:100%;
   display:flex;flex-direction:column;gap:20px;
+  pointer-events:none;
+}
+#hero .hero-content a,
+#hero .hero-content button{
+  pointer-events:auto;
 }
 #hero .hero-eyebrow{color:var(--gold);}
 #hero h1{
@@ -346,14 +366,14 @@ section{position:relative;width:100%;}
 #hero h1 .w-sans{
   font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;
   letter-spacing:-.01em;line-height:.9;
-  font-size:clamp(34px, calc(4.4vw + 3.6vh), 118px);
+  font-size:clamp(28px, calc(3.1vw + 2.6vh), 82px);
   color:var(--cream);
 }
 #hero h1 .w-serif{
   font-family:'Fraunces',serif;font-weight:600;font-style:normal;text-transform:uppercase;
   font-optical-sizing:auto;
   letter-spacing:0;line-height:.9;
-  font-size:clamp(34px, calc(4.4vw + 3.6vh), 118px);
+  font-size:clamp(28px, calc(3.1vw + 2.6vh), 82px);
   background:linear-gradient(100deg, #F6E3A8 0%, #E4BD5C 22%, #C99A34 42%, #F8ECBB 58%, #D9AC3E 76%, #F3D98A 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -384,6 +404,7 @@ section{position:relative;width:100%;}
   font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
   color:rgba(242,239,233,0.4);
   display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  pointer-events:none;
 }
 #hero .hero-hint span.on{color:var(--gold);}
 #hero .hero-hint span.off{color:rgba(242,239,233,0.4);}
@@ -393,6 +414,7 @@ section{position:relative;width:100%;}
   display:flex;align-items:center;gap:10px;
   font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
   color:rgba(242,239,233,0.55);
+  pointer-events:none;
 }
 .scroll-cue .cue-line{width:1px;height:34px;background:rgba(242,239,233,0.3);position:relative;overflow:hidden;}
 .scroll-cue .cue-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:cueMove 1.8s ease-in-out infinite;}
@@ -457,6 +479,7 @@ section{position:relative;width:100%;}
   max-width:640px;
 }
 .about-accent{
+  white-space:nowrap;
   font-family:'Fraunces',serif;font-style:italic;font-weight:600;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #e4c968 50%, #a9781f 75%, #8a6416 100%);
   background-size:250% 100%;
@@ -477,21 +500,42 @@ section{position:relative;width:100%;}
   display:flex;flex-direction:column;
 }
 .role-row{
-  display:flex;align-items:baseline;justify-content:space-between;
-  padding:18px 0;
   border-top:1px solid var(--line-dark);
-  gap:20px;
   opacity:0;
   transform:translateY(24px);
+  cursor:pointer;
 }
 .role-list .role-row:last-child{border-bottom:1px solid var(--line-dark);}
+.role-row-top{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:18px 0;
+  gap:20px;
+}
 .role-row .role-name{
   font-family:'Inter',sans-serif;font-weight:900;
   font-size:clamp(22px,3vw,34px);
   letter-spacing:-0.01em;
   text-transform:uppercase;
+  transition:color .3s ease;
 }
+.role-row.is-open .role-name{color:#a7791e;}
 .role-row .role-num{font-size:11px;letter-spacing:.15em;color:#a7791e;font-weight:700;font-variant-numeric:tabular-nums;}
+
+.role-expand{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s var(--ease);
+}
+.role-row.is-open .role-expand{max-height:220px;}
+.role-expand-inner{
+  display:flex;gap:20px;align-items:center;
+  padding:0 0 26px;
+}
+.role-expand-inner img{
+  width:88px;height:88px;border-radius:8px;object-fit:cover;flex-shrink:0;
+}
+.role-expand-inner p{
+  font-size:14px;line-height:1.7;color:rgba(10,10,10,0.62);max-width:420px;
+}
 
 /* ============ CULINARY ============ */
 #culinary{
@@ -525,13 +569,13 @@ section{position:relative;width:100%;}
    straightens for a full reveal */
 .fan-wrap{
   position:relative;
-  height:clamp(480px,58vw,620px);
+  height:clamp(360px,40vw,440px);
   margin-top:20px;
   display:flex;align-items:flex-end;justify-content:center;
 }
 .fan-card{
   position:absolute;bottom:0;left:50%;
-  width:min(19vw,210px);height:min(52vw,460px);
+  width:min(20vw,230px);height:min(28vw,320px);
   border-radius:14px;overflow:hidden;
   background:var(--black-2);
   box-shadow:0 25px 50px rgba(0,0,0,.55);
@@ -665,7 +709,9 @@ section{position:relative;width:100%;}
 .perf-bg[data-bg="0"] img{object-position:center 18%;}
 .perf-overlay{
   position:absolute;inset:0;
-  background:radial-gradient(ellipse at center, rgba(201,162,39,0.18) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.96) 100%);
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 75%, rgba(10,10,10,0.7) 92%, rgba(10,10,10,0.98) 100%),
+    radial-gradient(ellipse at center, rgba(201,162,39,0.18) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.96) 100%);
   z-index:1;
 }
 .perf-overlay::after{
@@ -702,41 +748,53 @@ section{position:relative;width:100%;}
 }
 .perf-spacer{height:230vh;}
 
+/* ---- On Stage: full-bleed cinematic banner (not a boxed card) ---- */
 .perf-gallery{
-  padding:120px 0 140px;background:var(--black);
+  background:var(--black);
   position:relative;z-index:3;overflow:hidden;
 }
-.perf-gallery .eyebrow{color:var(--gold-soft);}
-.perf-gallery h3{
-  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
-  font-size:clamp(28px,3.6vw,48px);color:var(--cream);margin-top:18px;max-width:680px;
+.perf-banner{
+  position:relative;width:100%;
+  height:clamp(560px,82vh,900px);
+  display:flex;flex-direction:column;justify-content:flex-end;
 }
-.perf-row{
-  position:relative;
-  display:grid;grid-template-columns:1.15fr .85fr;gap:60px;margin-top:90px;align-items:center;
+.perf-banner-bg{position:absolute;inset:0;}
+.perf-banner-bg img{
+  width:100%;height:100%;object-fit:cover;object-position:center 20%;
+  filter:sepia(.3) saturate(1.1) brightness(.85);
 }
-@media (max-width:860px){ .perf-row{grid-template-columns:1fr;gap:80px;margin-top:60px;} }
-.perf-composition{position:relative;}
-.perf-media{border-radius:10px;overflow:hidden;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.5);}
-.perf-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:sepia(.3) saturate(1.1) brightness(.95);}
-.perf-media.tallmedia::after{
-  content:'';position:absolute;inset:0;z-index:1;
-  background:var(--gold);mix-blend-mode:color;opacity:.35;
-  pointer-events:none;
+.perf-banner-bg::after{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);mix-blend-mode:color;opacity:.3;
 }
-.perf-media:hover img{transform:scale(1.06);}
-.perf-media.tallmedia{aspect-ratio:4/5;}
-.perf-media.floatcard{
-  position:absolute;right:-8%;bottom:-12%;z-index:2;
-  width:52%;aspect-ratio:1/1;
-  border:4px solid var(--black);
-  box-shadow:0 25px 60px rgba(0,0,0,.6);
+.perf-banner-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.55) 12%, rgba(10,10,10,0.15) 26%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,0.75) 78%, rgba(10,10,10,0.96) 100%);
 }
-@media (max-width:860px){ .perf-media.floatcard{right:-4%;bottom:-10%;width:48%;} }
-.perf-stats{display:flex;flex-direction:column;gap:44px;}
+.perf-banner-top{position:relative;z-index:2;padding:230px clamp(20px,4vw,56px) 0;}
+.perf-banner-top .eyebrow{color:var(--gold-soft);}
+.perf-banner-top h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.015em;
+  font-size:clamp(34px,5.6vw,84px);line-height:.96;color:var(--cream);
+  margin-top:18px;max-width:1100px;
+}
+.perf-banner-top h2 em{
+  font-style:italic;font-family:'Fraunces',serif;font-weight:600;text-transform:none;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.perf-banner-bottom{
+  position:relative;z-index:2;
+  padding:52px clamp(20px,4vw,56px) 56px;
+  display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;
+}
+.perf-stat-row{display:flex;gap:clamp(28px,4vw,64px);flex-wrap:wrap;}
 .perf-stat-num{
   font-family:'Fraunces',serif;font-style:italic;font-weight:600;
-  font-size:clamp(48px,6vw,88px);line-height:1;
+  font-size:clamp(34px,4vw,52px);line-height:1;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -744,12 +802,54 @@ section{position:relative;width:100%;}
   animation:goldShimmer 7s ease-in-out infinite;
 }
 .perf-stat-label{
-  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(242,239,233,0.55);font-weight:700;margin-top:6px;
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(242,239,233,0.6);font-weight:700;margin-top:4px;
 }
-.perf-caption{
-  margin-top:14px;font-size:12px;letter-spacing:.08em;color:rgba(242,239,233,0.55);
+.perf-book-btn{
+  display:inline-flex;align-items:center;gap:10px;width:fit-content;flex-shrink:0;
+  background:var(--gold);color:var(--black);
+  padding:17px 30px;border-radius:40px;
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  transition:transform .3s ease, box-shadow .3s ease;
 }
+@media (max-width:760px){
+  .perf-banner{height:auto;min-height:100vh;padding-bottom:40px;}
+  .perf-banner-top{padding:150px 20px 0;}
+  .perf-banner-top h2{font-size:clamp(32px,9vw,44px);margin-top:22px;}
+  .perf-banner-bottom{padding:36px 20px 0;flex-direction:column;align-items:flex-start;gap:28px;}
+  .perf-stat-row{gap:26px;width:100%;}
+  .perf-stat-num{font-size:30px;}
+  .perf-book-btn{width:100%;justify-content:center;}
+}
+.perf-book-btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(201,162,39,0.35);}
+.perf-book-btn svg{width:14px;height:14px;flex-shrink:0;}
+
+/* ---- moments filmstrip ---- */
+.perf-moments{padding:80px 0 110px;}
+.perf-moments-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.perf-moments-head h3{
+  font-family:'Inter',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(20px,2.4vw,28px);color:var(--cream);
+}
+.perf-moments-head span{font-size:12px;color:rgba(242,239,233,0.45);letter-spacing:.08em;text-transform:uppercase;}
+.perf-moments-track{
+  margin-top:36px;display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:10px;
+}
+.perf-moments-track::-webkit-scrollbar{height:4px;}
+.perf-moments-track::-webkit-scrollbar-thumb{background:rgba(242,239,233,0.15);border-radius:4px;}
+.perf-moment{
+  flex:0 0 auto;width:clamp(220px,26vw,340px);aspect-ratio:4/5;
+  border-radius:12px;overflow:hidden;position:relative;scroll-snap-align:start;
+  box-shadow:0 20px 44px rgba(0,0,0,.4);
+}
+.perf-moment img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:sepia(.25) saturate(1.1) brightness(.92);}
+.perf-moment:hover img{transform:scale(1.06);}
+.perf-moment-cap{
+  position:absolute;left:16px;bottom:14px;right:16px;z-index:2;
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--cream);
+}
+.perf-moment-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.82) 100%);}
 
 /* ============ ORIGINAL SONG ============ */
 #song{
@@ -848,6 +948,139 @@ section{position:relative;width:100%;}
   animation:goldShimmer 7s ease-in-out infinite;
 }
 .t-stat .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,239,233,0.55);font-family:'Inter',sans-serif;font-weight:600;}
+
+/* ============ TV SHOWS ============ */
+#shows{background:var(--black);padding:130px 0;}
+#shows h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;max-width:700px;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.show-grid{
+  margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+}
+@media (max-width:760px){ .show-grid{grid-template-columns:1fr;} }
+.show-card{
+  position:relative;border-radius:14px;overflow:hidden;cursor:pointer;
+  background:var(--black-2);border:1px solid var(--line);
+  display:flex;flex-direction:column;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:border-color .3s ease, transform .3s ease;
+}
+.show-card:hover{border-color:rgba(201,162,39,0.4);transform:translateY(-4px);}
+.show-card-photo{position:relative;aspect-ratio:16/10;overflow:hidden;}
+.show-card-photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
+.show-card:hover .show-card-photo img{transform:scale(1.07);}
+.show-card-play{
+  position:absolute;top:20px;right:20px;z-index:2;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(10,10,10,0.4);backdrop-filter:blur(6px);
+  border:1px solid rgba(242,239,233,0.3);
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+  transition:background .3s ease, transform .3s ease;
+}
+.show-card:hover .show-card-play{background:var(--gold);color:var(--black);transform:scale(1.08);}
+.show-card-play svg{width:16px;height:16px;margin-left:2px;}
+.show-card-info{
+  position:relative;padding:34px 28px 38px;text-align:center;
+  border-top:1px solid rgba(201,162,39,0.18);
+}
+.show-card-info::before{
+  content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  width:60px;height:2px;background:var(--gold);
+}
+.show-card-info h3{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;
+  font-size:clamp(24px,3vw,36px);color:var(--cream);
+}
+.show-card-info .show-card-channels{
+  display:block;margin-top:10px;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);
+}
+
+/* ---- modal ---- */
+.show-modal{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(10,10,10,0.92);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .4s ease;
+}
+.show-modal.active{opacity:1;pointer-events:all;}
+.show-modal-card{
+  position:relative;width:100%;max-width:920px;max-height:90vh;overflow-y:auto;
+  background:var(--black-2);border-radius:18px;
+  border:1px solid rgba(201,162,39,0.25);
+  box-shadow:0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(201,162,39,0.08);
+  transform:scale(.94);transition:transform .4s var(--ease);
+}
+.show-modal-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:3;
+  background:linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+}
+.show-modal.active .show-modal-card{transform:scale(1);}
+
+/* poster-style hero: big cover image on top with the show name
+   overlaid directly on it, like an album/movie poster — then a
+   second row below with supporting photos beside the details */
+.show-modal-hero{position:relative;width:100%;aspect-ratio:16/8;overflow:hidden;}
+.show-modal-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.show-modal-hero-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.35) 55%, rgba(10,10,10,0.92) 100%);
+}
+.show-modal-hero-text{position:absolute;left:40px;right:40px;bottom:26px;z-index:2;}
+.show-modal-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--gold-soft);}
+.show-modal-hero-text h3{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(38px,6vw,64px);line-height:.94;color:var(--cream);margin-top:8px;
+}
+@media (max-width:760px){ .show-modal-hero{aspect-ratio:4/3.4;} }
+
+.show-modal-lower{
+  display:grid;grid-template-columns:0.8fr 1.2fr;gap:0;
+}
+@media (max-width:760px){ .show-modal-lower{grid-template-columns:1fr;} }
+.show-modal-gallery{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;
+  background:var(--black-2);align-content:start;
+}
+.show-modal-gallery .sm-photo{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--black);border-radius:6px;}
+.show-modal-gallery .sm-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+@media (max-width:760px){ .show-modal-gallery{grid-template-columns:1fr 1fr;} }
+
+.show-modal-body{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;}
+.show-modal-schedule{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.3);
+  padding:11px 20px;border-radius:30px;width:fit-content;
+}
+.show-modal-schedule svg{width:15px;height:15px;color:var(--gold);flex-shrink:0;}
+.show-modal-schedule span{font-size:13px;font-weight:700;color:var(--gold-soft);}
+.show-modal-body p{margin-top:20px;font-size:14px;line-height:1.8;color:rgba(242,239,233,0.6);}
+.show-modal-links{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap;}
+.show-modal-link{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 22px;border-radius:30px;border:1px solid rgba(242,239,233,0.35);
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--cream);
+  transition:border-color .3s ease, color .3s ease, background .3s ease;
+}
+.show-modal-link:hover{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.show-modal-link svg{width:13px;height:13px;}
+.show-modal-close{
+  position:absolute;top:18px;right:18px;z-index:3;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(10,10,10,0.5);backdrop-filter:blur(6px);
+  border:1px solid rgba(242,239,233,0.3);
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+}
+.show-modal-close:hover{background:var(--cream);color:var(--black);}
+.show-modal-close svg{width:16px;height:16px;}
 
 /* ============ GALLERY ============ */
 #gallery{
@@ -983,7 +1216,7 @@ footer{
   display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;
 }
 .footer-brand{display:flex;flex-direction:column;gap:14px;}
-.footer-brand img{height:40px;width:auto;}
+.footer-brand img{height:40px;width:auto;align-self:flex-start;}
 .footer-brand .footer-name{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--cream);}
 .footer-brand .footer-tag{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.28em;color:var(--gold);font-weight:600;margin-top:4px;text-transform:uppercase;}
 .footer-social{display:flex;gap:22px;}
@@ -1024,7 +1257,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 
 <div id="preloader">
   <div class="pl-logo-wrap">
-    <img src="images/singin-chef-logo.png" alt="Singin' Chef" id="plLogoImg">
+    <img src="images/don-personal-logo.png" alt="Don Sherman" id="plLogoImg">
   </div>
   <div class="pl-bar"><div class="pl-bar-fill" id="plFill"></div></div>
   <div class="pl-pct" id="plPct">0%</div>
@@ -1033,7 +1266,13 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 
 
 <header id="site-nav">
-  <a href="#hero" class="nav-logo"><img src="images/singin-chef-logo.png" alt="Singin' Chef — Don Sherman" class="nav-logo-img"></a>
+  <div class="nav-logo-group">
+    <a href="#hero" class="nav-logo" aria-label="Don Sherman — Home"><img src="images/don-personal-logo.png" alt="Don Sherman" class="nav-logo-img nav-logo-personal"></a>
+    <span class="nav-logo-divider"></span>
+    <a href="restaurant.html" class="nav-logo" aria-label="Singin' Chef Restaurant"><img src="images/singin-chef-logo.png" alt="Singin' Chef Restaurant" class="nav-logo-img"></a>
+    <span class="nav-logo-divider"></span>
+    <a href="https://doninstitute.lk/" target="_blank" rel="noopener" class="nav-logo" aria-label="Don Sherman Institute"><img src="images/don-sherman-institute-logo.png" alt="Don Sherman Institute" class="nav-logo-img nav-logo-institute"></a>
+  </div>
   <div class="nav-right">
     <a href="#contact" class="nav-pill"><span>Contact</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <button class="nav-circle" id="menuToggle" aria-label="Menu" aria-expanded="false">
@@ -1051,7 +1290,8 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
       <a href="#performance" class="menu-item"><span class="menu-num">03</span><span class="menu-word">Music</span></a>
       <a href="#career" class="menu-item"><span class="menu-num">04</span><span class="menu-word">Media</span></a>
       <a href="#gallery" class="menu-item"><span class="menu-num">05</span><span class="menu-word">Gallery</span></a>
-      <a href="#contact" class="menu-item"><span class="menu-num">06</span><span class="menu-word">Contact</span></a>
+      <a href="restaurant.html" class="menu-item"><span class="menu-num">06</span><span class="menu-word">Restaurant</span></a>
+      <a href="#contact" class="menu-item"><span class="menu-num">07</span><span class="menu-word">Contact</span></a>
     </nav>
     <div class="menu-side">
       <div class="menu-side-label">Follow</div>
@@ -1108,10 +1348,34 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
         <p class="reveal-up">Don writes and performs his own music, featured on his YouTube channel, and is passionate about fusing Eastern and Western flavours — innovations that have inspired popular cooking-song videos online. Today, alongside his performance work, Don serves as a Certificate III Trainer at a Registered Training Organisation.</p>
 
         <div class="role-list">
-          <div class="role-row"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="33">0</span>+ YRS</span></div>
-          <div class="role-row"><span class="role-name">Singer</span><span class="role-num">EN · SI · HI</span></div>
-          <div class="role-row"><span class="role-name">Entertainer</span><span class="role-num">HOST / MC</span></div>
-          <div class="role-row"><span class="role-name">TV Personality</span><span class="role-num"><span class="count-up" data-count="10">0</span> YRS</span></div>
+          <div class="role-row" data-role>
+            <div class="role-row-top"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="33">0</span>+ YRS</span></div>
+            <div class="role-expand"><div class="role-expand-inner">
+              <img src="images/acf-plates.webp" alt="Don Sherman, Chef">
+              <p>Thirty-three years perfecting Sri Lankan and international cuisine, from fine dining to television.</p>
+            </div></div>
+          </div>
+          <div class="role-row" data-role>
+            <div class="role-row-top"><span class="role-name">Singer</span><span class="role-num">EN · SI · HI</span></div>
+            <div class="role-expand"><div class="role-expand-inner">
+              <img src="images/stage-red-clean.webp" alt="Don Sherman, Singer">
+              <p>Performing live in English, Sinhala, and Hindi — songwriting and singing alongside the stove.</p>
+            </div></div>
+          </div>
+          <div class="role-row" data-role>
+            <div class="role-row-top"><span class="role-name">Entertainer</span><span class="role-num">HOST / MC</span></div>
+            <div class="role-expand"><div class="role-expand-inner">
+              <img src="images/mc-birthday.webp" alt="Don Sherman, Entertainer">
+              <p>Hosting and MCing events with the same showmanship he brings to the kitchen.</p>
+            </div></div>
+          </div>
+          <div class="role-row" data-role>
+            <div class="role-row-top"><span class="role-name">TV Personality</span><span class="role-num"><span class="count-up" data-count="10">0</span> YRS</span></div>
+            <div class="role-expand"><div class="role-expand-inner">
+              <img src="images/studio-wide.webp" alt="Don Sherman, TV Personality">
+              <p>A decade on air with Cook With Don, plus FreshX — bringing his personality into Sri Lankan homes.</p>
+            </div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1122,8 +1386,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 <section id="culinary">
   <div class="wrap culinary-head">
     <div class="eyebrow split"><span class="line">Culinary</span></div>
-    <h2 class="reveal-up">A plate built like a <em>performance</em> — precise, warm, unmistakably his.</h2>
-    <p class="reveal-up">From fine-dining plating to national brand campaigns, Don treats every dish as a small piece of theatre.</p>
+    <h2 class="reveal-up">From fine-dining plates to national brand campaigns.</h2>
   </div>
 
   <div class="fan-wrap" id="fanWrap">
@@ -1138,23 +1401,28 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
   <div class="fan-dots" id="fanDots"></div>
 </section>
 
-<!-- ================= RHYTHM (food x music transition) ================= -->
-<section id="rhythm">
-  <div class="wrap">
-    <div class="rhythm-waveform" id="waveform"></div>
-    <div class="eyebrow"><span class="line">The Connection</span></div>
-    <h2 class="reveal-up">Food has<span>a rhythm.</span></h2>
-    <p class="rhythm-sub reveal-up">Every dish is timed like a set — build, crescendo, resolve. It's why the same instincts that plate a service also carry a room.</p>
-  </div>
-</section>
-
 <!-- ================= MUSIC / PERFORMANCE ================= -->
 <section id="performance">
   <div class="perf-spacer">
     <div class="perf-reveal">
-      <div class="perf-bg" data-bg="0"><img src="images/studio-wide.webp" alt="Don Sherman cooking on his television set"></div>
-      <div class="perf-bg" data-bg="1"><img src="images/stage-red-clean.webp" alt="Don Sherman performing on stage"></div>
-      <div class="perf-bg" data-bg="2"><img src="images/mc-birthday.webp" alt="Don Sherman singing and hosting live"></div>
+      <div class="perf-bg" data-bg="0">
+        <picture>
+          <source media="(max-width: 760px)" srcset="images/reveal-cooks-mobile.jpg">
+          <img src="images/reveal-cooks-desktop.jpg" alt="Don Sherman cooking on his television set">
+        </picture>
+      </div>
+      <div class="perf-bg" data-bg="1">
+        <picture>
+          <source media="(max-width: 760px)" srcset="images/reveal-performs-mobile.jpg">
+          <img src="images/reveal-performs-desktop.jpg" alt="Don Sherman performing on stage">
+        </picture>
+      </div>
+      <div class="perf-bg" data-bg="2">
+        <picture>
+          <source media="(max-width: 760px)" srcset="images/reveal-sings-mobile.jpg">
+          <img src="images/reveal-sings-desktop.jpg" alt="Don Sherman singing and hosting live">
+        </picture>
+      </div>
       <div class="perf-glow"></div>
       <div class="perf-overlay"></div>
       <div class="perf-lines" id="perfLines">
@@ -1165,24 +1433,47 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
     </div>
   </div>
 
-  <div class="perf-gallery wrap">
-    <div class="eyebrow split"><span class="line">On Stage</span></div>
-    <h3 class="reveal-up">A career that never left the microphone far from the pass.</h3>
-    <div class="perf-row">
-      <div class="perf-composition reveal-up">
-        <div class="perf-media tallmedia" data-parallax-img><img src="images/stage-red-clean.webp" alt="Don Sherman singing on stage"></div>
-        <div class="perf-media floatcard" data-parallax-img><img src="images/mc-birthday.webp" alt="Don Sherman hosting as an MC and singer"></div>
+  <div class="perf-gallery">
+    <div class="perf-banner">
+      <div class="perf-banner-bg">
+        <picture>
+          <source media="(max-width: 760px)" srcset="images/onstage-banner-mobile.jpg">
+          <img src="images/onstage-banner-desktop.jpg" alt="Don Sherman performing live on stage">
+        </picture>
       </div>
-      <div class="perf-stats">
-        <div class="reveal-up">
-          <div class="perf-stat-num">3</div>
-          <div class="perf-stat-label">Languages On Stage — EN · SI · HI</div>
+      <div class="perf-banner-scrim"></div>
+      <div class="perf-banner-top">
+        <div class="eyebrow split"><span class="line">On Stage</span></div>
+        <h2 class="reveal-up">He Doesn't Just<br><em>Perform.</em><br>He Owns The Room.</h2>
+      </div>
+      <div class="perf-banner-bottom">
+        <div class="perf-stat-row">
+          <div class="reveal-up">
+            <div class="perf-stat-num">3</div>
+            <div class="perf-stat-label">Languages — EN · SI · HI</div>
+          </div>
+          <div class="reveal-up">
+            <div class="perf-stat-num">33+</div>
+            <div class="perf-stat-label">Years Performing Live</div>
+          </div>
+          <div class="reveal-up">
+            <div class="perf-stat-num">100+</div>
+            <div class="perf-stat-label">Weddings, Galas &amp; Private Shows</div>
+          </div>
         </div>
-        <div class="reveal-up">
-          <div class="perf-stat-num">33+</div>
-          <div class="perf-stat-label">Years Performing Live</div>
-        </div>
-        <p class="perf-caption reveal-up">Don performing and hosting live — English, Sinhala, and Hindi.</p>
+        <a href="#contact" class="perf-book-btn reveal-up">
+          <span>Book Don For Your Event</span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="wrap perf-moments">
+      <div class="perf-moments-track">
+        <div class="perf-moment"><img src="images/onstage-moment-1.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-2.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-3.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-4.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
       </div>
     </div>
   </div>
@@ -1264,6 +1555,91 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
   </div>
 </section>
 
+<!-- ================= TV SHOWS ================= -->
+<section id="shows">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">On Screen</span></div>
+    <h2 class="reveal-up">Two shows, still on air.</h2>
+
+    <div class="show-grid">
+      <div class="show-card reveal-up" data-show
+        data-name="FreshX"
+        data-channels="Rupavahini Channel · YouTube"
+        data-schedule="Every Saturday, 7:30 PM — Rupavahini"
+        data-desc="Currently airing on Rupavahini Channel, with full episodes also available on YouTube — a fresh weekly take on flavour, presentation, and performance."
+        data-img1="images/freshx-cover.png"
+        data-img2="images/freshx-gallery-1.png"
+        data-img3="images/freshx-gallery-2.png"
+        data-img4="images/freshx-gallery-3.png"
+        data-img5="images/freshx-gallery-4.png"
+        data-link1-label="Watch on YouTube"
+        data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
+        <div class="show-card-photo">
+          <img src="images/freshx-cover.png" alt="FreshX TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>FreshX</h3>
+          <span class="show-card-channels">Rupavahini Channel · YouTube</span>
+        </div>
+      </div>
+
+      <div class="show-card reveal-up" data-show
+        data-name="Cook With Don"
+        data-channels="ITN TV · YouTube · Facebook"
+        data-schedule="Every Sunday, 12:30 PM — ITN"
+        data-desc="Don's main-stream television cooking show, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
+        data-img1="images/cook-with-don-cover.png"
+        data-img2="images/cook-with-don-gallery-1.png"
+        data-img3="images/cook-with-don-gallery-2.png"
+        data-link1-label="YouTube"
+        data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
+        data-link2-label="Facebook"
+        data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
+        <div class="show-card-photo">
+          <img src="images/cook-with-don-cover.png" alt="Cook With Don TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>Cook With Don</h3>
+          <span class="show-card-channels">ITN TV · YouTube · Facebook</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="show-modal" id="showModal">
+  <div class="show-modal-card" data-lenis-prevent>
+    <button class="show-modal-close" id="showModalClose">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="show-modal-hero">
+      <img id="showModalImg1" src="" alt="">
+      <div class="show-modal-hero-scrim"></div>
+      <div class="show-modal-hero-text">
+        <div class="show-modal-eyebrow" id="showModalChannels"></div>
+        <h3 id="showModalName"></h3>
+      </div>
+    </div>
+    <div class="show-modal-lower">
+      <div class="show-modal-gallery" id="showModalGallery"></div>
+      <div class="show-modal-body">
+        <div class="show-modal-schedule">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span id="showModalSchedule"></span>
+        </div>
+        <p id="showModalDesc"></p>
+        <div class="show-modal-links" id="showModalLinks"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= GALLERY ================= -->
 <section id="gallery">
   <div class="wrap">
@@ -1310,7 +1686,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="images/singin-chef-logo.png" alt="Singin' Chef logo">
+      <img src="images/don-personal-logo.png" alt="Don Sherman logo" style="height:56px;">
       <div>
         <div class="footer-name">Don Sherman</div>
         <span class="footer-tag">The Singing Chef</span>

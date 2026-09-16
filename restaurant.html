@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singin' Chef Restaurant — Don Sherman</title>
+<meta name="description" content="Singin' Chef Restaurant by Don Sherman — a full menu of Sri Lankan and international favourites, cooked and performed with the same signature showmanship.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0a0a;
+  --black-2:#121110;
+  --gold:#c9a227;
+  --gold-soft:#e4c968;
+  --gold-deep:#7a5a15;
+  --cream:#f2efe9;
+  --cream-dim:#e7e1d3;
+  --copper:#d97b3f;
+  --line: rgba(242,239,233,0.14);
+  --line-dark: rgba(10,10,10,0.12);
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--black);overflow-x:hidden;}
+body{background:var(--black);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;background:none;border:none;color:inherit;cursor:pointer;}
+::selection{background:var(--gold);color:var(--black);}
+.wrap{max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px);}
+section{position:relative;width:100%;}
+
+@keyframes goldShimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+.gold-grad{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:goldShimmer 7s ease-in-out infinite;
+}
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+.eyebrow::before{content:'';width:28px;height:1px;background:currentColor;}
+
+/* ---------- preloader ---------- */
+#preloader{
+  position:fixed;inset:0;z-index:10000;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:26px;
+  overflow:hidden;
+}
+#preloader .pl-logo-wrap{position:relative;width:min(48vw,300px);}
+#preloader .pl-logo-wrap img{width:100%;height:auto;display:block;filter:drop-shadow(0 0 40px rgba(201,162,39,0.25));opacity:0;transform:scale(0.92);}
+#preloader .pl-bar{width:min(50vw,260px);height:1px;background:rgba(242,239,233,0.14);position:relative;overflow:hidden;}
+#preloader .pl-bar-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--gold);}
+#preloader .pl-pct{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.24em;color:rgba(242,239,233,0.5);font-variant-numeric:tabular-nums;}
+
+/* ---------- nav (matches main site) ---------- */
+header#site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px clamp(20px,4vw,56px);
+  background:linear-gradient(180deg, rgba(10,10,10,0.7), transparent);
+}
+.nav-logo-img{height:clamp(34px,4vw,46px);width:auto;display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.45));}
+.nav-logo-group{display:flex;align-items:center;gap:12px;}
+.nav-logo-group .nav-logo-personal{height:clamp(38px,4.6vw,52px);}
+.nav-logo-group .nav-logo-institute{height:clamp(26px,3vw,34px);}
+.nav-logo-divider{width:1px;height:22px;background:rgba(242,239,233,0.25);flex-shrink:0;}
+@media (max-width:640px){
+  .nav-logo-group{gap:8px;}
+  .nav-logo-divider{height:18px;}
+  .nav-logo-group .nav-logo-personal{height:32px;}
+  .nav-logo-group img:not(.nav-logo-personal){height:22px;}
+}
+@media (max-width:400px){
+  .nav-logo-group .nav-logo-institute{display:none;}
+  .nav-logo-group .nav-logo-divider:last-of-type{display:none;}
+}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--black);
+  padding:11px 22px;border-radius:30px;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  font-family:'Inter',sans-serif;
+}
+.nav-pill svg{width:13px;height:13px;}
+.nav-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--cream-dim);
+}
+.nav-back svg{width:14px;height:14px;}
+.nav-back:hover{color:var(--gold);}
+
+/* ---------- hero ---------- */
+#r-hero{
+  height:100vh;min-height:600px;position:relative;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+#r-hero .r-hero-bg{position:absolute;inset:0;}
+#r-hero .r-hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+#r-hero .r-hero-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.2) 35%, rgba(10,10,10,0.75) 75%, rgba(10,10,10,0.92) 100%);
+}
+#r-hero .r-hero-content{position:relative;z-index:2;padding-bottom:72px;width:100%;}
+#r-hero .r-rating{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(10,10,10,0.55);border:1px solid rgba(242,239,233,0.25);
+  padding:8px 16px;border-radius:30px;margin-bottom:22px;
+  font-size:13px;font-weight:700;
+}
+#r-hero .r-rating .stars{color:var(--gold);letter-spacing:2px;}
+#r-hero .r-rating .r-rating-count{color:rgba(242,239,233,0.55);font-weight:500;}
+#r-hero h1{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(42px,7vw,96px);line-height:.98;max-width:900px;
+}
+#r-hero p.r-hero-sub{
+  margin-top:22px;max-width:520px;font-size:16px;line-height:1.75;color:rgba(242,239,233,0.75);
+}
+#r-hero .r-hero-ctas{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+.r-btn-solid{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--black);
+  padding:15px 28px;border-radius:40px;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+}
+.r-btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(242,239,233,0.4);color:var(--cream);
+  padding:15px 28px;border-radius:40px;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
+}
+.r-btn-solid svg,.r-btn-outline svg{width:14px;height:14px;}
+
+/* ---------- chef's picks: horizontal scroll of polaroid cards —
+   the one nearest center gets a gold frame + scales up ---------- */
+#r-picks{padding:120px 0;background:var(--black);overflow:hidden;}
+#r-picks h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;max-width:640px;
+}
+.r-picks-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.pick-nav-btns{display:flex;gap:14px;flex-shrink:0;}
+.pick-nav-btn{
+  width:50px;height:50px;border-radius:50%;border:1px solid rgba(242,239,233,0.25);
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+  transition:background .3s ease, border-color .3s ease, color .3s ease;
+}
+.pick-nav-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.pick-nav-btn svg{width:18px;height:18px;}
+@media (max-width:760px){ .pick-nav-btns{display:none;} }
+.r-picks-hint{margin-top:14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,239,233,0.4);font-weight:600;}
+
+.pick-track{
+  margin-top:56px;display:flex;gap:26px;align-items:center;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:30px 0 40px;
+  -webkit-overflow-scrolling:touch;
+}
+.pick-track::-webkit-scrollbar{height:5px;}
+.pick-track::-webkit-scrollbar-thumb{background:rgba(242,239,233,0.18);border-radius:4px;}
+.pick-spacer{flex:0 0 auto;width:calc(50vw - 190px);}
+@media (max-width:640px){ .pick-spacer{width:calc(50vw - 130px);} }
+.pick-card{
+  position:relative;flex:0 0 auto;scroll-snap-align:center;
+  width:min(64vw,380px);aspect-ratio:4/5;
+  background:var(--cream);
+  border-radius:12px;
+  padding:16px 16px 54px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  transform:scale(.7);opacity:.5;
+  transition:transform .35s ease-out, opacity .35s ease-out, background .35s ease;
+}
+.pick-card.is-focus{
+  transform:scale(1.08);opacity:1;z-index:2;
+  background:var(--gold);
+  box-shadow:0 34px 70px rgba(0,0,0,.55);
+}
+.pick-card-photo{position:relative;width:100%;height:100%;border-radius:6px;overflow:hidden;background:var(--black-2);}
+.pick-card-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);}
+.pick-card:hover .pick-card-photo img{transform:scale(1.05);}
+.pick-price-sticker{
+  position:absolute;top:14px;right:14px;z-index:2;
+  background:var(--black);color:var(--gold-soft);
+  min-width:64px;height:64px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;line-height:1.15;
+  padding:2px;
+  box-shadow:0 6px 16px rgba(0,0,0,.35);
+}
+.pick-sig-sticker{
+  position:absolute;top:14px;left:14px;z-index:2;
+  background:var(--black);color:var(--gold-soft);
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  padding:6px 12px;border-radius:20px;
+}
+.pick-card-caption{
+  position:absolute;left:0;right:0;bottom:14px;text-align:center;padding:0 16px;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--black);
+  line-height:1.3;
+}
+
+/* ---------- full menu ---------- */
+#r-menu{padding:100px 0 130px;background:var(--black-2);}
+#r-menu h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;
+}
+.r-menu-stats{display:flex;gap:36px;margin-top:24px;flex-wrap:wrap;}
+.r-menu-stat{display:flex;flex-direction:column;}
+.r-menu-stat .num{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:34px;color:var(--gold-soft);}
+.r-menu-stat .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,239,233,0.5);margin-top:2px;}
+
+.r-menu-search{
+  margin-top:44px;position:relative;max-width:420px;
+}
+.r-menu-search input{
+  width:100%;background:rgba(242,239,233,0.06);border:1px solid var(--line);
+  border-radius:30px;padding:14px 20px 14px 46px;color:var(--cream);font-size:14px;font-family:'Inter',sans-serif;
+}
+.r-menu-search input::placeholder{color:rgba(242,239,233,0.4);}
+.r-menu-search input:focus{outline:none;border-color:var(--gold);}
+.r-menu-search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:rgba(242,239,233,0.4);pointer-events:none;}
+
+.r-menu-tabs{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;
+  padding-bottom:6px;
+}
+.r-menu-tab{
+  padding:10px 18px;border-radius:30px;
+  border:1px solid var(--line);
+  font-size:12px;letter-spacing:.05em;font-weight:700;color:rgba(242,239,233,0.65);
+  white-space:nowrap;transition:background .25s ease, color .25s ease, border-color .25s ease;
+}
+.r-menu-tab:hover{border-color:rgba(242,239,233,0.4);color:var(--cream);}
+.r-menu-tab.is-active{background:var(--gold);border-color:var(--gold);color:var(--black);}
+@media (max-width:760px){
+  .r-menu-tabs{
+    flex-wrap:nowrap;overflow-x:auto;
+    margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .r-menu-tabs::-webkit-scrollbar{display:none;}
+}
+
+.r-menu-grid{
+  margin-top:44px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+}
+@media (max-width:960px){ .r-menu-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:640px){ .r-menu-grid{grid-template-columns:repeat(2,1fr);gap:14px;} }
+.r-menu-item{
+  border-radius:14px;overflow:hidden;background:var(--black-2);border:1px solid var(--line);
+  transition:transform .35s var(--ease), box-shadow .35s ease;
+}
+.r-menu-item:hover{transform:translateY(-5px);box-shadow:0 24px 46px rgba(0,0,0,.4);}
+.r-menu-item .r-mi-photo{position:relative;aspect-ratio:4/3;background:#161514;}
+.r-menu-item .r-mi-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-menu-item .r-mi-price-badge{
+  position:absolute;top:12px;right:12px;z-index:2;
+  background:var(--gold);color:var(--black);
+  padding:7px 14px;border-radius:20px;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;
+  box-shadow:0 6px 16px rgba(0,0,0,.35);
+}
+.r-menu-item .r-mi-body{padding:18px 20px 20px;}
+.r-menu-item h4{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em;}
+@media (max-width:640px){
+  .r-menu-item .r-mi-body{padding:12px 14px 14px;}
+  .r-menu-item h4{font-size:13px;}
+  .r-menu-item .r-mi-price-badge{font-size:11px;padding:5px 10px;}
+  .r-menu-item .r-mi-cat{font-size:9px;}
+}
+.r-menu-item p{margin-top:8px;font-size:13px;line-height:1.6;color:rgba(242,239,233,0.55);}
+.r-menu-item .r-mi-cat{margin-top:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);font-weight:700;}
+.r-menu-empty{
+  display:none;text-align:center;padding:60px 20px;color:rgba(242,239,233,0.4);
+  font-family:'Fraunces',serif;font-style:italic;font-size:18px;
+}
+.r-menu-pagination{
+  display:flex;justify-content:center;align-items:center;gap:22px;margin-top:56px;
+}
+.r-page-btn{
+  width:46px;height:46px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+  transition:background .3s ease, border-color .3s ease, opacity .3s ease;
+}
+.r-page-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.r-page-btn[disabled]{opacity:.3;pointer-events:none;}
+.r-page-btn svg{width:16px;height:16px;}
+.r-page-info{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,239,233,0.55);font-weight:700;}
+.r-page-info span{color:var(--gold-soft);}
+
+/* ---------- gallery ---------- */
+#r-gallery{padding:120px 0;background:var(--black);}
+#r-gallery h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;
+}
+.r-gallery-grid{
+  margin-top:60px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px;
+}
+.r-g-item{position:relative;border-radius:8px;overflow:hidden;cursor:pointer;grid-column:span 2;aspect-ratio:1/1;}
+.r-g-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}
+.r-g-item:hover img{transform:scale(1.07);}
+.r-g-item.wide{grid-column:span 2;}
+@media (max-width:860px){ .r-g-item{grid-column:span 3 !important;} }
+@media (max-width:520px){ .r-g-item{grid-column:span 6 !important;aspect-ratio:16/11;} }
+
+/* ---------- visit / info ---------- */
+/* ---------- reviews ---------- */
+#r-reviews{padding:120px 0;background:var(--black-2);}
+#r-reviews h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;max-width:640px;
+}
+.r-reviews-summary{display:flex;align-items:center;gap:16px;margin-top:24px;}
+.r-reviews-summary .stars{color:var(--gold);letter-spacing:2px;font-size:18px;}
+.r-reviews-summary .num{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:22px;color:var(--gold-soft);}
+.r-reviews-summary .count{font-size:13px;color:rgba(242,239,233,0.5);}
+.r-reviews-grid{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:860px){ .r-reviews-grid{grid-template-columns:1fr;} }
+.r-review-card{
+  padding:28px;border-radius:12px;background:rgba(242,239,233,0.03);border:1px solid var(--line);
+}
+.r-review-card .stars{color:var(--gold);letter-spacing:2px;font-size:14px;}
+.r-review-card p{margin-top:16px;font-size:14px;line-height:1.75;color:rgba(242,239,233,0.7);}
+.r-review-card .r-review-name{margin-top:18px;font-size:13px;font-weight:700;color:var(--cream);}
+.r-review-card .r-review-meta{font-size:11px;color:rgba(242,239,233,0.4);margin-top:2px;}
+
+#r-visit{padding:100px 0 130px;background:var(--black);}
+.r-visit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px;}
+@media (max-width:860px){ .r-visit-grid{grid-template-columns:1fr;gap:36px;} }
+.r-visit-card h3{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
+}
+.r-visit-card p{margin-top:14px;font-size:15px;line-height:1.8;color:rgba(242,239,233,0.7);}
+.r-visit-card .placeholder-note{
+  display:inline-block;margin-top:10px;font-size:11px;color:var(--copper);
+  font-style:italic;
+}
+
+/* ---------- lightbox (shared pattern) ---------- */
+.r-lightbox{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(10,10,10,0.96);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+  padding:40px;
+}
+.r-lightbox.active{opacity:1;pointer-events:all;}
+.r-lightbox img{max-width:100%;max-height:90vh;border-radius:8px;}
+.r-lightbox-close{
+  position:absolute;top:24px;right:24px;
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(242,239,233,0.3);
+  display:flex;align-items:center;justify-content:center;color:var(--cream);
+}
+.r-lightbox-close:hover{background:var(--cream);color:var(--black);}
+.r-lightbox-close svg{width:18px;height:18px;}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--line);}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+.footer-brand{display:flex;flex-direction:column;gap:14px;}
+.footer-brand img{height:40px;width:auto;align-self:flex-start;}
+.footer-brand .footer-name{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--cream);}
+.footer-brand .footer-tag{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.28em;color:var(--gold);font-weight:600;margin-top:4px;text-transform:uppercase;}
+.footer-social{display:flex;gap:22px;}
+.footer-social a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:rgba(242,239,233,0.6);}
+.footer-social a:hover{color:var(--gold);}
+.footer-bottom{
+  margin-top:34px;padding-top:20px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;
+}
+.footer-credit{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:rgba(242,239,233,0.4);transition:color .3s ease;}
+.footer-credit span{color:rgba(242,239,233,0.65);font-weight:600;}
+.footer-credit:hover{color:var(--gold);}
+.footer-credit:hover span{color:var(--gold);}
+</style>
+</head>
+
+<body>
+
+<div id="preloader">
+  <div class="pl-logo-wrap"><img src="images/singin-chef-logo.png" alt="Singin' Chef" id="plLogoImg"></div>
+  <div class="pl-bar"><div class="pl-bar-fill" id="plFill"></div></div>
+  <div class="pl-pct" id="plPct">0%</div>
+</div>
+
+<header id="site-nav">
+  <div class="nav-logo-group">
+    <a href="index.html#hero" class="nav-logo" aria-label="Don Sherman — Home"><img src="images/don-personal-logo.png" alt="Don Sherman" class="nav-logo-img nav-logo-personal"></a>
+    <span class="nav-logo-divider"></span>
+    <a href="restaurant.html" class="nav-logo" aria-label="Singin' Chef Restaurant"><img src="images/singin-chef-logo.png" alt="Singin' Chef Restaurant" class="nav-logo-img"></a>
+    <span class="nav-logo-divider"></span>
+    <a href="https://doninstitute.lk/" target="_blank" rel="noopener" class="nav-logo" aria-label="Don Sherman Institute"><img src="images/don-sherman-institute-logo.png" alt="Don Sherman Institute" class="nav-logo-img nav-logo-institute"></a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Don's Story</span>
+    </a>
+    <a href="#r-menu" class="nav-pill"><span>View Menu</span></a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="r-hero">
+  <div class="r-hero-bg"><img src="images/studio-wide.webp" alt="Singin' Chef restaurant kitchen"></div>
+  <div class="r-hero-scrim"></div>
+  <div class="wrap r-hero-content">
+    <div class="r-rating">
+      <span class="stars">★★★★★</span>
+      <span>4.6</span>
+      <span class="r-rating-count">(482 reviews)</span>
+    </div>
+    <h1>Singin' Chef<br>Restaurant</h1>
+    <p class="r-hero-sub">Sri Lankan and international favourites, cooked with the same showmanship Don brings to the stage — 113 dishes across 28 categories, all under one roof.</p>
+    <div class="r-hero-ctas">
+      <a href="#r-menu" class="r-btn-solid">
+        <span>Explore the Menu</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#r-visit" class="r-btn-outline">
+        <span>Visit Us</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHEF'S PICKS ================= -->
+<section id="r-picks">
+  <div class="wrap">
+    <div class="eyebrow">Chef's Picks</div>
+    <div class="r-picks-head">
+      <h2 class="reveal-up">Six dishes that carry his name.</h2>
+      <div class="pick-nav-btns">
+        <button class="pick-nav-btn" id="pickPrev" aria-label="Previous dish">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="pick-nav-btn" id="pickNext" aria-label="Next dish">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pick-track" id="pickTrack">
+    <div class="pick-spacer"></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/noodles-thumbsup.webp" alt="Special Singing Chef Noodles"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/food-spread.webp" alt="Special Singing Rice"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/chicken-wide.webp" alt="Singin Chef Special Seafood Platter"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/duck-mash.webp" alt="Singin Chef Special Omellette"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/chicken-vert.webp" alt="Pepper Mutton Stew"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/duck-pesto.webp" alt="Hot Butter Cuttle Fish"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div>
+    <div class="pick-spacer"></div>
+  </div>
+</section>
+
+<!-- ================= FULL MENU ================= -->
+<section id="r-menu">
+  <div class="wrap">
+    <div class="eyebrow">The Full Menu</div>
+    <h2 class="reveal-up">Everything, all in one place.</h2>
+    <div class="r-menu-stats">
+      <div class="r-menu-stat"><span class="num">113</span><span class="lbl">Total Dishes</span></div>
+      <div class="r-menu-stat"><span class="num">28</span><span class="lbl">Categories</span></div>
+      <div class="r-menu-stat"><span class="num">4.6</span><span class="lbl">Average Rating</span></div>
+    </div>
+    <div class="r-menu-search">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="text" id="menuSearch" placeholder="Search a dish...">
+    </div>
+    <div class="r-menu-tabs" id="menuTabs"></div>
+    <div class="r-menu-grid" id="menuGrid"></div>
+    <p class="r-menu-empty" id="menuEmpty">No dishes match your search.</p>
+    <div class="r-menu-pagination" id="menuPagination">
+      <button class="r-page-btn" id="menuPrevPage" aria-label="Previous page">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="r-page-info">Page <span id="menuPageNum">1</span> of <span id="menuPageTotal">1</span></div>
+      <button class="r-page-btn" id="menuNextPage" aria-label="Next page">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="r-gallery">
+  <div class="wrap">
+    <div class="eyebrow">Inside Singin' Chef</div>
+    <h2 class="reveal-up">The room, the pass, the plates.</h2>
+    <div class="r-gallery-grid">
+      <div class="r-g-item wide" data-lightbox="images/studio-wide.webp"><img src="images/studio-wide.webp" alt="Restaurant kitchen"></div>
+      <div class="r-g-item" data-lightbox="images/studio-tongs.webp"><img src="images/studio-tongs.webp" alt="Plating on set"></div>
+      <div class="r-g-item" data-lightbox="images/duck-mash.webp"><img src="images/duck-mash.webp" alt="Plated dish"></div>
+      <div class="r-g-item" data-lightbox="images/duck-pesto.webp"><img src="images/duck-pesto.webp" alt="Plated dish"></div>
+      <div class="r-g-item wide" data-lightbox="images/campaign-apron.webp"><img src="images/campaign-apron.webp" alt="Don Sherman in the kitchen"></div>
+      <div class="r-g-item" data-lightbox="images/studio-smell.webp"><img src="images/studio-smell.webp" alt="Don Sherman presenting a dish"></div>
+      <div class="r-g-item" data-lightbox="images/food-spread.webp"><img src="images/food-spread.webp" alt="Food spread"></div>
+      <div class="r-g-item" data-lightbox="images/chicken-wide.webp"><img src="images/chicken-wide.webp" alt="Plated chicken dish"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="r-reviews">
+  <div class="wrap">
+    <div class="eyebrow">What People Say</div>
+    <h2 class="reveal-up">482 reviews, one rhythm.</h2>
+    <div class="r-reviews-summary">
+      <span class="stars">★★★★★</span>
+      <span class="num">4.6</span>
+      <span class="count">out of 5 — 482 reviews</span>
+    </div>
+    <div class="r-reviews-grid">
+      <div class="r-review-card">
+        <div class="stars">★★★★★</div>
+        <p>"The Special Singing Rice lives up to its name — genuinely the best mixed rice I've had in Colombo. Portions are generous too."</p>
+        <div class="r-review-name">Ishara W.</div>
+        <div class="r-review-meta">Colombo 03 · Visited last month</div>
+      </div>
+      <div class="r-review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Don came out to say hello and it made the whole night. Food was excellent, but the personality behind it is what brings us back."</p>
+        <div class="r-review-name">Nadeesha P.</div>
+        <div class="r-review-meta">Nugegoda · Visited 3 weeks ago</div>
+      </div>
+      <div class="r-review-card">
+        <div class="stars">★★★★☆</div>
+        <p>"Cheese kotthu here is unmatched. Service was a little slow on a busy Saturday, but worth the wait every time."</p>
+        <div class="r-review-name">Ruwan D.</div>
+        <div class="r-review-meta">Mount Lavinia · Visited last week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISIT ================= -->
+<section id="r-visit">
+  <div class="wrap">
+    <div class="eyebrow">Visit</div>
+    <h2 class="reveal-up">Come hungry, stay for the show.</h2>
+    <div class="r-visit-grid">
+      <div class="r-visit-card">
+        <h3>Location</h3>
+        <p>142 Galle Road<br>Colombo 03, Sri Lanka</p>
+      </div>
+      <div class="r-visit-card">
+        <h3>Hours</h3>
+        <p>Mon – Sun: 11:00 AM – 11:00 PM</p>
+      </div>
+      <div class="r-visit-card">
+        <h3>Contact</h3>
+        <p>+94 77 123 4567<br>hello@singinchef.lk</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="r-lightbox" id="rLightbox">
+  <button class="r-lightbox-close" id="rLightboxClose">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <img id="rLightboxImg" src="" alt="">
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="images/singin-chef-logo.png" alt="Singin' Chef logo">
+        <div>
+          <div class="footer-name">Singin' Chef Restaurant</div>
+          <span class="footer-tag">By Don Sherman</span>
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="index.html">Don's Story</a>
+        <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Singin' Chef Restaurant. All rights reserved.</span>
+      <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="menu-data.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// simple preloader — logo fades in, progress bar fills, then the
+// whole thing fades out once the page's images/fonts are ready
+(function(){
+  const preloader = document.getElementById('preloader');
+  const logoImg = document.getElementById('plLogoImg');
+  const fill = document.getElementById('plFill');
+  const pct = document.getElementById('plPct');
+  if(!preloader) return;
+
+  gsap.to(logoImg, {opacity:1, scale:1, duration:.8, ease:'power2.out'});
+
+  const obj = {v:0};
+  const tl = gsap.timeline();
+  tl.to(obj, {
+    v:100, duration:1.6, ease:'power1.inOut',
+    onUpdate: ()=>{
+      const val = Math.round(obj.v);
+      fill.style.width = val+'%';
+      pct.textContent = val+'%';
+    }
+  });
+
+  window.addEventListener('load', ()=>{
+    tl.eventCallback('onComplete', ()=>{
+      gsap.to(preloader, {
+        opacity:0, duration:.6, ease:'power2.out', delay:.2,
+        onComplete: ()=>{ preloader.style.display='none'; }
+      });
+    });
+  });
+})();
+
+(function(){
+  const tabsEl = document.getElementById('menuTabs');
+  const gridEl = document.getElementById('menuGrid');
+  const emptyEl = document.getElementById('menuEmpty');
+  const searchEl = document.getElementById('menuSearch');
+  const paginationEl = document.getElementById('menuPagination');
+  const prevBtn = document.getElementById('menuPrevPage');
+  const nextBtn = document.getElementById('menuNextPage');
+  const pageNumEl = document.getElementById('menuPageNum');
+  const pageTotalEl = document.getElementById('menuPageTotal');
+  const PER_PAGE = 12;
+  let activeCat = 'All';
+  let searchTerm = '';
+  let currentPage = 1;
+
+  function renderTabs(){
+    const cats = ['All', ...MENU_DATA.map(c=>c.cat)];
+    tabsEl.innerHTML = cats.map(c=>
+      `<button class="r-menu-tab${c===activeCat?' is-active':''}" data-cat="${c}">${c}</button>`
+    ).join('');
+    tabsEl.querySelectorAll('.r-menu-tab').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        activeCat = btn.getAttribute('data-cat');
+        currentPage = 1;
+        renderTabs();
+        renderGrid();
+        gridEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+      });
+    });
+  }
+
+  function getFiltered(){
+    const term = searchTerm.trim().toLowerCase();
+    const out = [];
+    MENU_DATA.forEach(cat=>{
+      if(activeCat !== 'All' && cat.cat !== activeCat) return;
+      cat.items.forEach(it=>{
+        if(term && !(it.n.toLowerCase().includes(term) || it.d.toLowerCase().includes(term))) return;
+        out.push({...it, cat: cat.cat});
+      });
+    });
+    return out;
+  }
+
+  function renderGrid(){
+    const filtered = getFiltered();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+    currentPage = Math.min(currentPage, totalPages);
+    const start = (currentPage-1) * PER_PAGE;
+    const pageItems = filtered.slice(start, start + PER_PAGE);
+
+    gridEl.innerHTML = pageItems.map(it => `
+      <div class="r-menu-item">
+        <div class="r-mi-photo">
+          <img src="${it.img}" alt="${it.n}" loading="lazy" onerror="this.style.display='none'">
+          <span class="r-mi-price-badge">${it.p}</span>
+        </div>
+        <div class="r-mi-body">
+          <h4>${it.n}</h4>
+          <div class="r-mi-cat">${it.cat}</div>
+        </div>
+      </div>
+    `).join('');
+
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+    paginationEl.style.display = filtered.length === 0 ? 'none' : 'flex';
+    pageNumEl.textContent = currentPage;
+    pageTotalEl.textContent = totalPages;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+  }
+
+  prevBtn.addEventListener('click', ()=>{
+    if(currentPage > 1){ currentPage--; renderGrid(); gridEl.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  });
+  nextBtn.addEventListener('click', ()=>{
+    currentPage++; renderGrid(); gridEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  searchEl.addEventListener('input', ()=>{
+    searchTerm = searchEl.value;
+    currentPage = 1;
+    if(searchTerm.trim() && activeCat !== 'All'){
+      activeCat = 'All';
+      renderTabs();
+    }
+    renderGrid();
+  });
+
+  renderTabs();
+  renderGrid();
+
+  // lightbox for gallery
+  const lb = document.getElementById('rLightbox');
+  const lbImg = document.getElementById('rLightboxImg');
+  const lbClose = document.getElementById('rLightboxClose');
+  document.querySelectorAll('[data-lightbox]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      lbImg.src = el.getAttribute('data-lightbox');
+      lbImg.alt = el.querySelector('img')?.alt || '';
+      lb.classList.add('active');
+    });
+  });
+  function closeLb(){ lb.classList.remove('active'); }
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLb(); });
+
+  // Chef's Picks: horizontal scroll — whichever card sits nearest the
+  // center gets the gold frame + scales up, updating live as the user
+  // scrolls/swipes through the strip.
+  const pickTrack = document.getElementById('pickTrack');
+  if(pickTrack){
+    const pickCards = Array.from(pickTrack.querySelectorAll('.pick-card'));
+    let ticking = false;
+    function updatePickFocus(){
+      const trackRect = pickTrack.getBoundingClientRect();
+      const centerX = trackRect.left + trackRect.width/2;
+      let closest = null, closestDist = Infinity;
+      pickCards.forEach(card=>{
+        const r = card.getBoundingClientRect();
+        const cardCenter = r.left + r.width/2;
+        const dist = Math.abs(cardCenter - centerX);
+        if(dist < closestDist){ closestDist = dist; closest = card; }
+      });
+      pickCards.forEach(c=> c.classList.toggle('is-focus', c===closest));
+      ticking = false;
+    }
+    pickTrack.addEventListener('scroll', ()=>{
+      if(!ticking){ requestAnimationFrame(updatePickFocus); ticking = true; }
+    }, {passive:true});
+    window.addEventListener('resize', updatePickFocus);
+    requestAnimationFrame(()=>{
+      const first = pickCards[0];
+      if(first) pickTrack.scrollLeft = first.offsetLeft - (pickTrack.clientWidth - first.clientWidth)/2;
+      updatePickFocus();
+    });
+
+    // desktop prev/next buttons — step to the adjacent card relative
+    // to whichever one is currently focused
+    const pickPrevBtn = document.getElementById('pickPrev');
+    const pickNextBtn = document.getElementById('pickNext');
+    function stepPick(dir){
+      const currentIdx = pickCards.findIndex(c=> c.classList.contains('is-focus'));
+      const targetIdx = Math.max(0, Math.min(pickCards.length-1, currentIdx + dir));
+      const target = pickCards[targetIdx];
+      pickTrack.scrollTo({
+        left: target.offsetLeft - (pickTrack.clientWidth - target.clientWidth)/2,
+        behavior:'smooth'
+      });
+    }
+    pickPrevBtn?.addEventListener('click', ()=> stepPick(-1));
+    pickNextBtn?.addEventListener('click', ()=> stepPick(1));
+  }
+
+  // scroll-triggered reveal animations, matching the main site
+  document.querySelectorAll('.reveal-up').forEach(el=>{
+    gsap.set(el, {y:36, opacity:0});
+    ScrollTrigger.create({
+      trigger: el,
+      start:'top 88%',
+      onEnter:()=> gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out'}),
+      once:true
+    });
+  });
+
+  // stagger the menu/pick/gallery card grids as they scroll into view
+  // (picks track excluded — its cards already manage their own
+  // opacity via the coverflow focus effect, which would conflict)
+  document.querySelectorAll('.r-menu-grid, .r-gallery-grid, .r-reviews-grid, .r-visit-grid').forEach(grid=>{
+    const items = grid.children;
+    if(!items.length) return;
+    gsap.set(items, {y:30, opacity:0});
+    ScrollTrigger.create({
+      trigger: grid,
+      start:'top 90%',
+      once:true,
+      onEnter:()=> gsap.to(items, {y:0, opacity:1, duration:.8, ease:'power3.out', stagger:.08})
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
