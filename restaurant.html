@@ -644,7 +644,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
 </section>
 
 <div class="r-lightbox" id="rLightbox">
-  <button class="r-lightbox-close" id="rLightboxClose">
+  <button class="r-lightbox-close" id="rLightboxClose" aria-label="Close">
     <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
   <img id="rLightboxImg" src="" alt="">
@@ -722,12 +722,12 @@ gsap.registerPlugin(ScrollTrigger);
   const pageNumEl = document.getElementById('menuPageNum');
   const pageTotalEl = document.getElementById('menuPageTotal');
   const PER_PAGE = 12;
-  let activeCat = 'All';
+  let activeCat = MENU_DATA[0].cat;
   let searchTerm = '';
   let currentPage = 1;
 
   function renderTabs(){
-    const cats = ['All', ...MENU_DATA.map(c=>c.cat)];
+    const cats = MENU_DATA.map(c=>c.cat);
     tabsEl.innerHTML = cats.map(c=>
       `<button class="r-menu-tab${c===activeCat?' is-active':''}" data-cat="${c}">${c}</button>`
     ).join('');
@@ -746,7 +746,9 @@ gsap.registerPlugin(ScrollTrigger);
     const term = searchTerm.trim().toLowerCase();
     const out = [];
     MENU_DATA.forEach(cat=>{
-      if(activeCat !== 'All' && cat.cat !== activeCat) return;
+      // a search term searches every category regardless of the
+      // selected tab; with no search term, the tab filter applies
+      if(!term && cat.cat !== activeCat) return;
       cat.items.forEach(it=>{
         if(term && !(it.n.toLowerCase().includes(term) || it.d.toLowerCase().includes(term))) return;
         out.push({...it, cat: cat.cat});
@@ -795,10 +797,6 @@ gsap.registerPlugin(ScrollTrigger);
   searchEl.addEventListener('input', ()=>{
     searchTerm = searchEl.value;
     currentPage = 1;
-    if(searchTerm.trim() && activeCat !== 'All'){
-      activeCat = 'All';
-      renderTabs();
-    }
     renderGrid();
   });
 
