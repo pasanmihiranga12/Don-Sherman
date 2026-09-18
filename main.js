@@ -231,7 +231,7 @@ function initTextReveals(){
 /* ---------------- Hero sequence ---------------- */
 function heroIntro(){
   const tl = gsap.timeline({defaults:{ease:'power4.out'}});
-  tl.fromTo('#hero .hero-photo-stage', {opacity:0, scale:1.02}, {opacity:1, scale:1, duration:1.4}, 0)
+  tl.fromTo('#hero .hero-photo-stage', {opacity:0}, {opacity:1, duration:1.4}, 0)
     .to('#hero .hero-eyebrow .line', {yPercent:0, opacity:1, duration:.9}, .35)
     .to('#hero h1 .line', {yPercent:0, opacity:1, duration:1, stagger:.09}, .45)
     .fromTo('#hero .hero-sub', {opacity:0,y:16}, {opacity:1,y:0,duration:.8}, .9)
@@ -389,14 +389,13 @@ function initHeroFluid(){
 
     fluid.step(1/60, aspect);
 
-    // hard safety reset — wipes the fluid state completely every few
-    // seconds. Guarantees it is physically impossible for density to
-    // ever build up into a full-canvas overlay no matter what, since
-    // state can never persist longer than this interval. Much shorter
-    // on mobile, where the coarser simulation grid is more prone to
-    // visible dark instability artifacts building up if left longer.
+    // hard safety reset — wipes the fluid state completely after a
+    // stretch of no interaction. Never fires mid-swipe (that would
+    // interrupt active use, which is the opposite of the point) —
+    // only once the user has actually stopped touching it for a beat
     const clearInterval = isTouch ? 2000 : 5000;
-    if(now - lastHardClear > clearInterval){
+    const idleFor = now - lastMoveTime;
+    if(now - lastHardClear > clearInterval && idleFor > 600){
       lastHardClear = now;
       fluid.clear();
     }

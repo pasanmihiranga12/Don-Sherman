@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Singin' Chef Restaurant — Don Sherman</title>
+<link rel="icon" type="image/png" href="images/don-personal-logo.png">
+<link rel="apple-touch-icon" href="images/don-personal-logo.png">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Singin' Chef Restaurant — Don Sherman">
+<meta property="og:description" content="Sri Lankan and international favourites, cooked with the same showmanship Don brings to the stage.">
+<meta property="og:image" content="images/don-personal-logo.png">
+<meta property="og:type" content="website">
 <meta name="description" content="Singin' Chef Restaurant by Don Sherman — a full menu of Sri Lankan and international favourites, cooked and performed with the same signature showmanship.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,19 +277,20 @@ header#site-nav{
 .r-menu-item:hover{transform:translateY(-5px);box-shadow:0 24px 46px rgba(0,0,0,.4);}
 .r-menu-item .r-mi-photo{position:relative;aspect-ratio:4/3;background:#161514;}
 .r-menu-item .r-mi-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-.r-menu-item .r-mi-price-badge{
-  position:absolute;top:12px;right:12px;z-index:2;
-  background:var(--gold);color:var(--black);
-  padding:7px 14px;border-radius:20px;
-  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;
-  box-shadow:0 6px 16px rgba(0,0,0,.35);
-}
-.r-menu-item .r-mi-body{padding:18px 20px 20px;}
+.r-menu-item .r-mi-body{padding:18px 20px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.r-menu-item .r-mi-text{min-width:0;}
 .r-menu-item h4{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em;}
+.r-menu-item .r-mi-price-box{
+  flex-shrink:0;
+  background:var(--gold);color:var(--black);
+  padding:8px 14px;border-radius:10px;text-align:center;
+  font-family:'Inter',sans-serif;font-weight:900;font-size:16px;line-height:1.15;
+  box-shadow:0 8px 18px rgba(201,162,39,0.25);
+}
 @media (max-width:640px){
   .r-menu-item .r-mi-body{padding:12px 14px 14px;}
   .r-menu-item h4{font-size:13px;}
-  .r-menu-item .r-mi-price-badge{font-size:11px;padding:5px 10px;}
+  .r-menu-item .r-mi-price-box{font-size:13px;padding:6px 10px;}
   .r-menu-item .r-mi-cat{font-size:9px;}
 }
 .r-menu-item p{margin-top:8px;font-size:13px;line-height:1.6;color:rgba(242,239,233,0.55);}
@@ -343,12 +351,46 @@ header#site-nav{
 .r-review-card .r-review-meta{font-size:11px;color:rgba(242,239,233,0.4);margin-top:2px;}
 
 #r-visit{padding:100px 0 130px;background:var(--black);}
-.r-visit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px;}
-@media (max-width:860px){ .r-visit-grid{grid-template-columns:1fr;gap:36px;} }
-.r-visit-card h3{
-  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
+#r-visit h2{
+  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
+  font-size:clamp(30px,4.4vw,56px);margin-top:18px;max-width:640px;
 }
-.r-visit-card p{margin-top:14px;font-size:15px;line-height:1.8;color:rgba(242,239,233,0.7);}
+.r-visit-layout{margin-top:56px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start;}
+@media (max-width:860px){ .r-visit-layout{grid-template-columns:1fr;gap:32px;} }
+.r-visit-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:0;}
+.r-visit-map{
+  position:relative;width:100%;aspect-ratio:4/3.6;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(201,162,39,0.25);
+  box-shadow:0 30px 70px rgba(0,0,0,.5);
+}
+.r-visit-map iframe{width:100%;height:100%;display:block;}
+@media (max-width:860px){ .r-visit-map{aspect-ratio:16/11;} }
+.r-visit-directions{
+  position:absolute;bottom:16px;left:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--black);
+  padding:12px 20px;border-radius:30px;
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
+  box-shadow:0 10px 24px rgba(0,0,0,.4);
+}
+.r-visit-directions svg{width:14px;height:14px;}
+.r-visit-card{
+  display:flex;gap:18px;align-items:flex-start;
+  padding:26px;border-radius:14px;
+  background:rgba(242,239,233,0.03);border:1px solid var(--line);
+  transition:border-color .3s ease, background .3s ease;
+}
+.r-visit-card:hover{border-color:rgba(201,162,39,0.3);background:rgba(242,239,233,0.05);}
+.r-visit-card .r-visit-icon{
+  flex-shrink:0;width:44px;height:44px;border-radius:50%;
+  background:rgba(201,162,39,0.12);border:1px solid rgba(201,162,39,0.3);
+  display:flex;align-items:center;justify-content:center;color:var(--gold);
+}
+.r-visit-icon svg{width:19px;height:19px;}
+.r-visit-card h3{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+}
+.r-visit-card p{margin-top:10px;font-size:19px;line-height:1.5;color:var(--cream);font-weight:400;}
 .r-visit-card .placeholder-note{
   display:inline-block;margin-top:10px;font-size:11px;color:var(--copper);
   font-style:italic;
@@ -421,7 +463,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
 
 <!-- ================= HERO ================= -->
 <section id="r-hero">
-  <div class="r-hero-bg"><img src="images/studio-wide.webp" alt="Singin' Chef restaurant kitchen"></div>
+  <div class="r-hero-bg"><img src="images/cover.jpg" alt="Singin' Chef restaurant kitchen"></div>
   <div class="r-hero-scrim"></div>
   <div class="wrap r-hero-content">
     <div class="r-rating">
@@ -429,7 +471,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
       <span>4.6</span>
       <span class="r-rating-count">(482 reviews)</span>
     </div>
-    <h1>Singin' Chef<br>Restaurant</h1>
+    <h1>Singin' Chef<br><span class="gold-grad">Restaurant</span></h1>
     <p class="r-hero-sub">Sri Lankan and international favourites, cooked with the same showmanship Don brings to the stage — 113 dishes across 28 categories, all under one roof.</p>
     <div class="r-hero-ctas">
       <a href="#r-menu" class="r-btn-solid">
@@ -462,12 +504,12 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
 
   <div class="pick-track" id="pickTrack">
     <div class="pick-spacer"></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/noodles-thumbsup.webp" alt="Special Singing Chef Noodles"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/food-spread.webp" alt="Special Singing Rice"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/chicken-wide.webp" alt="Singin Chef Special Seafood Platter"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/duck-mash.webp" alt="Singin Chef Special Omellette"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/chicken-vert.webp" alt="Pepper Mutton Stew"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div>
-    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/duck-pesto.webp" alt="Hot Butter Cuttle Fish"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/special-singing-chef-noodles.jpg" alt="Special Singing Chef Noodles" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/special-singing-rice.jpg" alt="Special Singing Rice" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-seafood-platter.jpg" alt="Singin Chef Special Seafood Platter"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omellette"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/pepper-mutton-stew.jpg" alt="Pepper Mutton Stew"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div>
+    <div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/hot-butter-cuttle-fish.jpg" alt="Hot Butter Cuttle Fish"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div>
     <div class="pick-spacer"></div>
   </div>
 </section>
@@ -557,18 +599,45 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
   <div class="wrap">
     <div class="eyebrow">Visit</div>
     <h2 class="reveal-up">Come hungry, stay for the show.</h2>
-    <div class="r-visit-grid">
-      <div class="r-visit-card">
-        <h3>Location</h3>
-        <p>142 Galle Road<br>Colombo 03, Sri Lanka</p>
+    <div class="r-visit-layout">
+      <div class="r-visit-grid">
+        <div class="r-visit-card">
+          <span class="r-visit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          </span>
+          <div>
+            <h3>Location</h3>
+            <p>419 Kalapaluwawa Rd<br>Sri Jayawardenepura Kotte 10107, Sri Lanka</p>
+          </div>
+        </div>
+        <div class="r-visit-card">
+          <span class="r-visit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </span>
+          <div>
+            <h3>Hours</h3>
+            <p>Mon – Sun: 11:00 AM – 11:00 PM</p>
+          </div>
+        </div>
+        <div class="r-visit-card">
+          <span class="r-visit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.7"/></svg>
+          </span>
+          <div>
+            <h3>Contact</h3>
+            <p>+94 77 123 4567<br>hello@singinchef.lk</p>
+          </div>
+        </div>
       </div>
-      <div class="r-visit-card">
-        <h3>Hours</h3>
-        <p>Mon – Sun: 11:00 AM – 11:00 PM</p>
-      </div>
-      <div class="r-visit-card">
-        <h3>Contact</h3>
-        <p>+94 77 123 4567<br>hello@singinchef.lk</p>
+      <div class="r-visit-map">
+        <iframe
+          src="https://www.google.com/maps?q=Singin%27+Chef+by+Don+Sherman%2C+419+Kalapaluwawa+Rd%2C+Sri+Jayawardenepura+Kotte&z=16&output=embed"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a class="r-visit-directions" href="https://www.google.com/maps/search/?api=1&query=Singin%27+Chef+by+Don+Sherman+419+Kalapaluwawa+Rd+Sri+Jayawardenepura+Kotte" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Get Directions</span>
+        </a>
       </div>
     </div>
   </div>
@@ -697,11 +766,13 @@ gsap.registerPlugin(ScrollTrigger);
       <div class="r-menu-item">
         <div class="r-mi-photo">
           <img src="${it.img}" alt="${it.n}" loading="lazy" onerror="this.style.display='none'">
-          <span class="r-mi-price-badge">${it.p}</span>
         </div>
         <div class="r-mi-body">
-          <h4>${it.n}</h4>
-          <div class="r-mi-cat">${it.cat}</div>
+          <div class="r-mi-text">
+            <h4>${it.n}</h4>
+            <div class="r-mi-cat">${it.cat}</div>
+          </div>
+          <div class="r-mi-price-box">${it.p.replace('.00','')}</div>
         </div>
       </div>
     `).join('');
