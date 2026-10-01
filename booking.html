@@ -170,10 +170,27 @@ header#site-nav{
   background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px;
 }
 .b-field select option{background:var(--black-2);color:var(--cream);}
+.b-combo{position:relative;}
 #bCountry{
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><path d='M6 9l6 6 6-6' stroke='%23c9a227' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
   background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px;
+  cursor:pointer;
 }
+.b-combo-list{
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:40;
+  max-height:240px;overflow-y:auto;
+  background:#17160f;border:1px solid rgba(242,239,233,0.18);border-radius:12px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+  display:none;
+}
+.b-combo-list.is-open{display:block;}
+.b-combo-list button{
+  display:block;width:100%;text-align:left;
+  padding:11px 16px;font-family:'Inter',sans-serif;font-size:14px;color:var(--cream);
+  background:none;border:none;cursor:pointer;
+}
+.b-combo-list button:hover,.b-combo-list button.is-highlighted{background:rgba(201,162,39,0.14);color:var(--gold-soft);}
+.b-combo-list .b-combo-empty{padding:14px 16px;font-size:13px;color:rgba(242,239,233,0.4);}
 .b-field input::placeholder,.b-field textarea::placeholder{color:rgba(242,239,233,0.3);}
 .b-field input:focus,.b-field textarea:focus,.b-field select:focus{outline:none;border-color:var(--gold);background:rgba(242,239,233,0.08);}
 
@@ -331,8 +348,10 @@ footer{padding:60px 0 40px;border-top:1px solid var(--line);}
         <div class="b-row">
           <div class="b-field">
             <label for="bCountry">Country <span class="req">*</span></label>
-            <input type="text" id="bCountry" list="countryList" placeholder="Start typing..." autocomplete="off">
-            <datalist id="countryList"></datalist>
+            <div class="b-combo">
+              <input type="text" id="bCountry" placeholder="Select country" autocomplete="off">
+              <div class="b-combo-list" id="countryDropdown"></div>
+            </div>
           </div>
           <div class="b-field">
             <label for="bGuests">Guests <span class="req">*</span> <span>(roughly)</span></label>
@@ -500,11 +519,57 @@ const COUNTRIES = ['Afghanistan','Albania','Algeria','Andorra','Angola','Argenti
   const calPrev = document.getElementById('calPrev');
   const calNext = document.getElementById('calNext');
 
-  const countryList = document.getElementById('countryList');
-  COUNTRIES.forEach(c=>{
-    const opt = document.createElement('option');
-    opt.value = c;
-    countryList.appendChild(opt);
+  // custom searchable dropdown — click to open the full list, type to
+  // filter it; a plain native <select> is painful to scroll through
+  // 167 countries and a <datalist> renders inconsistently across browsers
+  const countryDropdown = document.getElementById('countryDropdown');
+  let countryHighlight = -1;
+
+  function renderCountryList(filter){
+    const q = (filter || '').trim().toLowerCase();
+    const matches = q ? COUNTRIES.filter(c => c.toLowerCase().includes(q)) : COUNTRIES;
+    countryDropdown.innerHTML = '';
+    countryHighlight = -1;
+    if(!matches.length){
+      const empty = document.createElement('div');
+      empty.className = 'b-combo-empty';
+      empty.textContent = 'No matches';
+      countryDropdown.appendChild(empty);
+      return;
+    }
+    matches.forEach(c=>{
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = c;
+      btn.addEventListener('mousedown', e=>{
+        e.preventDefault(); // keep focus/blur from closing the list before the click registers
+        countryInput.value = c;
+        closeCountryDropdown();
+        updateSubmitState();
+      });
+      countryDropdown.appendChild(btn);
+    });
+  }
+  function openCountryDropdown(){
+    renderCountryList(countryInput.value);
+    countryDropdown.classList.add('is-open');
+  }
+  function closeCountryDropdown(){
+    countryDropdown.classList.remove('is-open');
+  }
+  countryInput.addEventListener('focus', openCountryDropdown);
+  countryInput.addEventListener('click', openCountryDropdown);
+  countryInput.addEventListener('input', openCountryDropdown);
+  countryInput.addEventListener('blur', ()=> setTimeout(closeCountryDropdown, 120));
+  countryInput.addEventListener('keydown', e=>{
+    const items = Array.from(countryDropdown.querySelectorAll('button'));
+    if(!items.length) return;
+    if(e.key === 'ArrowDown'){ e.preventDefault(); countryHighlight = Math.min(countryHighlight+1, items.length-1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); countryHighlight = Math.max(countryHighlight-1, 0); }
+    else if(e.key === 'Enter'){ e.preventDefault(); if(items[countryHighlight]) items[countryHighlight].dispatchEvent(new Event('mousedown')); return; }
+    else return;
+    items.forEach((it,i)=> it.classList.toggle('is-highlighted', i===countryHighlight));
+    items[countryHighlight].scrollIntoView({block:'nearest'});
   });
 
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
