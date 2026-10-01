@@ -59,24 +59,31 @@ if(heroImg && !heroImgReady){
 // fallback in case nothing loads quickly
 setTimeout(()=>{ if(loaded < totalAssets && heroImgReady){ finishPreload(); } }, 4000);
 // absolute hard cap — never let the preloader hang forever even if the
-// hero image request itself stalls or fails silently
-setTimeout(()=>{ finishPreload(); }, 8000);
+// hero image request itself stalls or fails silently. (There's also a
+// plain-JS safety net inline in index.html's <head>, independent of GSAP,
+// in case gsap/lenis themselves failed to load.)
+setTimeout(()=>{ finishPreload(); }, 6500);
 
 let preloadDone = false;
 function finishPreload(){
   if(preloadDone) return;
   preloadDone = true;
-  updatePreloaderVisual(100);
-  const tl = gsap.timeline({
-    delay:.35,
-    onComplete:()=>{
-      preloader.style.display='none';
-      document.body.style.overflow='';
-      initSite();
-    }
-  });
-  tl.to('.pl-logo-wrap, .pl-bar, .pl-pct, .pl-tag', {opacity:0, y:-14, duration:.5, ease:'power2.in', stagger:.04})
-    .to(preloader, {opacity:0, duration:.5, ease:'power2.out'}, '-=.2');
+  const reveal = ()=>{
+    preloader.style.display='none';
+    document.body.style.overflow='';
+    try{ initSite(); }catch(e){ console.warn('initSite failed to fully start', e); }
+  };
+  try{
+    updatePreloaderVisual(100);
+    const tl = gsap.timeline({ delay:.35, onComplete:reveal });
+    tl.to('.pl-logo-wrap, .pl-bar, .pl-pct, .pl-tag', {opacity:0, y:-14, duration:.5, ease:'power2.in', stagger:.04})
+      .to(preloader, {opacity:0, duration:.5, ease:'power2.out'}, '-=.2');
+  }catch(e){
+    // if GSAP itself is broken for some reason, still guarantee the
+    // preloader clears rather than trusting an animation that can't run
+    console.warn('Preloader exit animation failed — revealing the page directly.', e);
+    reveal();
+  }
 }
 
 /* ---------------- Lenis smooth scroll ---------------- */
@@ -99,6 +106,7 @@ function initCursor(){
   if(isTouch) return;
   const cursor = document.getElementById('cursor');
   const label = document.getElementById('cursor-label');
+  if(!cursor || !label) return;
   let mx=0,my=0,cx=0,cy=0;
 
   window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
@@ -197,6 +205,15 @@ function initAboutRoles(){
   }
 }
 
+// splits an element's content into masked, individually-animatable lines —
+// breaking only on <br> so inline markup (like <em>) inside a line stays
+// intact — for the line-by-line opacity reveal used across headings
+function splitIntoLines(el){
+  const parts = el.innerHTML.split(/<br\s*\/?>/i);
+  el.innerHTML = parts.map(p => `<span class="lr-line"><span class="lr-line-inner">${p}</span></span>`).join('');
+  return Array.from(el.querySelectorAll('.lr-line-inner'));
+}
+
 function initTextReveals(){
   document.querySelectorAll('.split').forEach(el=>{
     const lines = el.querySelectorAll('.line');
@@ -205,15 +222,25 @@ function initTextReveals(){
     }
   });
 
-  // reveal-up generic paragraphs/headings
+  // headings get a proper line-by-line reveal (each line masked and
+  // slid/faded in with a stagger); plain paragraphs keep the simpler
+  // single-block fade, since splitting body copy into lines gets fragile
+  // across different reflow widths
   document.querySelectorAll('.reveal-up').forEach(el=>{
-    gsap.set(el, {y:36, opacity:0});
-    ScrollTrigger.create({
-      trigger: el,
-      start:'top 88%',
-      onEnter:()=> gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out'}),
-      once:true
-    });
+    if(/^H[1-4]$/.test(el.tagName)){
+      const lines = splitIntoLines(el);
+      gsap.set(lines, {yPercent:115, opacity:0});
+      ScrollTrigger.create({
+        trigger: el, start:'top 88%', once:true,
+        onEnter:()=> gsap.to(lines, {yPercent:0, opacity:1, duration:1.1, ease:'power3.out', stagger:.1})
+      });
+    } else {
+      gsap.set(el, {y:36, opacity:0});
+      ScrollTrigger.create({
+        trigger: el, start:'top 88%', once:true,
+        onEnter:()=> gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out'})
+      });
+    }
   });
 
   document.querySelectorAll('.split').forEach(el=>{
@@ -235,7 +262,7 @@ function heroIntro(){
     .to('#hero .hero-eyebrow .line', {yPercent:0, opacity:1, duration:.9}, .35)
     .to('#hero h1 .line', {yPercent:0, opacity:1, duration:1, stagger:.09}, .45)
     .fromTo('#hero .hero-sub', {opacity:0,y:16}, {opacity:1,y:0,duration:.8}, .9)
-    .fromTo('#hero .hero-meta', {opacity:0,y:16}, {opacity:1,y:0,duration:.8}, 1.0)
+    .fromTo('#hero .hero-cta', {opacity:0,y:16}, {opacity:1,y:0,duration:.8}, 1.0)
     .fromTo('.scroll-cue', {opacity:0}, {opacity:1,duration:.6}, 1.2)
     .fromTo('#hero .hero-hint', {opacity:0}, {opacity:1,duration:.6}, 1.2);
 }
@@ -524,6 +551,7 @@ function initShowAccordion(){
 }
 
 function initGalleryCarousel(){
+  const wrap = document.querySelector('.g-carousel-wrap');
   const stage = document.getElementById('gCarouselStage');
   const ring = document.getElementById('gCarouselRing');
   const prevBtn = document.getElementById('gPrev');
@@ -593,20 +621,6 @@ function initGalleryCarousel(){
     });
   });
 
-  // wheel-to-rotate — a real "scroll to rotate" interaction on the
-  // carousel itself, not the whole page. Small threshold + debounce so
-  // one scroll gesture advances one card at a time rather than spinning
-  // wildly.
-  let wheelLocked = false;
-  stage.addEventListener('wheel', e=>{
-    e.preventDefault();
-    if(wheelLocked) return;
-    if(Math.abs(e.deltaY) < 12 && Math.abs(e.deltaX) < 12) return;
-    wheelLocked = true;
-    goTo(rawIndex + (e.deltaY > 0 || e.deltaX > 0 ? 1 : -1));
-    setTimeout(()=> wheelLocked = false, 550);
-  }, {passive:false});
-
   // drag / swipe to rotate
   let dragging = false, dragStartX = 0;
   stage.addEventListener('pointerdown', e=>{ dragging = true; dragStartX = e.clientX; });
@@ -619,6 +633,22 @@ function initGalleryCarousel(){
 
   window.addEventListener('resize', layout);
   layout();
+
+  // Scroll-pin: scrolling into the gallery locks the page in place and
+  // turns the ring instead of scrolling past it — no more fighting between
+  // "rotate the carousel" and "scroll the page" on the same gesture. Once
+  // you've turned all the way through, the page continues down as normal.
+  if(wrap && !prefersReduced && !isTouch && window.ScrollTrigger){
+    ScrollTrigger.create({
+      trigger: wrap,
+      start: 'top top',
+      end: () => '+=' + (count * 320),
+      pin: true,
+      scrub: 0.55,
+      anticipatePin: 1,
+      onUpdate: self => goTo(self.progress * count, false)
+    });
+  }
 }
 
 /* ---------------- Culinary horizontal scroll ---------------- */
@@ -653,27 +683,31 @@ function initFanGallery(){
         const dot = document.createElement('button');
         dot.setAttribute('aria-label', 'Show photo '+(i+1));
         if(i===0) dot.classList.add('is-active');
-        dot.addEventListener('click', ()=> setActive(card));
+        dot.addEventListener('click', ()=> card.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}));
         dotsWrap.appendChild(dot);
       });
     }
     setActive(cards[0]);
 
-    // real swipe gesture — the dots alone don't match how anyone
-    // actually expects to browse a stack of photos on a phone
-    let touchStartX = 0, touchStartY = 0;
-    wrap.addEventListener('touchstart', e=>{
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, {passive:true});
-    wrap.addEventListener('touchend', e=>{
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if(Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return; // not a real horizontal swipe
-      const currentIdx = cards.findIndex(c=> c.classList.contains('is-active'));
-      let nextIdx = dx < 0 ? currentIdx + 1 : currentIdx - 1;
-      nextIdx = Math.max(0, Math.min(cards.length - 1, nextIdx));
-      setActive(cards[nextIdx]);
+    // native momentum scroll + scroll-snap drives the swipe now (buttery,
+    // matches how the Chef's Picks carousel on the restaurant page already
+    // feels) — this just tracks which card is centered to sync the dots
+    // and the active-card reveal styling, instead of a discrete jump
+    let rafId = null;
+    wrap.addEventListener('scroll', ()=>{
+      if(rafId) return;
+      rafId = requestAnimationFrame(()=>{
+        rafId = null;
+        const wrapRect = wrap.getBoundingClientRect();
+        const center = wrapRect.left + wrapRect.width/2;
+        let closest = cards[0], closestDist = Infinity;
+        cards.forEach(card=>{
+          const r = card.getBoundingClientRect();
+          const dist = Math.abs((r.left + r.width/2) - center);
+          if(dist < closestDist){ closestDist = dist; closest = card; }
+        });
+        setActive(closest);
+      });
     }, {passive:true});
   }
 }
@@ -949,6 +983,7 @@ function initMobileLock(){
 function initSite(){
   document.body.style.overflow='';
   initLenis();
+  initCursor();
   initMobileLock();
   initMagnetic();
   initTextReveals();

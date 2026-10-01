@@ -8,14 +8,14 @@
 <link rel="apple-touch-icon" href="images/don-personal-logo.png">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:title" content="Don Sherman — The Singing Chef">
-<meta property="og:description" content="Thirty-three years across the stove and the stage — food, music, and performance, told as one story.">
+<meta property="og:description" content="Thirty-eight+ years across the stove and the stage — food, music, and performance, told as one story.">
 <meta property="og:image" content="images/don-personal-logo.png">
 <meta property="og:type" content="website">
-<meta name="description" content="Don Sherman — The Singing Chef. Chef, TV personality, singer, entertainer. 33+ years of culinary artistry and performance.">
+<meta name="description" content="Don Sherman — The Singing Chef. Chef, TV personality, singer, entertainer. 38+ years of culinary artistry and performance.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -187,7 +187,7 @@ header#site-nav.menu-is-open .nav-pill{
 }
 .nav-logo-group{display:flex;align-items:center;gap:12px;}
 .nav-logo-group .nav-logo-personal{height:clamp(38px,4.6vw,52px);}
-.nav-logo-group .nav-logo-institute{height:clamp(26px,3vw,34px);}
+.nav-logo-group .nav-logo-institute{height:clamp(34px,4vw,46px);}
 .nav-logo-divider{width:1px;height:22px;background:rgba(242,239,233,0.25);flex-shrink:0;}
 @media (max-width:640px){
   .nav-logo-group{gap:8px;}
@@ -259,7 +259,7 @@ header#site-nav.menu-is-open .nav-pill{
   color:var(--gold);letter-spacing:.1em;
 }
 .menu-item .menu-word{
-  font-family:'Fraunces',serif;font-weight:600;text-transform:uppercase;
+  font-family:'Instrument Serif',serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(38px,7vw,88px);line-height:1;
   color:var(--cream);
   transition:color .4s ease, transform .4s ease;
@@ -281,7 +281,7 @@ header#site-nav.menu-is-open .nav-pill{
 .menu-social:hover{color:var(--gold);}
 .menu-side-tag{
   margin-top:auto;padding-top:40px;
-  font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
   color:rgba(242,239,233,0.3);font-size:14px;
 }
 @media (max-width:760px){
@@ -311,6 +311,10 @@ section{position:relative;width:100%;}
 .wrap{max-width:1440px;margin:0 auto;padding-left:clamp(20px,4vw,56px);padding-right:clamp(20px,4vw,56px);}
 .split{overflow:hidden;}
 .split .line{display:block;}
+/* line-by-line reveal for headings — each line gets its own mask so it
+   can slide/fade in independently, with a stagger between lines */
+.lr-line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em;}
+.lr-line-inner{display:block;}
 
 /* ============ HERO ============ */
 #hero{
@@ -351,15 +355,19 @@ section{position:relative;width:100%;}
     /* Lighter mobile gradient: Top 45% is totally clear, smooth fade for the text */
     background:linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 45%, rgba(10,10,10,0.5) 70%, rgba(10,10,10,0.85) 100%);
   }
-  #hero .hero-sub, #hero .hero-meta{display:none !important;}
   #hero .hero-content{gap:12px;}
+  #hero .hero-sub{display:none;}
 }
 #hero .hero-content{
   position:relative;z-index:5;
   padding:0 clamp(20px,4vw,56px) 148px;
   width:100%;
+  max-width:640px;
   display:flex;flex-direction:column;gap:20px;
   pointer-events:none;
+}
+@media (max-width:860px){
+  #hero .hero-content{max-width:none;}
 }
 #hero .hero-content a,
 #hero .hero-content button{
@@ -373,16 +381,17 @@ section{position:relative;width:100%;}
   display:flex;flex-wrap:wrap;align-items:baseline;gap:.28em .32em;
 }
 #hero h1 .w-sans{
-  font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;
-  letter-spacing:-.01em;line-height:.9;
-  font-size:clamp(28px, calc(3.1vw + 2.6vh), 82px);
+  font-family:'Bodoni Moda',serif;font-weight:400;font-style:normal;text-transform:uppercase;
+  font-optical-sizing:auto;
+  letter-spacing:.01em;line-height:.9;
+  font-size:clamp(30px, calc(3.4vw + 2.9vh), 92px);
   color:var(--cream);
 }
 #hero h1 .w-serif{
-  font-family:'Fraunces',serif;font-weight:600;font-style:normal;text-transform:uppercase;
+  font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;text-transform:uppercase;
   font-optical-sizing:auto;
   letter-spacing:0;line-height:.9;
-  font-size:clamp(28px, calc(3.1vw + 2.6vh), 82px);
+  font-size:clamp(32px, calc(3.6vw + 3vh), 96px);
   background:linear-gradient(100deg, #F6E3A8 0%, #E4BD5C 22%, #C99A34 42%, #F8ECBB 58%, #D9AC3E 76%, #F3D98A 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -395,15 +404,24 @@ section{position:relative;width:100%;}
   100%{background-position:0% 50%;}
 }
 #hero .hero-sub{
-  max-width:460px;
+  max-width:540px;
   font-family:'Inter',sans-serif;
   font-size:15px;line-height:1.7;
   color:rgba(242,239,233,0.72);
   font-weight:400;
 }
-#hero .hero-meta{
+#hero .hero-cta{
   display:flex;align-items:center;gap:26px;
   margin-top:8px;flex-wrap:wrap;
+}
+@media (max-width:860px){
+  #hero .hero-cta{
+    position:absolute;z-index:7;
+    left:clamp(16px,4vw,56px);
+    bottom:28px;margin-top:0;
+  }
+  #hero .hero-cta .mag-btn{padding:11px 16px;font-size:9px;gap:6px;}
+  #hero .hero-cta .mag-btn svg{width:11px;height:11px;}
 }
 #hero .hero-hint{
   position:absolute;z-index:6;
@@ -443,6 +461,10 @@ section{position:relative;width:100%;}
 }
 .hero-lock-btn svg{width:14px;height:14px;}
 .hero-lock-btn.is-locked{background:var(--cream);}
+@media (max-width:860px){
+  .hero-lock-btn{right:clamp(16px,4vw,56px);padding:11px 14px;font-size:9px;gap:6px;}
+  .hero-lock-btn svg{width:11px;height:11px;}
+}
 @media (min-width:861px){ .hero-lock-btn{display:none;} }
 
 /* magnetic button */
@@ -458,6 +480,13 @@ section{position:relative;width:100%;}
 .mag-btn:hover span,.mag-btn:hover svg{color:var(--black);}
 .mag-btn svg{width:13px;height:13px;transition:transform .4s var(--ease), color .4s var(--ease);}
 .mag-btn:hover svg{transform:translate(3px,-3px);}
+
+/* solid variant — always fully visible against a busy photo, not just an
+   outline that can disappear depending on what's behind it */
+.mag-btn--solid{background:var(--gold);color:var(--black);box-shadow:0 10px 30px rgba(201,162,39,0.35);}
+.mag-btn--solid .mb-bg{background:var(--black);}
+.mag-btn--solid span,.mag-btn--solid svg{color:var(--black);}
+.mag-btn--solid:hover span,.mag-btn--solid:hover svg{color:var(--gold);}
 
 /* ============ ABOUT ============ */
 #about{
@@ -489,14 +518,14 @@ section{position:relative;width:100%;}
 }
 .about-accent{
   white-space:nowrap;
-  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #e4c968 50%, #a9781f 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
   color:transparent;-webkit-text-fill-color:transparent;
   animation:goldShimmer 7s ease-in-out infinite;
 }
-.about-copy em{font-style:italic;font-family:'Fraunces',serif;}
+.about-copy em{font-style:italic;font-family:'Instrument Serif',serif;}
 .about-copy p{
   font-size:16px;line-height:1.85;
   color:rgba(10,10,10,0.72);
@@ -561,7 +590,7 @@ section{position:relative;width:100%;}
   max-width:900px;margin:20px auto 0;
 }
 .culinary-head h2 em{
-  font-style:italic;font-family:'Fraunces',serif;font-weight:500;text-transform:none;
+  font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;text-transform:none;
   background:linear-gradient(100deg, #b5762c 0%, #e4a94f 25%, #f6d99a 50%, #d9863a 75%, #b5762c 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -600,7 +629,7 @@ section{position:relative;width:100%;}
 }
 .fan-card-index{
   position:absolute;top:16px;left:18px;z-index:2;
-  font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:13px;
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:13px;
   background:linear-gradient(100deg, #f6d99a 0%, #e4a94f 50%, #f6d99a 100%);
   background-size:200% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -637,10 +666,18 @@ section{position:relative;width:100%;}
 }
 .fan-dots button.is-active{background:var(--gold);}
 @media (max-width:860px){
-  .fan-wrap{height:auto;padding:20px 0 10px;}
-  .fan-card{position:relative;left:auto;bottom:auto;transform:none !important;
-    width:min(72vw,300px);aspect-ratio:3/4;height:auto;margin:0 auto 16px;display:none;}
-  .fan-card.is-active{display:block;}
+  .fan-wrap{
+    height:auto;margin-top:12px;padding:8px clamp(20px,8vw,56px) 10px;
+    display:flex;align-items:stretch;justify-content:flex-start;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;gap:16px;
+  }
+  .fan-wrap::-webkit-scrollbar{display:none;}
+  .fan-card{
+    position:relative;left:auto;bottom:auto;transform:none !important;
+    flex:0 0 auto;scroll-snap-align:center;
+    width:min(72vw,300px);aspect-ratio:3/4;height:auto;
+  }
   .fan-dots{display:flex;}
 }
 
@@ -684,7 +721,7 @@ section{position:relative;width:100%;}
   line-height:.95;
 }
 #rhythm h2 span{
-  display:block;font-style:italic;font-family:'Fraunces',serif;font-weight:500;
+  display:block;font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;
   text-transform:none;font-size:.5em;margin-top:14px;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
@@ -736,7 +773,7 @@ section{position:relative;width:100%;}
   margin-top:18px;max-width:1100px;
 }
 .perf-banner-top h2 em{
-  font-style:italic;font-family:'Fraunces',serif;font-weight:600;text-transform:none;
+  font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;text-transform:none;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -750,7 +787,7 @@ section{position:relative;width:100%;}
 }
 .perf-stat-row{display:flex;gap:clamp(28px,4vw,64px);flex-wrap:wrap;}
 .perf-stat-num{
-  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
   font-size:clamp(34px,4vw,52px);line-height:1;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
@@ -845,7 +882,7 @@ section{position:relative;width:100%;}
   display:inline-flex;align-items:center;gap:12px;margin-top:32px;
   padding:14px 24px;border-radius:40px;
   background:rgba(10,10,10,0.9);color:var(--gold-soft);
-  font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:18px;
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:18px;
   transition:background .3s ease, transform .3s ease;
 }
 .song-title-tag:hover{background:var(--black);transform:translateY(-2px);}
@@ -894,7 +931,7 @@ section{position:relative;width:100%;}
 .t-item p{font-size:15px;line-height:1.75;color:rgba(242,239,233,0.62);max-width:640px;}
 .t-stat{
   display:inline-flex;align-items:baseline;gap:8px;margin-top:16px;
-  font-family:'Fraunces',serif;
+  font-family:'Instrument Serif',serif;
 }
 .t-stat .num{
   font-size:38px;font-weight:900;
@@ -910,7 +947,7 @@ section{position:relative;width:100%;}
 #shows{background:var(--black);padding:130px 0;}
 #shows h2{
   font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
-  font-size:clamp(30px,4.4vw,56px);margin-top:18px;max-width:700px;
+  font-size:clamp(22px,3.6vw,56px);margin-top:18px;white-space:nowrap;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -921,6 +958,7 @@ section{position:relative;width:100%;}
   margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
 }
 @media (max-width:760px){ .show-grid{grid-template-columns:1fr;} }
+@media (max-width:520px){ #shows h2{white-space:normal;font-size:clamp(26px,7.4vw,40px);} }
 .show-card{
   position:relative;border-radius:14px;overflow:hidden;cursor:pointer;
   background:var(--black-2);border:1px solid var(--line);
@@ -1150,7 +1188,7 @@ section{position:relative;width:100%;}
   font-size:clamp(40px,7.5vw,120px);line-height:.98;
 }
 #contact h2 em{
-  font-style:italic;font-family:'Fraunces',serif;font-weight:500;text-transform:none;
+  font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;text-transform:none;
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -1194,9 +1232,9 @@ footer{
 
 /* ---------- mobile hero override ---------- */
 @media (max-width:860px){
-  #hero h1 .w-sans, #hero h1 .w-serif{font-size:clamp(38px,12vw,58px);}
-  #hero .hero-content{padding-bottom:40px;}
-  .scroll-cue{bottom:16px;}
+  #hero h1 .w-sans, #hero h1 .w-serif{font-size:clamp(42px,13.5vw,66px);}
+  #hero .hero-content{padding-bottom:78px;}
+  .scroll-cue{display:none;}
   .about-grid{gap:40px;}
   .role-row .role-name{font-size:22px;}
 }
@@ -1209,6 +1247,41 @@ footer{
 /* focus visibility */
 a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 </style>
+<script>
+// Absolute safety net, independent of GSAP/Lenis/main.js entirely — if any
+// vendor script fails to load (flaky connection, CDN hiccup) the normal
+// preloader logic in main.js never even runs, since it depends on gsap
+// being defined. Without this, a visitor would be stuck on a black screen
+// with a stalled progress bar forever. This plain-JS timer guarantees the
+// page becomes visible no matter what else on the page succeeds or fails.
+// The scroll/fluid-canvas breakage after visiting another page and hitting
+// Back is the browser's "back/forward cache" (bfcache): Chrome freezes the
+// whole page — including Lenis's rAF loop and the WebGL fluid sim — and
+// restores that frozen snapshot instead of re-running everything cleanly.
+// A hard refresh works because it skips the cache entirely. Forcing a real
+// reload on a bfcache restore gives every visit that same clean state.
+window.addEventListener('pageshow', function(e){
+  if(e.persisted){ location.reload(); }
+});
+
+(function(){
+  setTimeout(function(){
+    var p = document.getElementById('preloader');
+    if(p && getComputedStyle(p).display !== 'none'){
+      p.style.transition = 'opacity .4s ease';
+      p.style.opacity = '0';
+      setTimeout(function(){ p.style.display = 'none'; }, 420);
+      document.body.style.overflow = '';
+      // also try to actually start the site's interactivity, not just
+      // hide the loading screen — main.js's own normal path calls this
+      // itself, but if THAT path is what stalled, this is the backstop
+      if(typeof initSite === 'function'){
+        try{ initSite(); }catch(e){}
+      }
+    }
+  }, 9000);
+})();
+</script>
 </head>
 <body>
 
@@ -1243,12 +1316,14 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
   <div class="menu-overlay-inner" data-lenis-prevent>
     <nav class="menu-list">
       <a href="#about" class="menu-item"><span class="menu-num">01</span><span class="menu-word">About</span></a>
-      <a href="#culinary" class="menu-item"><span class="menu-num">02</span><span class="menu-word">Culinary</span></a>
-      <a href="#performance" class="menu-item"><span class="menu-num">03</span><span class="menu-word">Music</span></a>
-      <a href="#career" class="menu-item"><span class="menu-num">04</span><span class="menu-word">Media</span></a>
-      <a href="#gallery" class="menu-item"><span class="menu-num">05</span><span class="menu-word">Gallery</span></a>
-      <a href="restaurant.html" class="menu-item"><span class="menu-num">06</span><span class="menu-word">Restaurant</span></a>
-      <a href="#contact" class="menu-item"><span class="menu-num">07</span><span class="menu-word">Contact</span></a>
+      <a href="#shows" class="menu-item"><span class="menu-num">02</span><span class="menu-word">On Screen</span></a>
+      <a href="#culinary" class="menu-item"><span class="menu-num">03</span><span class="menu-word">Culinary</span></a>
+      <a href="#performance" class="menu-item"><span class="menu-num">04</span><span class="menu-word">Music</span></a>
+      <a href="#career" class="menu-item"><span class="menu-num">05</span><span class="menu-word">Media</span></a>
+      <a href="#gallery" class="menu-item"><span class="menu-num">06</span><span class="menu-word">Gallery</span></a>
+      <a href="restaurant.html" class="menu-item"><span class="menu-num">07</span><span class="menu-word">Restaurant</span></a>
+      <a href="booking.html" class="menu-item"><span class="menu-num">08</span><span class="menu-word">Book Don</span></a>
+      <a href="#contact" class="menu-item"><span class="menu-num">09</span><span class="menu-word">Contact</span></a>
     </nav>
     <div class="menu-side">
       <div class="menu-side-label">Follow</div>
@@ -1275,9 +1350,9 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
       <span class="line"><span class="w-sans">The</span> <span class="w-serif">Singing</span></span>
       <span class="line"><span class="w-sans">Chef</span></span>
     </h1>
-    <p class="hero-sub">Thirty-three years across the stove and the stage — food, music, and performance, told as one story.</p>
-    <div class="hero-meta">
-      <a href="#about" class="mag-btn"><span>Enter His World</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="hero-sub">Thirty-eight-plus years across the stove and the stage —<br>food, music, and performance, told as one story.</p>
+    <div class="hero-cta">
+      <a href="booking.html" class="mag-btn mag-btn--solid"><span>Book Don For Your Event</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><span class="cue-line"></span></div>
@@ -1300,16 +1375,16 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
       </div>
       <div class="about-copy">
         <h2 class="reveal-up">Known around the world as <span class="about-accent">'The Singing Chef.'</span></h2>
-        <p class="reveal-up">Don is renowned in his home country of Sri Lanka and around the world for a vibrant, unique style of presentation paired with dynamic culinary skill. Over 33 years, he's worked as a chef, TV personality, and restaurant owner — travelling the world to perform in food events, demonstrations, and shows.</p>
+        <p class="reveal-up">Don is renowned in his home country of Sri Lanka and around the world for a vibrant, unique style of presentation paired with dynamic culinary skill. Over 38 years, he's worked as a chef, TV personality, and restaurant owner — travelling the world to perform in food events, demonstrations, and shows.</p>
         <p class="reveal-up">His main-stream television cooking show, <em>"Cook with Don,"</em> brought joy into Sri Lankan households for ten years. He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
         <p class="reveal-up">Don writes and performs his own music, featured on his YouTube channel, and is passionate about fusing Eastern and Western flavours — innovations that have inspired popular cooking-song videos online. Today, alongside his performance work, Don serves as a Certificate III Trainer at a Registered Training Organisation.</p>
 
         <div class="role-list">
           <div class="role-row" data-role>
-            <div class="role-row-top"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="33">0</span>+ YRS</span></div>
+            <div class="role-row-top"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="38">0</span>+ YRS</span></div>
             <div class="role-expand"><div class="role-expand-inner">
               <img src="images/acf-plates.webp" alt="Don Sherman, Chef">
-              <p>Thirty-three years perfecting Sri Lankan and international cuisine, from fine dining to television.</p>
+              <p>Thirty-eight-plus years perfecting Sri Lankan and international cuisine, from fine dining to television.</p>
             </div></div>
           </div>
           <div class="role-row" data-role>
@@ -1333,6 +1408,64 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
               <p>A decade on air with Cook With Don, plus FreshX — bringing his personality into Sri Lankan homes.</p>
             </div></div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TV SHOWS ================= -->
+<section id="shows">
+  <div class="wrap">
+    <div class="eyebrow split"><span class="line">On Screen</span></div>
+    <h2 class="reveal-up">Two shows, still on air.</h2>
+
+    <div class="show-grid">
+      <div class="show-card reveal-up" data-show
+        data-name="FreshX"
+        data-channels="Rupavahini Channel · YouTube"
+        data-schedule="Every Tuesday, 9:30 PM — Rupavahini"
+        data-desc="Currently airing on Rupavahini Channel, with full episodes also available on YouTube — a fresh weekly take on flavour, presentation, and performance."
+        data-img1="images/freshx-cover.png"
+        data-img2="images/freshx-gallery-1.png"
+        data-img3="images/freshx-gallery-2.png"
+        data-img4="images/freshx-gallery-3.png"
+        data-img5="images/freshx-gallery-4.png"
+        data-link1-label="Watch on YouTube"
+        data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
+        <div class="show-card-photo">
+          <img src="images/freshx-cover.png" alt="FreshX TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>FreshX</h3>
+          <span class="show-card-channels">Rupavahini Channel · YouTube</span>
+        </div>
+      </div>
+
+      <div class="show-card reveal-up" data-show
+        data-name="Cook With Don"
+        data-channels="ITN TV · YouTube · Facebook"
+        data-schedule="Every Sunday, 11:00 AM — ITN"
+        data-desc="Don's main-stream television cooking show, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
+        data-img1="images/cook-with-don-cover.png"
+        data-img2="images/cook-with-don-gallery-1.png"
+        data-img3="images/cook-with-don-gallery-2.png"
+        data-link1-label="YouTube"
+        data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
+        data-link2-label="Facebook"
+        data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
+        <div class="show-card-photo">
+          <img src="images/cook-with-don-cover.png" alt="Cook With Don TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>Cook With Don</h3>
+          <span class="show-card-channels">ITN TV · YouTube · Facebook</span>
         </div>
       </div>
     </div>
@@ -1364,7 +1497,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
     <div class="perf-banner">
       <div class="perf-banner-bg">
         <picture>
-          <source media="(max-width: 760px)" srcset="images/onstage-banner-mobile.jpg">
+          <source media="(max-width: 760px)" srcset="images/onstage-banner-mobile.jpeg">
           <img src="images/onstage-banner-desktop.jpg" alt="Don Sherman performing live on stage">
         </picture>
       </div>
@@ -1380,7 +1513,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
             <div class="perf-stat-label">Languages — EN · SI · HI</div>
           </div>
           <div class="reveal-up">
-            <div class="perf-stat-num">33+</div>
+            <div class="perf-stat-num">38+</div>
             <div class="perf-stat-label">Years Performing Live</div>
           </div>
           <div class="reveal-up">
@@ -1388,7 +1521,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
             <div class="perf-stat-label">Weddings, Galas &amp; Private Shows</div>
           </div>
         </div>
-        <a href="#contact" class="perf-book-btn reveal-up">
+        <a href="booking.html" class="perf-book-btn reveal-up">
           <span>Book Don For Your Event</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -1463,12 +1596,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
         <p>Writes and performs his own music — including the single "Gumuka Chupa" — reaching audiences through his YouTube channel alongside his cooking content.</p>
       </div>
 
-      <div class="t-item">
-        <div class="t-dot"></div>
-        <div class="t-eyebrow">Today</div>
-        <h4>Certificate III Trainer</h4>
-        <p>Currently shares his craft as a Certificate III Trainer within a Registered Training Organisation (RTO), shaping the next generation of chefs.</p>
-      </div>
       </div>
 
       <div class="career-media">
@@ -1476,64 +1603,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
         <div class="career-media-row">
           <div class="reveal-up"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"></div>
           <div class="reveal-up"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish on set" loading="lazy"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TV SHOWS ================= -->
-<section id="shows">
-  <div class="wrap">
-    <div class="eyebrow split"><span class="line">On Screen</span></div>
-    <h2 class="reveal-up">Two shows, still on air.</h2>
-
-    <div class="show-grid">
-      <div class="show-card reveal-up" data-show
-        data-name="FreshX"
-        data-channels="Rupavahini Channel · YouTube"
-        data-schedule="Every Tuesday, 9:30 PM — Rupavahini"
-        data-desc="Currently airing on Rupavahini Channel, with full episodes also available on YouTube — a fresh weekly take on flavour, presentation, and performance."
-        data-img1="images/freshx-cover.png"
-        data-img2="images/freshx-gallery-1.png"
-        data-img3="images/freshx-gallery-2.png"
-        data-img4="images/freshx-gallery-3.png"
-        data-img5="images/freshx-gallery-4.png"
-        data-link1-label="Watch on YouTube"
-        data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
-        <div class="show-card-photo">
-          <img src="images/freshx-cover.png" alt="FreshX TV show" onerror="this.style.opacity=0">
-          <span class="show-card-play">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-        </div>
-        <div class="show-card-info">
-          <h3>FreshX</h3>
-          <span class="show-card-channels">Rupavahini Channel · YouTube</span>
-        </div>
-      </div>
-
-      <div class="show-card reveal-up" data-show
-        data-name="Cook With Don"
-        data-channels="ITN TV · YouTube · Facebook"
-        data-schedule="Every Sunday, 11:00 AM — ITN"
-        data-desc="Don's main-stream television cooking show, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
-        data-img1="images/cook-with-don-cover.png"
-        data-img2="images/cook-with-don-gallery-1.png"
-        data-img3="images/cook-with-don-gallery-2.png"
-        data-link1-label="YouTube"
-        data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
-        data-link2-label="Facebook"
-        data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
-        <div class="show-card-photo">
-          <img src="images/cook-with-don-cover.png" alt="Cook With Don TV show" onerror="this.style.opacity=0">
-          <span class="show-card-play">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-        </div>
-        <div class="show-card-info">
-          <h3>Cook With Don</h3>
-          <span class="show-card-channels">ITN TV · YouTube · Facebook</span>
         </div>
       </div>
     </div>
@@ -1642,6 +1711,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/three.min.js"></script>
 <script src="fluid-sim.js?v=6"></script>
-<script src="main.js?v=6"></script>
+<script src="main.js?v=8"></script>
 </body>
 </html>
