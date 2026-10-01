@@ -1223,12 +1223,13 @@ footer{
 }
 .footer-credit{
   display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.4);
-  transition:color .3s ease;
+  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
+  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
+  transition:border-color .3s ease, background .3s ease, transform .3s ease;
 }
-.footer-credit span{color:rgba(242,239,233,0.65);font-weight:600;}
-.footer-credit:hover{color:var(--gold);}
-.footer-credit:hover span{color:var(--gold);}
+.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
+.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
+.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
 
 /* ---------- mobile hero override ---------- */
 @media (max-width:860px){
@@ -1426,15 +1427,15 @@ window.addEventListener('pageshow', function(e){
         data-channels="Rupavahini Channel · YouTube"
         data-schedule="Every Tuesday, 9:30 PM — Rupavahini"
         data-desc="Currently airing on Rupavahini Channel, with full episodes also available on YouTube — a fresh weekly take on flavour, presentation, and performance."
-        data-img1="images/freshx-cover.png"
-        data-img2="images/freshx-gallery-1.png"
-        data-img3="images/freshx-gallery-2.png"
-        data-img4="images/freshx-gallery-3.png"
-        data-img5="images/freshx-gallery-4.png"
+        data-img1="images/freshx-cover.webp"
+        data-img2="images/freshx-gallery-1.webp"
+        data-img3="images/freshx-gallery-2.webp"
+        data-img4="images/freshx-gallery-3.webp"
+        data-img5="images/freshx-gallery-4.webp"
         data-link1-label="Watch on YouTube"
         data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
         <div class="show-card-photo">
-          <img src="images/freshx-cover.png" alt="FreshX TV show" onerror="this.style.opacity=0">
+          <img src="images/freshx-cover.webp" alt="FreshX TV show" onerror="this.style.opacity=0">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1450,7 +1451,7 @@ window.addEventListener('pageshow', function(e){
         data-channels="ITN TV · YouTube · Facebook"
         data-schedule="Every Sunday, 11:00 AM — ITN"
         data-desc="Don's main-stream television cooking show, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
-        data-img1="images/cook-with-don-cover.png"
+        data-img1="images/cook-with-don-cover.webp"
         data-img2="images/cook-with-don-gallery-1.png"
         data-img3="images/cook-with-don-gallery-2.png"
         data-link1-label="YouTube"
@@ -1458,7 +1459,7 @@ window.addEventListener('pageshow', function(e){
         data-link2-label="Facebook"
         data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
         <div class="show-card-photo">
-          <img src="images/cook-with-don-cover.png" alt="Cook With Don TV show" onerror="this.style.opacity=0">
+          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1498,7 +1499,7 @@ window.addEventListener('pageshow', function(e){
       <div class="perf-banner-bg">
         <picture>
           <source media="(max-width: 760px)" srcset="images/onstage-banner-mobile.jpeg">
-          <img src="images/onstage-banner-desktop.jpg" alt="Don Sherman performing live on stage">
+          <img src="images/onstage-banner-desktop.webp" alt="Don Sherman performing live on stage">
         </picture>
       </div>
       <div class="perf-banner-scrim"></div>
@@ -1530,10 +1531,10 @@ window.addEventListener('pageshow', function(e){
 
     <div class="wrap perf-moments">
       <div class="perf-moments-track">
-        <div class="perf-moment"><img src="images/onstage-moment-1.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-2.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-3.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-4.jpg" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-1.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
       </div>
     </div>
   </div>
@@ -1711,6 +1712,6 @@ window.addEventListener('pageshow', function(e){
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/three.min.js"></script>
 <script src="fluid-sim.js?v=6"></script>
-<script src="main.js?v=8"></script>
+<script src="main.js?v=9"></script>
 </body>
 </html>

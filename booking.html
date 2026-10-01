@@ -248,9 +248,15 @@ footer{padding:60px 0 40px;border-top:1px solid var(--line);}
 .footer-social a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:rgba(242,239,233,0.6);}
 .footer-social a:hover{color:var(--gold);}
 .footer-bottom{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;}
-.footer-credit{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:rgba(242,239,233,0.4);transition:color .3s ease;}
-.footer-credit span{color:rgba(242,239,233,0.65);font-weight:600;}
-.footer-credit:hover, .footer-credit:hover span{color:var(--gold);}
+.footer-credit{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
+  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
+  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+}
+.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
+.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
+.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
 </style>
 </head>
 <body>
@@ -498,7 +504,7 @@ gsap.from('.b-panel', {y:36, opacity:0, duration:1, stagger:.1, ease:'power3.out
 
 // TODO: swap in Don's real WhatsApp number before this goes live —
 // digits only, country code first, no + / spaces / dashes.
-const DON_WHATSAPP_NUMBER = '94771234567';
+const DON_WHATSAPP_NUMBER = '94777362060';
 
 const COUNTRIES = ['Afghanistan','Albania','Algeria','Andorra','Angola','Argentina','Armenia','Australia','Austria','Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia and Herzegovina','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cambodia','Cameroon','Canada','Chad','Chile','China','Colombia','Congo','Costa Rica','Croatia','Cuba','Cyprus','Czechia','Denmark','Djibouti','Dominican Republic','Ecuador','Egypt','El Salvador','Estonia','Eswatini','Ethiopia','Fiji','Finland','France','Gabon','Gambia','Georgia','Germany','Ghana','Greece','Guatemala','Guinea','Guyana','Haiti','Honduras','Hong Kong','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Ivory Coast','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Mauritius','Mexico','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar','Namibia','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Korea','North Macedonia','Norway','Oman','Pakistan','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saudi Arabia','Senegal','Serbia','Seychelles','Singapore','Slovakia','Slovenia','Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Sweden','Switzerland','Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'];
 

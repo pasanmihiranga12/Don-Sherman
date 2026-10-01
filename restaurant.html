@@ -461,10 +461,15 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
   margin-top:34px;padding-top:20px;border-top:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;
 }
-.footer-credit{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:rgba(242,239,233,0.4);transition:color .3s ease;}
-.footer-credit span{color:rgba(242,239,233,0.65);font-weight:600;}
-.footer-credit:hover{color:var(--gold);}
-.footer-credit:hover span{color:var(--gold);}
+.footer-credit{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
+  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
+  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+}
+.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
+.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
+.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
 
 /* ---------- WhatsApp floating button ---------- */
 .whatsapp-fab{
@@ -1062,7 +1067,7 @@ function heroIntro(){
   }
 
   // WhatsApp floating button — general enquiry, pre-filled and ready to send
-  const SINGIN_CHEF_WHATSAPP_NUMBER = '94771234567'; // TODO: replace with the restaurant's real WhatsApp number
+  const SINGIN_CHEF_WHATSAPP_NUMBER = '94768333332';
   const fab = document.getElementById('whatsappFab');
   if(fab){
     const msg = encodeURIComponent("Hi! I'd like to know more about Singin' Chef Restaurant.");

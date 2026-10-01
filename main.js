@@ -18,6 +18,11 @@ let progress = 0;
 const images = Array.from(document.images);
 const totalAssets = Math.max(images.length, 1);
 let loaded = 0;
+// declared up front — bumpProgress() below can call finishPreload()
+// synchronously (an already-cached image's .complete is true immediately,
+// e.g. right after navigating back from another page), so this must
+// exist before that forEach loop runs, not after it
+let preloadDone = false;
 
 // logo fades/scales in cleanly as loading progresses — no wipe/mask,
 // so there's never a half-cut broken-looking frame
@@ -64,7 +69,6 @@ setTimeout(()=>{ if(loaded < totalAssets && heroImgReady){ finishPreload(); } },
 // in case gsap/lenis themselves failed to load.)
 setTimeout(()=>{ finishPreload(); }, 6500);
 
-let preloadDone = false;
 function finishPreload(){
   if(preloadDone) return;
   preloadDone = true;
