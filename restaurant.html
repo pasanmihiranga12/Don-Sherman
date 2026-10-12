@@ -98,22 +98,35 @@ header#site-nav{
   .nav-logo-group .nav-logo-institute{display:none;}
   .nav-logo-group .nav-logo-divider:last-of-type{display:none;}
 }
-.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .nav-pill{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--gold);color:var(--black);
   padding:11px 22px;border-radius:30px;
   font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
   font-family:'Inter',sans-serif;
+  white-space:nowrap;flex-shrink:0;
 }
-.nav-pill svg{width:13px;height:13px;}
+.nav-pill svg{width:13px;height:13px;flex-shrink:0;}
 .nav-back{
   display:inline-flex;align-items:center;gap:8px;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
   color:var(--cream-dim);
+  white-space:nowrap;flex-shrink:0;
 }
-.nav-back svg{width:14px;height:14px;}
+.nav-back svg{width:14px;height:14px;flex-shrink:0;}
 .nav-back:hover{color:var(--gold);}
+@media (max-width:640px){
+  .nav-right{gap:8px;}
+  .nav-pill{padding:8px 14px;font-size:9.5px;gap:5px;}
+  .nav-pill svg{width:11px;height:11px;}
+  .nav-back{font-size:9.5px;gap:5px;}
+  .nav-back svg{width:12px;height:12px;}
+}
+@media (max-width:400px){
+  .nav-pill{padding:7px 11px;font-size:8.5px;}
+  .nav-back span{display:none;}
+}
 
 /* ---------- hero ---------- */
 #r-hero{
@@ -620,7 +633,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     <a href="https://doninstitute.lk/" target="_blank" rel="noopener" class="nav-logo" aria-label="Don Sherman Institute"><img src="images/don-sherman-institute-logo.png" alt="Don Sherman Institute" class="nav-logo-img nav-logo-institute"></a>
   </div>
   <div class="nav-right">
-    <a href="index.html" class="nav-back">
+    <a href="index.html" class="nav-back" aria-label="Don's Story">
       <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>Don's Story</span>
     </a>
@@ -672,12 +685,12 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     </button>
     <div class="pick-track" id="pickTrack">
       <div class="pick-spacer"></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-chef-noodles.jpg" alt="Special Singing Chef Noodles" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-rice.jpg" alt="Special Singing Rice" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-seafood-platter.jpg" alt="Singin Chef Special Seafood Platter"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omellette"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/pepper-mutton-stew.jpg" alt="Pepper Mutton Stew"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/hot-butter-cuttle-fish.jpg" alt="Hot Butter Cuttle Fish"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-chef-noodles.jpg" alt="Special Singing Chef Noodles" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-rice.jpg" alt="Special Singing Rice" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-seafood-platter.jpg" alt="Singin Chef Special Seafood Platter" loading="lazy" decoding="async"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omellette" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/pepper-mutton-stew.jpg" alt="Pepper Mutton Stew" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/hot-butter-cuttle-fish.jpg" alt="Hot Butter Cuttle Fish" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div></div>
       <div class="pick-spacer"></div>
     </div>
     <button class="pick-nav-btn pick-nav-btn--next" id="pickNext" aria-label="Next dish">
@@ -722,47 +735,47 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     <h2 class="reveal-up">The room, the pass, the plates.</h2>
     <div class="r-gallery-grid">
       <div class="r-g-item port-tall" data-lightbox="images/restaurant-gallery1.webp">
-        <img src="images/restaurant-gallery1.webp" alt="restaurent-gallery1">
+        <img src="images/restaurant-gallery1.webp" alt="restaurent-gallery1" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">The Kitchen Pass</span></div>
       </div>
       <div class="r-g-item port-hero" data-lightbox="images/restaurant-gallery2.webp">
-        <img src="images/restaurant-gallery2.webp" alt="restaurent-gallery2">
+        <img src="images/restaurant-gallery2.webp" alt="restaurent-gallery2" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Culinary Art</span></div>
       </div>
       <div class="r-g-item port-mid" data-lightbox="images/restaurant-gallery3.webp">
-        <img src="images/restaurant-gallery3.webp" alt="restaurent-gallery3">
+        <img src="images/restaurant-gallery3.webp" alt="restaurent-gallery3" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Signature Plate</span></div>
       </div>
       <div class="r-g-item port-slim" data-lightbox="images/restaurant-gallery4.webp">
-        <img src="images/restaurant-gallery4.webp" alt="restaurent-gallery4">
+        <img src="images/restaurant-gallery4.webp" alt="restaurent-gallery4" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Gourmet Entree</span></div>
       </div>
       <div class="r-g-item port-accent" data-lightbox="images/restaurant-gallery5.webp">
-        <img src="images/restaurant-gallery5.webp" alt="restaurent-gallery5">
+        <img src="images/restaurant-gallery5.webp" alt="restaurent-gallery5" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Chef Don Sherman</span></div>
       </div>
       <div class="r-g-item port-slim" data-lightbox="images/restaurant-gallery6.webp">
-        <img src="images/restaurant-gallery6.webp" alt="restaurent-gallery6">
+        <img src="images/restaurant-gallery6.webp" alt="restaurent-gallery6" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Flavour & Aroma</span></div>
       </div>
       <div class="r-g-item port-mid" data-lightbox="images/restaurant-gallery7.webp">
-        <img src="images/restaurant-gallery7.webp" alt="restaurent-gallery7">
+        <img src="images/restaurant-gallery7.webp" alt="restaurent-gallery7" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">The Grand Feast</span></div>
       </div>
       <div class="r-g-item port-hero" data-lightbox="images/restaurant-gallery8.webp">
-        <img src="images/restaurant-gallery8.webp" alt="restaurent-gallery8">
+        <img src="images/restaurant-gallery8.webp" alt="restaurent-gallery8" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Signature Roast</span></div>
       </div>
       <div class="r-g-item port-tall" data-lightbox="images/restaurant-gallery9.webp">
-        <img src="images/restaurant-gallery9.webp" alt="restaurent-gallery9">
+        <img src="images/restaurant-gallery9.webp" alt="restaurent-gallery9" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag">Fine Plating</span></div>
       </div>

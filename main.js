@@ -433,6 +433,22 @@ function initHeroFluid(){
   resize();
   window.addEventListener('resize', resize);
 
+  // The WebGL sim is expensive (continuous GPU work every frame). Left
+  // running unconditionally it keeps burning battery/CPU on phones long
+  // after the hero has scrolled out of view, or while the tab is in the
+  // background — a major source of the "glitchy" feel elsewhere on the
+  // page. Gate the per-frame step() on the hero actually being visible.
+  let heroInView = true;
+  if('IntersectionObserver' in window){
+    const heroIO = new IntersectionObserver((entries)=>{
+      heroInView = entries[0] && entries[0].isIntersecting;
+    }, {threshold:0});
+    heroIO.observe(stage);
+  }
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden) lastMoveTime = performance.now();
+  });
+
   let lastX = 0.5, lastY = 0.42, lastMoveTime = performance.now();
   let idleAngle = Math.random()*10;
   let lastIdleSplat = 0;
@@ -468,6 +484,11 @@ function initHeroFluid(){
   let readyShown = false;
   let lastHardClear = performance.now();
   gsap.ticker.add(()=>{
+    // skip all sim work while the hero is off-screen or the tab is
+    // backgrounded — nothing visible depends on it, so there's no reason
+    // to keep the GPU busy every frame
+    if(!heroInView || document.hidden) return;
+
     const now = performance.now();
     const rect = stage.getBoundingClientRect();
     const aspect = rect.width / (rect.height || 1);
@@ -1200,7 +1221,10 @@ function initSite(){
   initMenuOverlay();
   heroIntro();
   initHeroFluid();
-  if(!prefersReduced){ heroScrollFade(); }
+  // On touch devices this scrub-linked fade could get out of sync with
+  // scroll position (e.g. after a slow asset load mid-scroll) and never
+  // catch back up to the right spot on the way back up — skip it there.
+  if(!prefersReduced && !isTouch){ heroScrollFade(); }
 
   ScrollTrigger.refresh();
   sweepVisibleElements();

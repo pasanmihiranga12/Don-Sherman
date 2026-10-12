@@ -211,15 +211,16 @@ header#site-nav.menu-is-open .nav-pill{
   .nav-logo-group img:not(.nav-logo-personal){height:18px;}
   .nav-logo-divider{height:16px;}
 }
-.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .nav-pill{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--gold);color:var(--black);
   padding:11px 22px;border-radius:30px;
   font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
   font-family:'Inter',sans-serif;
+  white-space:nowrap;flex-shrink:0;
 }
-.nav-pill svg{width:13px;height:13px;}
+.nav-pill svg{width:13px;height:13px;flex-shrink:0;}
 .nav-circle{
   width:44px;height:44px;border-radius:50%;
   border:1px solid rgba(242,239,233,0.35);
@@ -233,6 +234,15 @@ header#site-nav.menu-is-open .nav-pill{
   z-index:1100;
 }
 .nav-circle svg{width:15px;height:15px;position:absolute;transition:opacity .3s ease, transform .3s ease;}
+@media (max-width:640px){
+  .nav-right{gap:8px;}
+  .nav-pill{padding:8px 14px;font-size:9.5px;gap:5px;}
+  .nav-pill svg{width:11px;height:11px;}
+  .nav-circle{width:36px;height:36px;}
+}
+@media (max-width:400px){
+  .nav-pill{padding:7px 11px;font-size:8.5px;}
+}
 .nav-circle .icon-close{opacity:0;transform:rotate(-45deg);}
 .nav-circle.is-open .icon-burger{opacity:0;transform:rotate(45deg);}
 .nav-circle.is-open .icon-close{opacity:1;transform:rotate(0deg);}
@@ -1458,7 +1468,7 @@ window.addEventListener('pageshow', function(e){
     </h1>
     <p class="hero-sub">Thirty-eight-plus years across the stove and the stage —<br>food, music, and performance, told as one story.</p>
     <div class="hero-cta">
-      <a href="booking.html" class="mag-btn mag-btn--solid"><span>Book Don For Your Event</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="booking.html" class="mag-btn mag-btn--solid"><span>Book an Event</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><span class="cue-line"></span></div>
@@ -1477,7 +1487,7 @@ window.addEventListener('pageshow', function(e){
     <div class="eyebrow split"><span class="line">His Story</span></div>
     <div class="about-grid">
       <div class="about-portrait" data-parallax-img>
-        <img src="images/acf-plates.webp" alt="Don Sherman presenting plated dishes as an Australian Culinary Federation chef">
+        <img src="images/acf-plates.webp" alt="Don Sherman presenting plated dishes as an Australian Culinary Federation chef"" loading="lazy" decoding="async">
       </div>
       <div class="about-copy">
         <h2 class="reveal-up">Known around the world as <span class="about-accent">'The Singing Chef.'</span></h2>
@@ -1489,28 +1499,28 @@ window.addEventListener('pageshow', function(e){
           <div class="role-row" data-role>
             <div class="role-row-top"><span class="role-name">Chef</span></div>
             <div class="role-expand"><div class="role-expand-inner">
-              <img src="images/acf-plates.webp" alt="Don Sherman, Chef">
+              <img src="images/acf-plates.webp" alt="Don Sherman, Chef"" loading="lazy" decoding="async">
               <p>Thirty-eight-plus years perfecting Sri Lankan and international cuisine, from fine dining to television.</p>
             </div></div>
           </div>
           <div class="role-row" data-role>
             <div class="role-row-top"><span class="role-name">Singer</span><span class="role-num">EN · SI · HI</span></div>
             <div class="role-expand"><div class="role-expand-inner">
-              <img src="images/stage-red-clean.webp" alt="Don Sherman, Singer">
+              <img src="images/stage-red-clean.webp" alt="Don Sherman, Singer"" loading="lazy" decoding="async">
               <p>Performing live in English, Sinhala, and Hindi — songwriting and singing alongside the stove.</p>
             </div></div>
           </div>
           <div class="role-row" data-role>
             <div class="role-row-top"><span class="role-name">Entertainer</span><span class="role-num">HOST / MC</span></div>
             <div class="role-expand"><div class="role-expand-inner">
-              <img src="images/mc-birthday.webp" alt="Don Sherman, Entertainer">
+              <img src="images/mc-birthday.webp" alt="Don Sherman, Entertainer"" loading="lazy" decoding="async">
               <p>Hosting and MCing events with the same showmanship he brings to the kitchen.</p>
             </div></div>
           </div>
           <div class="role-row" data-role>
             <div class="role-row-top"><span class="role-name">TV Personality</span></div>
             <div class="role-expand"><div class="role-expand-inner">
-              <img src="images/tvpersonality.png" alt="Don Sherman, TV Personality">
+              <img src="images/tvpersonality.webp" alt="Don Sherman, TV Personality" loading="lazy" decoding="async">
               <p>Over two decades (24 years) on air with Cook With Don, alongside Goldi Taste of Rhythm and FreshX — bringing his personality into Sri Lankan homes.</p>
             </div></div>
           </div>
@@ -1533,14 +1543,14 @@ window.addEventListener('pageshow', function(e){
         data-schedule="Every Sunday, 11:00 AM — ITN"
         data-desc="Don's mainstream television cooking show, spanning 24 years on air, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
         data-img1="images/cook-with-don-cover.webp"
-        data-img2="images/cook-with-don-gallery-1.png"
-        data-img3="images/cook-with-don-gallery-2.png"
+        data-img2="images/cook-with-don-gallery-1.webp"
+        data-img3="images/cook-with-don-gallery-2.webp"
         data-link1-label="YouTube"
         data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
         data-link2-label="Facebook"
         data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
         <div class="show-card-photo">
-          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0">
+          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1563,7 +1573,7 @@ window.addEventListener('pageshow', function(e){
         data-link1-label="Swarnawahini TV"
         data-link1-href="https://swarnavahini.lk/">
         <div class="show-card-photo">
-          <img src="images/goldi-taste-of-rhythm-cover.webp" alt="Goldi Taste of Rhythm TV show" onerror="this.style.opacity=0">
+          <img src="images/goldi-taste-of-rhythm-cover.webp" alt="Goldi Taste of Rhythm TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1587,7 +1597,7 @@ window.addEventListener('pageshow', function(e){
         data-link1-label="Watch on YouTube"
         data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
         <div class="show-card-photo">
-          <img src="images/freshx-cover.webp" alt="FreshX TV show" onerror="this.style.opacity=0">
+          <img src="images/freshx-cover.webp" alt="FreshX TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1609,12 +1619,12 @@ window.addEventListener('pageshow', function(e){
   </div>
 
   <div class="fan-wrap" id="fanWrap">
-    <div class="fan-card" data-i="0"><img src="images/duck-mash.webp" alt="Seared duck with mash, asparagus and glazed carrot"><div class="fan-card-scrim"></div><span class="fan-card-index">01</span><span class="fan-card-tag">Plated Fine Dining</span></div>
-    <div class="fan-card" data-i="1"><img src="images/duck-pesto.webp" alt="Sliced duck breast with pesto and heirloom tomato"><div class="fan-card-scrim"></div><span class="fan-card-index">02</span><span class="fan-card-tag">Signature Plating</span></div>
-    <div class="fan-card" data-i="2"><img src="images/campaign-apron.webp" alt="Don Sherman at the Nature's Pearls Legumes from Europe campaign"><div class="fan-card-scrim"></div><span class="fan-card-index">03</span><span class="fan-card-tag">Brand Campaign</span></div>
-    <div class="fan-card" data-i="3"><img src="images/food-spread.webp" alt="Editorial spread of plated dishes"><div class="fan-card-scrim"></div><span class="fan-card-index">04</span><span class="fan-card-tag">Editorial Spread</span></div>
-    <div class="fan-card" data-i="4"><img src="images/chicken-vert.webp" alt="Roasted chicken carved tableside"><div class="fan-card-scrim"></div><span class="fan-card-index">05</span><span class="fan-card-tag">Tableside Service</span></div>
-    <div class="fan-card" data-i="5"><img src="images/noodles-thumbsup.webp" alt="Don Sherman approving a finished noodle dish"><div class="fan-card-scrim"></div><span class="fan-card-index">06</span><span class="fan-card-tag">Approved by Don</span></div>
+    <div class="fan-card" data-i="0"><img src="images/duck-mash.webp" alt="Seared duck with mash, asparagus and glazed carrot"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">01</span><span class="fan-card-tag">Plated Fine Dining</span></div>
+    <div class="fan-card" data-i="1"><img src="images/duck-pesto.webp" alt="Sliced duck breast with pesto and heirloom tomato"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">02</span><span class="fan-card-tag">Signature Plating</span></div>
+    <div class="fan-card" data-i="2"><img src="images/campaign-apron.webp" alt="Don Sherman at the Nature's Pearls Legumes from Europe campaign"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">03</span><span class="fan-card-tag">Brand Campaign</span></div>
+    <div class="fan-card" data-i="3"><img src="images/food-spread.webp" alt="Editorial spread of plated dishes"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">04</span><span class="fan-card-tag">Editorial Spread</span></div>
+    <div class="fan-card" data-i="4"><img src="images/chicken-vert.webp" alt="Roasted chicken carved tableside"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">05</span><span class="fan-card-tag">Tableside Service</span></div>
+    <div class="fan-card" data-i="5"><img src="images/noodles-thumbsup.webp" alt="Don Sherman approving a finished noodle dish"" loading="lazy" decoding="async"><div class="fan-card-scrim"></div><span class="fan-card-index">06</span><span class="fan-card-tag">Approved by Don</span></div>
   </div>
   <div class="culinary-hint" id="culinaryHint">Hover a plate</div>
   <div class="fan-dots" id="fanDots"></div>
@@ -1627,7 +1637,7 @@ window.addEventListener('pageshow', function(e){
       <div class="perf-banner-bg">
         <picture>
           <source media="(max-width: 760px)" srcset="images/onstage-banner-mobile.jpeg">
-          <img src="images/onstage-banner-desktop.webp" alt="Don Sherman performing live on stage">
+          <img src="images/onstage-banner-desktop.webp" alt="Don Sherman performing live on stage"" loading="lazy" decoding="async">
         </picture>
       </div>
       <div class="perf-banner-scrim"></div>
@@ -1659,11 +1669,11 @@ window.addEventListener('pageshow', function(e){
 
     <div class="wrap perf-moments">
       <div class="perf-moments-track">
-        <div class="perf-moment"><img src="images/onstage-moment-1.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-5.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-1.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-5.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
       </div>
     </div>
   </div>
@@ -1673,7 +1683,7 @@ window.addEventListener('pageshow', function(e){
 <section id="song">
   <div class="wrap song-grid">
     <div class="song-art reveal-up">
-      <img src="images/gumuka-poster-clean.webp" alt="Poster for Don Sherman's original single, Gumuka Chupa">
+      <img src="images/gumuka-poster-clean.webp" alt="Poster for Don Sherman's original single, Gumuka Chupa"" loading="lazy" decoding="async">
     </div>
     <div class="song-copy">
       <div class="eyebrow split"><span class="line">His Own Sound</span></div>
@@ -1812,7 +1822,7 @@ window.addEventListener('pageshow', function(e){
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="images/don-personal-logo.png" alt="Don Sherman logo" style="height:56px;">
+      <img src="images/don-personal-logo.png" alt="Don Sherman logo" style="height:56px;"" loading="lazy" decoding="async">
       <div>
         <div class="footer-name">Don Sherman</div>
         <span class="footer-tag">The Singing Chef</span>
@@ -1836,11 +1846,11 @@ window.addEventListener('pageshow', function(e){
   <img src="" alt="" id="lightboxImg">
 </div>
 
-<script src="vendor/lenis.min.js"></script>
-<script src="vendor/gsap.min.js"></script>
-<script src="vendor/ScrollTrigger.min.js"></script>
-<script src="vendor/three.min.js"></script>
-<script src="fluid-sim.js?v=6"></script>
-<script src="main.js?v=14"></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/three.min.js" defer></script>
+<script src="fluid-sim.js?v=6" defer></script>
+<script src="main.js?v=14" defer></script>
 </body>
 </html>
