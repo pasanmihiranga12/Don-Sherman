@@ -51,7 +51,12 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offs
 header#site-nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:24px clamp(20px,4vw,56px);
+  padding:16px clamp(20px,4vw,56px);
+  background:rgba(10,10,10,0.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,162,39,0.5);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
 }
 .nav-logo-group{display:flex;align-items:center;gap:12px;}
 .nav-logo-img{height:clamp(34px,4vw,46px);width:auto;display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,0.45));}
@@ -405,7 +410,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--line);}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Don Sherman. All rights reserved.</span>
+      <span>&copy; 2026 Don Sherman. All rights reserved.</span>
       <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
     </div>
   </div>
@@ -482,25 +487,168 @@ function heroIntro(){
 }
 
 // remaining headings (form section) get the same line-by-line reveal
+const vhBooking = window.innerHeight || document.documentElement.clientHeight;
+
 document.querySelectorAll('.reveal-up').forEach(el=>{
   if(el.closest('#b-hero')) return; // hero handles its own timing above
-  if(/^H[1-4]$/.test(el.tagName)){
-    const lines = splitIntoLines(el);
+  if(el.dataset.revealed) return;
+  const isHeading = /^H[1-4]$/.test(el.tagName);
+  let lines = null;
+  if(isHeading){
+    lines = splitIntoLines(el);
+  }
+
+  const reveal = (immediate = false) => {
+    if(el.dataset.revealed) return;
+    el.dataset.revealed = 'true';
+    if(isHeading && lines && lines.length){
+      if(immediate){
+        gsap.set(lines, {yPercent:0, opacity:1, clearProps:'transform'});
+      } else {
+        gsap.to(lines, {yPercent:0, opacity:1, duration:1.1, ease:'power3.out', stagger:.1, overwrite:'auto'});
+      }
+    } else {
+      if(immediate){
+        gsap.set(el, {y:0, opacity:1, clearProps:'transform'});
+      } else {
+        gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out', overwrite:'auto'});
+      }
+    }
+  };
+
+  const rect = el.getBoundingClientRect();
+  if(rect.top <= vhBooking * 0.92){
+    reveal(true);
+    return;
+  }
+
+  if(isHeading && lines && lines.length){
     gsap.set(lines, {yPercent:115, opacity:0});
-    ScrollTrigger.create({
-      trigger: el, start:'top 88%', once:true,
-      onEnter:()=> gsap.to(lines, {yPercent:0, opacity:1, duration:1.1, ease:'power3.out', stagger:.1})
-    });
   } else {
     gsap.set(el, {y:30, opacity:0});
-    ScrollTrigger.create({
-      trigger: el, start:'top 88%', once:true,
-      onEnter:()=> gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out'})
-    });
+  }
+
+  ScrollTrigger.create({
+    trigger: el, start:'top 88%', once:true,
+    onEnter: () => reveal(false),
+    onRefresh: (self) => { if(self.progress > 0) reveal(false); }
+  });
+
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          reveal(false);
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -5% 0px' });
+    io.observe(el);
   }
 });
-gsap.from('#b-stats .b-stats-row > *', {y:24, opacity:0, duration:1, stagger:.08, ease:'power3.out', scrollTrigger:{trigger:'#b-stats', start:'top 92%'}});
-gsap.from('.b-panel', {y:36, opacity:0, duration:1, stagger:.1, ease:'power3.out', scrollTrigger:{trigger:'.b-grid', start:'top 88%'}});
+
+const statsSection = document.getElementById('b-stats');
+if(statsSection){
+  const statItems = statsSection.querySelectorAll('.b-stats-row > *');
+  let statsRevealed = false;
+  const revealStats = (immediate = false) => {
+    if(statsRevealed) return;
+    statsRevealed = true;
+    if(immediate){
+      gsap.set(statItems, {y:0, opacity:1, clearProps:'transform'});
+    } else {
+      gsap.to(statItems, {y:0, opacity:1, duration:1, stagger:.08, ease:'power3.out', overwrite:'auto'});
+    }
+  };
+  if(statsSection.getBoundingClientRect().top <= vhBooking * 0.92){
+    revealStats(true);
+  } else {
+    gsap.set(statItems, {y:24, opacity:0});
+    ScrollTrigger.create({
+      trigger: statsSection, start:'top 92%', once:true,
+      onEnter: () => revealStats(false),
+      onRefresh: (self) => { if(self.progress > 0) revealStats(false); }
+    });
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        if(entries[0].isIntersecting){ revealStats(false); io.disconnect(); }
+      });
+      io.observe(statsSection);
+    }
+  }
+}
+
+const formGrid = document.querySelector('.b-grid');
+if(formGrid){
+  const panels = document.querySelectorAll('.b-panel');
+  let gridRevealed = false;
+  const revealGrid = (immediate = false) => {
+    if(gridRevealed) return;
+    gridRevealed = true;
+    if(immediate){
+      gsap.set(panels, {y:0, opacity:1, clearProps:'transform'});
+    } else {
+      gsap.to(panels, {y:0, opacity:1, duration:1, stagger:.1, ease:'power3.out', overwrite:'auto'});
+    }
+  };
+  if(formGrid.getBoundingClientRect().top <= vhBooking * 0.92){
+    revealGrid(true);
+  } else {
+    gsap.set(panels, {y:36, opacity:0});
+    ScrollTrigger.create({
+      trigger: formGrid, start:'top 88%', once:true,
+      onEnter: () => revealGrid(false),
+      onRefresh: (self) => { if(self.progress > 0) revealGrid(false); }
+    });
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        if(entries[0].isIntersecting){ revealGrid(false); io.disconnect(); }
+      });
+      io.observe(formGrid);
+    }
+  }
+}
+
+function sweepBookingElements(){
+  const currentVh = window.innerHeight || document.documentElement.clientHeight;
+  document.querySelectorAll('.reveal-up:not(#b-hero .reveal-up)').forEach(el=>{
+    if(el.getBoundingClientRect().top < currentVh * 0.96){
+      const inners = el.querySelectorAll('.lr-line-inner');
+      if(inners.length){
+        gsap.to(inners, {yPercent:0, opacity:1, duration:0.4, overwrite:'auto'});
+      } else {
+        gsap.to(el, {y:0, opacity:1, duration:0.4, overwrite:'auto'});
+      }
+      el.dataset.revealed = 'true';
+    }
+  });
+  if(statsSection && statsSection.getBoundingClientRect().top < currentVh * 0.96){
+    gsap.to('#b-stats .b-stats-row > *', {y:0, opacity:1, duration:0.4, overwrite:'auto'});
+  }
+  if(formGrid && formGrid.getBoundingClientRect().top < currentVh * 0.96){
+    gsap.to('.b-panel', {y:0, opacity:1, duration:0.4, overwrite:'auto'});
+  }
+}
+
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden){
+    if(typeof lenis !== 'undefined' && lenis) lenis.resize();
+    ScrollTrigger.refresh();
+    sweepBookingElements();
+  }
+});
+window.addEventListener('focus', ()=>{
+  if(typeof lenis !== 'undefined' && lenis) lenis.resize();
+  ScrollTrigger.refresh();
+  sweepBookingElements();
+});
+window.addEventListener('pageshow', ()=>{
+  if(typeof lenis !== 'undefined' && lenis) lenis.resize();
+  ScrollTrigger.refresh();
+  sweepBookingElements();
+});
+setTimeout(sweepBookingElements, 500);
+setTimeout(sweepBookingElements, 1500);
 
 // TODO: swap in Don's real WhatsApp number before this goes live —
 // digits only, country code first, no + / spaces / dashes.

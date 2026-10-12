@@ -169,26 +169,57 @@ function initAboutRoles(){
   const rows = gsap.utils.toArray('.role-row');
   if(!rows.length) return;
 
-  ScrollTrigger.create({
-    trigger: '.role-list',
-    start: 'top 85%',
-    once: true,
-    onEnter: ()=>{
-      gsap.to(rows, {
-        opacity:1, y:0, duration:.7, ease:'power3.out', stagger:.1
-      });
-      // count-up the numeric stats (33+ YRS, 10 YRS) once the rows
-      // holding them start revealing
-      document.querySelectorAll('.count-up').forEach(el=>{
-        const target = parseInt(el.getAttribute('data-count'), 10) || 0;
-        const obj = {val:0};
-        gsap.to(obj, {
-          val: target, duration:1.3, ease:'power2.out', delay:.2,
-          onUpdate: ()=>{ el.textContent = Math.round(obj.val); }
-        });
-      });
+  let revealed = false;
+  const revealRoles = (immediate = false) => {
+    if(revealed) return;
+    revealed = true;
+    if(immediate){
+      gsap.set(rows, {opacity:1, y:0, clearProps:'transform'});
+    } else {
+      gsap.to(rows, {opacity:1, y:0, duration:.7, ease:'power3.out', stagger:.1, overwrite:'auto'});
     }
-  });
+    document.querySelectorAll('.count-up').forEach(el=>{
+      if(el.dataset.counted) return;
+      el.dataset.counted = 'true';
+      const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      const obj = {val:0};
+      gsap.to(obj, {
+        val: target, duration:1.3, ease:'power2.out', delay:.2,
+        onUpdate: ()=>{ el.textContent = Math.round(obj.val); }
+      });
+    });
+  };
+
+  const list = document.querySelector('.role-list');
+  if(list){
+    const r = list.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if(r.top <= vh * 0.92){
+      revealRoles(true);
+    } else {
+      gsap.set(rows, {opacity:0, y:24});
+      ScrollTrigger.create({
+        trigger: list,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => revealRoles(false),
+        onRefresh: (self) => {
+          if(self.progress > 0) revealRoles(false);
+        }
+      });
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              revealRoles(false);
+              io.disconnect();
+            }
+          });
+        }, { rootMargin: '0px 0px -5% 0px' });
+        io.observe(list);
+      }
+    }
+  }
 
   // expand on hover (desktop — cursor getting close feels natural) or
   // tap (touch), revealing a photo + short description per role
@@ -213,49 +244,129 @@ function initAboutRoles(){
 // breaking only on <br> so inline markup (like <em>) inside a line stays
 // intact — for the line-by-line opacity reveal used across headings
 function splitIntoLines(el){
+  if(el.dataset.linesSplit) return Array.from(el.querySelectorAll('.lr-line-inner'));
+  el.dataset.linesSplit = 'true';
   const parts = el.innerHTML.split(/<br\s*\/?>/i);
   el.innerHTML = parts.map(p => `<span class="lr-line"><span class="lr-line-inner">${p}</span></span>`).join('');
   return Array.from(el.querySelectorAll('.lr-line-inner'));
 }
 
 function initTextReveals(){
-  document.querySelectorAll('.split').forEach(el=>{
-    const lines = el.querySelectorAll('.line');
-    if(lines.length){
-      gsap.set(lines, {yPercent:110, opacity:0});
-    }
-  });
+  const vh = window.innerHeight || document.documentElement.clientHeight;
 
-  // headings get a proper line-by-line reveal (each line masked and
-  // slid/faded in with a stagger); plain paragraphs keep the simpler
-  // single-block fade, since splitting body copy into lines gets fragile
-  // across different reflow widths
+  // reveal-up items: headings get masked line reveals; paragraphs/cards get fade-ups
   document.querySelectorAll('.reveal-up').forEach(el=>{
-    if(/^H[1-4]$/.test(el.tagName)){
-      const lines = splitIntoLines(el);
+    if(el.dataset.revealed) return;
+    const isHeading = /^H[1-4]$/.test(el.tagName);
+    let lines = null;
+    if(isHeading){
+      lines = splitIntoLines(el);
+    }
+
+    const reveal = (immediate = false) => {
+      if(el.dataset.revealed) return;
+      el.dataset.revealed = 'true';
+      if(isHeading && lines && lines.length){
+        if(immediate){
+          gsap.set(lines, {yPercent:0, opacity:1, clearProps:'transform'});
+        } else {
+          gsap.to(lines, {yPercent:0, opacity:1, duration:1.1, ease:'power3.out', stagger:.09, overwrite:'auto'});
+        }
+      } else {
+        if(immediate){
+          gsap.set(el, {y:0, opacity:1, clearProps:'transform'});
+        } else {
+          gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out', overwrite:'auto'});
+        }
+      }
+    };
+
+    // If already in view or above view (e.g. scroll restored, above fold), reveal immediately
+    const rect = el.getBoundingClientRect();
+    if(rect.top <= vh * 0.92){
+      reveal(true);
+      return;
+    }
+
+    // Set initial hidden state for smooth scroll entrance
+    if(isHeading && lines && lines.length){
       gsap.set(lines, {yPercent:115, opacity:0});
-      ScrollTrigger.create({
-        trigger: el, start:'top 88%', once:true,
-        onEnter:()=> gsap.to(lines, {yPercent:0, opacity:1, duration:1.1, ease:'power3.out', stagger:.1})
-      });
     } else {
       gsap.set(el, {y:36, opacity:0});
-      ScrollTrigger.create({
-        trigger: el, start:'top 88%', once:true,
-        onEnter:()=> gsap.to(el, {y:0, opacity:1, duration:1, ease:'power3.out'})
-      });
+    }
+
+    // ScrollTrigger with onEnter and onRefresh fallback
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => reveal(false),
+      onRefresh: (self) => {
+        if(self.progress > 0) reveal(false);
+      }
+    });
+
+    // Native IntersectionObserver fallback
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            reveal(false);
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '0px 0px -5% 0px' });
+      io.observe(el);
     }
   });
 
+  // split eyebrow items
   document.querySelectorAll('.split').forEach(el=>{
+    if(el.closest('#hero')) return; // #hero sequence handled by heroIntro
+    if(el.dataset.revealed) return;
+
     const lines = el.querySelectorAll('.line');
     if(!lines.length) return;
+
+    const reveal = (immediate = false) => {
+      if(el.dataset.revealed) return;
+      el.dataset.revealed = 'true';
+      if(immediate){
+        gsap.set(lines, {yPercent:0, opacity:1, clearProps:'transform'});
+      } else {
+        gsap.to(lines, {yPercent:0, opacity:1, duration:1, ease:'power4.out', stagger:.08, overwrite:'auto'});
+      }
+    };
+
+    const rect = el.getBoundingClientRect();
+    if(rect.top <= vh * 0.92){
+      reveal(true);
+      return;
+    }
+
+    gsap.set(lines, {yPercent:110, opacity:0});
+
     ScrollTrigger.create({
       trigger: el,
-      start:'top 90%',
-      onEnter:()=> gsap.to(lines, {yPercent:0, opacity:1, duration:1, ease:'power4.out', stagger:.08}),
-      once:true
+      start: 'top 90%',
+      once: true,
+      onEnter: () => reveal(false),
+      onRefresh: (self) => {
+        if(self.progress > 0) reveal(false);
+      }
     });
+
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            reveal(false);
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '0px 0px -5% 0px' });
+      io.observe(el);
+    }
   });
 }
 
@@ -485,24 +596,57 @@ function initShowAccordion(){
     modalImg1.src = card.getAttribute('data-img1') || '';
     modalImg1.alt = card.getAttribute('data-name');
 
-    // gallery supports however many data-imgN attributes a card has
-    // (FreshX has more photos than Cook With Don, for example) — it
-    // just keeps checking data-img2, data-img3, data-img4... until
-    // one is missing, rather than assuming a fixed count
     modalGallery.innerHTML = '';
+    const modalLower = modal.querySelector('.show-modal-lower');
+
+    // Collect all data-imgN attributes (starting from 2)
+    const validPhotos = [];
     let n = 2;
     while(true){
       const src = card.getAttribute(`data-img${n}`);
       if(!src) break;
-      const photo = document.createElement('div');
-      photo.className = 'sm-photo';
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = card.getAttribute('data-name');
-      img.onerror = function(){ photo.style.display = 'none'; };
-      photo.appendChild(img);
-      modalGallery.appendChild(photo);
+      validPhotos.push(src);
       n++;
+    }
+
+    function updateGalleryLayout(){
+      const currentPhotos = modalGallery.querySelectorAll('.sm-photo');
+      const count = currentPhotos.length;
+      modalGallery.setAttribute('data-count', count);
+      if(modalLower){
+        if(count === 0){
+          modalLower.classList.add('no-gallery');
+        } else {
+          modalLower.classList.remove('no-gallery');
+        }
+      }
+    }
+
+    if(validPhotos.length === 0){
+      updateGalleryLayout();
+    } else {
+      validPhotos.forEach((src, idx)=>{
+        const photo = document.createElement('div');
+        photo.className = 'sm-photo';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `${card.getAttribute('data-name')} photo ${idx+1}`;
+        img.onerror = function(){
+          if(!src.match(/\.(webp|jpg|jpeg|png|gif|svg)$/i)){
+            img.onerror = function(){
+              photo.remove();
+              updateGalleryLayout();
+            };
+            img.src = src + '.webp';
+            return;
+          }
+          photo.remove();
+          updateGalleryLayout();
+        };
+        photo.appendChild(img);
+        modalGallery.appendChild(photo);
+      });
+      updateGalleryLayout();
     }
 
     modalChannels.textContent = card.getAttribute('data-channels');
@@ -728,14 +872,41 @@ function initWaveform(){
     bar.style.height = h+'px';
     wf.appendChild(bar);
   }
+
+  let revealed = false;
+  const revealWf = (immediate = false) => {
+    if(revealed) return;
+    revealed = true;
+    if(immediate){
+      gsap.set(wf.children, {scaleY:1, clearProps:'transform'});
+    } else {
+      gsap.to(wf.children, {scaleY:1, duration:1, ease:'elastic.out(1,0.5)', stagger:{each:0.012, from:'center'}, overwrite:'auto'});
+    }
+  };
+
+  const r = wf.getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  if(r.top <= vh * 0.92){
+    revealWf(true);
+    return;
+  }
+
   gsap.set(wf.children, {scaleY:0.25, transformOrigin:'center'});
   ScrollTrigger.create({
     trigger: wf, start:'top 85%',
-    onEnter:()=>{
-      gsap.to(wf.children, {scaleY:1, duration:1, ease:'elastic.out(1,0.5)', stagger:{each:0.012, from:'center'}});
-    },
-    once:true
+    onEnter: () => revealWf(false),
+    onRefresh: (self) => { if(self.progress > 0) revealWf(false); },
+    once: true
   });
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      if(entries[0].isIntersecting){
+        revealWf(false);
+        io.disconnect();
+      }
+    });
+    io.observe(wf);
+  }
 }
 
 /* ---------------- Performance pinned reveal ---------------- */
@@ -968,15 +1139,39 @@ function initMobileLock(){
   if(!lockBtn) return;
 
   let isLocked = false;
+  let savedScrollY = 0;
+
+  // body{overflow:hidden} alone does NOT reliably block touch scrolling
+  // on iOS Safari — the page can still drag/bounce under the finger while
+  // "locked", which is exactly what made this button look broken. The
+  // reliable cross-browser fix is to pin body in place with position:fixed
+  // at the current scroll offset, and also hard-block touchmove's default
+  // action at the document level (the hero's own touchmove listener is
+  // passive and only reads touch position for painting, so it still works
+  // fine underneath this — this only stops the page itself from scrolling).
+  function preventTouch(e){ e.preventDefault(); }
+
   lockBtn.addEventListener('click', ()=>{
     isLocked = !isLocked;
     if(isLocked){
+      savedScrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
       document.body.style.overflow = 'hidden';
+      document.addEventListener('touchmove', preventTouch, {passive:false});
       if(lenis) lenis.stop();
       lockBtn.classList.add('is-locked');
       if(lockLabel) lockLabel.textContent = 'Unlock';
     } else {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, savedScrollY);
+      document.removeEventListener('touchmove', preventTouch);
       if(lenis) lenis.start();
       lockBtn.classList.remove('is-locked');
       if(lockLabel) lockLabel.textContent = 'Tap to Lock';
@@ -1008,22 +1203,100 @@ function initSite(){
   if(!prefersReduced){ heroScrollFade(); }
 
   ScrollTrigger.refresh();
-  window.addEventListener('resize', ()=> ScrollTrigger.refresh());
+  sweepVisibleElements();
+
+  window.addEventListener('resize', ()=>{
+    ScrollTrigger.refresh();
+    sweepVisibleElements();
+  });
 
   // images (especially large hero/gallery photos) can still be loading
   // when the line above runs, which bakes every pin's start/end position
   // in against a too-short page — refreshing again once everything has
   // actually finished loading corrects that drift for good
-  window.addEventListener('load', ()=> ScrollTrigger.refresh());
+  window.addEventListener('load', ()=>{
+    ScrollTrigger.refresh();
+    sweepVisibleElements();
+  });
+
+  // Tab switch & window focus safety nets:
+  // When returning from another tab/window or after editor updates,
+  // re-sync Lenis & ScrollTrigger and sweep visible elements into view
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden){
+      if(lenis) lenis.resize();
+      ScrollTrigger.refresh();
+      sweepVisibleElements();
+    }
+  });
+  window.addEventListener('focus', ()=>{
+    if(lenis) lenis.resize();
+    ScrollTrigger.refresh();
+    sweepVisibleElements();
+  });
+  window.addEventListener('pageshow', ()=>{
+    if(lenis) lenis.resize();
+    ScrollTrigger.refresh();
+    sweepVisibleElements();
+  });
+
+  // Timed safety checks for late image or font layout reflows
+  setTimeout(sweepVisibleElements, 400);
+  setTimeout(sweepVisibleElements, 1200);
+
   let imgRefreshTimer;
   document.querySelectorAll('img').forEach(img=>{
     if(!img.complete){
       img.addEventListener('load', ()=>{
         clearTimeout(imgRefreshTimer);
-        imgRefreshTimer = setTimeout(()=> ScrollTrigger.refresh(), 150);
+        imgRefreshTimer = setTimeout(()=>{
+          ScrollTrigger.refresh();
+          sweepVisibleElements();
+        }, 150);
       });
     }
   });
+}
+
+function sweepVisibleElements(){
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+
+  document.querySelectorAll('.reveal-up').forEach(el=>{
+    const r = el.getBoundingClientRect();
+    if(r.top < vh * 0.96){
+      const inners = el.querySelectorAll('.lr-line-inner');
+      if(inners.length){
+        gsap.to(inners, {yPercent:0, opacity:1, duration:0.4, overwrite:'auto'});
+      } else {
+        gsap.to(el, {y:0, opacity:1, duration:0.4, overwrite:'auto'});
+      }
+      el.dataset.revealed = 'true';
+    }
+  });
+
+  document.querySelectorAll('.split:not(#hero .split)').forEach(el=>{
+    const r = el.getBoundingClientRect();
+    if(r.top < vh * 0.96){
+      const lines = el.querySelectorAll('.line');
+      if(lines.length){
+        gsap.to(lines, {yPercent:0, opacity:1, duration:0.4, overwrite:'auto'});
+      }
+      el.dataset.revealed = 'true';
+    }
+  });
+
+  const roleList = document.querySelector('.role-list');
+  if(roleList && roleList.getBoundingClientRect().top < vh * 0.96){
+    const rows = document.querySelectorAll('.role-row');
+    gsap.to(rows, {opacity:1, y:0, duration:0.4, overwrite:'auto'});
+    document.querySelectorAll('.count-up').forEach(el=>{
+      if(!el.dataset.counted){
+        el.dataset.counted = 'true';
+        const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+        el.textContent = target;
+      }
+    });
+  }
 }
 
 document.body.style.overflow='hidden';

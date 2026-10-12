@@ -168,11 +168,21 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 header#site-nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:24px clamp(20px,4vw,56px);
-  background:none;
+  padding:16px clamp(20px,4vw,56px);
+  background:rgba(10,10,10,0.95);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,162,39,0.5);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  transition:background .3s ease, border-color .3s ease;
 }
 header#site-nav .nav-logo, header#site-nav .nav-pill{
   transition:opacity .3s ease;
+}
+header#site-nav.menu-is-open{
+  background:transparent;
+  border-bottom-color:transparent;
+  box-shadow:none;
 }
 header#site-nav.menu-is-open .nav-logo,
 header#site-nav.menu-is-open .nav-logo-divider,
@@ -539,8 +549,6 @@ section{position:relative;width:100%;}
 }
 .role-row{
   border-top:1px solid var(--line-dark);
-  opacity:0;
-  transform:translateY(24px);
   cursor:pointer;
 }
 .role-list .role-row:last-child{border-bottom:1px solid var(--line-dark);}
@@ -755,11 +763,6 @@ section{position:relative;width:100%;}
 .perf-banner-bg{position:absolute;inset:0;}
 .perf-banner-bg img{
   width:100%;height:100%;object-fit:cover;object-position:center 20%;
-  filter:sepia(.3) saturate(1.1) brightness(.85);
-}
-.perf-banner-bg::after{
-  content:'';position:absolute;inset:0;
-  background:var(--gold);mix-blend-mode:color;opacity:.3;
 }
 .perf-banner-scrim{
   position:absolute;inset:0;
@@ -837,7 +840,7 @@ section{position:relative;width:100%;}
   border-radius:12px;overflow:hidden;position:relative;scroll-snap-align:start;
   box-shadow:0 20px 44px rgba(0,0,0,.4);
 }
-.perf-moment img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:sepia(.25) saturate(1.1) brightness(.92);}
+.perf-moment img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
 .perf-moment:hover img{transform:scale(1.06);}
 .perf-moment-cap{
   position:absolute;left:16px;bottom:14px;right:16px;z-index:2;
@@ -955,9 +958,10 @@ section{position:relative;width:100%;}
   animation:goldShimmer 7s ease-in-out infinite;
 }
 .show-grid{
-  margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  margin-top:60px;display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;
 }
-@media (max-width:760px){ .show-grid{grid-template-columns:1fr;} }
+@media (max-width:960px){ .show-grid{grid-template-columns:repeat(2, 1fr);} }
+@media (max-width:640px){ .show-grid{grid-template-columns:1fr;} }
 @media (max-width:520px){ #shows h2{white-space:normal;font-size:clamp(26px,7.4vw,40px);} }
 .show-card{
   position:relative;border-radius:14px;overflow:hidden;cursor:pointer;
@@ -1038,18 +1042,119 @@ section{position:relative;width:100%;}
 @media (max-width:760px){ .show-modal-hero{aspect-ratio:4/3.4;} }
 
 .show-modal-lower{
-  display:grid;grid-template-columns:0.8fr 1.2fr;gap:0;
+  display:grid;grid-template-columns:clamp(260px, 34%, 340px) 1fr;gap:0;
+  min-height:360px;
+  overflow:hidden;
+  transition:grid-template-columns .3s ease;
 }
+.show-modal-lower.no-gallery{grid-template-columns:1fr;}
+.show-modal-lower.no-gallery .show-modal-gallery{display:none;}
+.show-modal-lower.no-gallery .show-modal-body{padding:44px 50px;max-width:820px;}
 @media (max-width:760px){ .show-modal-lower{grid-template-columns:1fr;} }
-.show-modal-gallery{
-  display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;
-  background:var(--black-2);align-content:start;
-}
-.show-modal-gallery .sm-photo{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--black);border-radius:6px;}
-.show-modal-gallery .sm-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
-@media (max-width:760px){ .show-modal-gallery{grid-template-columns:1fr 1fr;} }
 
-.show-modal-body{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;}
+.show-modal-gallery{
+  min-width:0;
+  box-sizing:border-box;
+  padding:20px;
+  background:rgba(10,10,10,0.55);
+  border-right:1px solid rgba(242,239,233,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:0 0 0 18px;
+}
+@media (max-width:760px){
+  .show-modal-gallery{border-right:none;border-bottom:1px solid rgba(242,239,233,0.08);border-radius:0;padding:16px;}
+}
+
+.show-modal-gallery .sm-photo{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  background:var(--black);
+  border-radius:8px;
+  border:1px solid rgba(242,239,233,0.08);
+  box-sizing:border-box;
+  transition:transform .3s ease, border-color .3s ease;
+}
+.show-modal-gallery .sm-photo:hover{border-color:rgba(201,162,39,0.4);}
+.show-modal-gallery .sm-photo img{
+  width:100%;height:100%;object-fit:cover;
+  position:absolute;inset:0;
+  transition:transform .5s var(--ease);
+}
+.show-modal-gallery .sm-photo:hover img{transform:scale(1.05);}
+
+/* Dynamic vertical layouts: images stacked one after another, down */
+/* 1 image: Full size vertical area */
+.show-modal-gallery[data-count="1"] .sm-photo{
+  aspect-ratio:auto;
+  height:100%;
+  min-height:280px;
+}
+
+/* 2 images: One after another down */
+.show-modal-gallery[data-count="2"]{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.show-modal-gallery[data-count="2"] .sm-photo{
+  aspect-ratio:16/10;
+  height:auto;
+}
+
+/* 3 images: One after another down */
+.show-modal-gallery[data-count="3"]{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.show-modal-gallery[data-count="3"] .sm-photo{
+  aspect-ratio:16/9;
+  height:auto;
+}
+
+/* 4 images: Balanced 2x2 grid */
+.show-modal-gallery[data-count="4"]{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:8px;
+}
+.show-modal-gallery[data-count="4"] .sm-photo{
+  aspect-ratio:1/1;
+  height:auto;
+}
+
+/* 5+ images: 2 columns, clean scroll */
+.show-modal-gallery[data-count="5"],
+.show-modal-gallery[data-count="6"],
+.show-modal-gallery[data-count="7"],
+.show-modal-gallery[data-count="8"]{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  max-height:460px;
+  overflow-y:auto;
+}
+.show-modal-gallery[data-count="5"] .sm-photo,
+.show-modal-gallery[data-count="6"] .sm-photo,
+.show-modal-gallery[data-count="7"] .sm-photo,
+.show-modal-gallery[data-count="8"] .sm-photo{
+  aspect-ratio:1/1;
+}
+
+.show-modal-body{
+  min-width:0;
+  padding:36px 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  box-sizing:border-box;
+}
 .show-modal-schedule{
   display:inline-flex;align-items:center;gap:10px;
   background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.3);
@@ -1329,7 +1434,7 @@ window.addEventListener('pageshow', function(e){
     <div class="menu-side">
       <div class="menu-side-label">Follow</div>
       <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener" class="menu-social">Instagram</a>
-      <a href="#" target="_blank" rel="noopener" class="menu-social">YouTube</a>
+      <a href="http://www.youtube.com/@COOK_WITH_DON" target="_blank" rel="noopener" class="menu-social">YouTube</a>
       <div class="menu-side-tag">The Singing Chef</div>
     </div>
   </div>
@@ -1377,12 +1482,12 @@ window.addEventListener('pageshow', function(e){
       <div class="about-copy">
         <h2 class="reveal-up">Known around the world as <span class="about-accent">'The Singing Chef.'</span></h2>
         <p class="reveal-up">Don is renowned in his home country of Sri Lanka and around the world for a vibrant, unique style of presentation paired with dynamic culinary skill. Over 38 years, he's worked as a chef, TV personality, and restaurant owner — travelling the world to perform in food events, demonstrations, and shows.</p>
-        <p class="reveal-up">His main-stream television cooking show, <em>"Cook with Don,"</em> brought joy into Sri Lankan households for ten years. He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
+        <p class="reveal-up">His main-stream television cooking show, <em>"Cook with Don,"</em> has brought joy into Sri Lankan households for over two and a half decades (24 years). He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
         <p class="reveal-up">Don writes and performs his own music, featured on his YouTube channel, and is passionate about fusing Eastern and Western flavours — innovations that have inspired popular cooking-song videos online. Today, alongside his performance work, Don serves as a Certificate III Trainer at a Registered Training Organisation.</p>
 
         <div class="role-list">
           <div class="role-row" data-role>
-            <div class="role-row-top"><span class="role-name">Chef</span><span class="role-num"><span class="count-up" data-count="38">0</span>+ YRS</span></div>
+            <div class="role-row-top"><span class="role-name">Chef</span></div>
             <div class="role-expand"><div class="role-expand-inner">
               <img src="images/acf-plates.webp" alt="Don Sherman, Chef">
               <p>Thirty-eight-plus years perfecting Sri Lankan and international cuisine, from fine dining to television.</p>
@@ -1403,10 +1508,10 @@ window.addEventListener('pageshow', function(e){
             </div></div>
           </div>
           <div class="role-row" data-role>
-            <div class="role-row-top"><span class="role-name">TV Personality</span><span class="role-num"><span class="count-up" data-count="10">0</span> YRS</span></div>
+            <div class="role-row-top"><span class="role-name">TV Personality</span></div>
             <div class="role-expand"><div class="role-expand-inner">
-              <img src="images/studio-wide.webp" alt="Don Sherman, TV Personality">
-              <p>A decade on air with Cook With Don, plus FreshX — bringing his personality into Sri Lankan homes.</p>
+              <img src="images/tvpersonality.png" alt="Don Sherman, TV Personality">
+              <p>Over two decades (24 years) on air with Cook With Don, alongside Goldi Taste of Rhythm and FreshX — bringing his personality into Sri Lankan homes.</p>
             </div></div>
           </div>
         </div>
@@ -1419,9 +1524,56 @@ window.addEventListener('pageshow', function(e){
 <section id="shows">
   <div class="wrap">
     <div class="eyebrow split"><span class="line">On Screen</span></div>
-    <h2 class="reveal-up">Two shows, still on air.</h2>
+    <h2 class="reveal-up">Three shows, still on air.</h2>
 
     <div class="show-grid">
+      <div class="show-card reveal-up" data-show
+        data-name="Cook With Don"
+        data-channels="ITN TV · YouTube · Facebook"
+        data-schedule="Every Sunday, 11:00 AM — ITN"
+        data-desc="Don's mainstream television cooking show, spanning 24 years on air, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
+        data-img1="images/cook-with-don-cover.webp"
+        data-img2="images/cook-with-don-gallery-1.png"
+        data-img3="images/cook-with-don-gallery-2.png"
+        data-link1-label="YouTube"
+        data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
+        data-link2-label="Facebook"
+        data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
+        <div class="show-card-photo">
+          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>Cook With Don</h3>
+          <span class="show-card-channels">ITN · Every Sunday 11:00 AM</span>
+        </div>
+      </div>
+
+      <div class="show-card reveal-up" data-show
+        data-name="Goldi Taste of Rhythm"
+        data-channels="Swarnawahini TV"
+        data-schedule="Every Saturday, 8:00 PM — Swarnawahini TV"
+        data-desc="Airing on Swarnawahini TV, 8PM every Saturday — an electrifying prime-time show combining culinary excitement, musical rhythm, and high-energy entertainment hosted by Don Sherman."
+        data-img1="images/goldi-taste-of-rhythm-cover.webp"
+        data-img2="images/goldi-taste-of-rhythm1.webp"
+        data-img3="images/goldi-taste-of-rhythm2.webp"
+        
+        data-link1-label="Swarnawahini TV"
+        data-link1-href="https://swarnavahini.lk/">
+        <div class="show-card-photo">
+          <img src="images/goldi-taste-of-rhythm-cover.webp" alt="Goldi Taste of Rhythm TV show" onerror="this.style.opacity=0">
+          <span class="show-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="show-card-info">
+          <h3>Goldi Taste of Rhythm</h3>
+          <span class="show-card-channels">Swarnawahini · Every Saturday 8PM </span>
+        </div>
+      </div>
+
       <div class="show-card reveal-up" data-show
         data-name="FreshX"
         data-channels="Rupavahini Channel · YouTube"
@@ -1442,31 +1594,7 @@ window.addEventListener('pageshow', function(e){
         </div>
         <div class="show-card-info">
           <h3>FreshX</h3>
-          <span class="show-card-channels">Rupavahini Channel · YouTube</span>
-        </div>
-      </div>
-
-      <div class="show-card reveal-up" data-show
-        data-name="Cook With Don"
-        data-channels="ITN TV · YouTube · Facebook"
-        data-schedule="Every Sunday, 11:00 AM — ITN"
-        data-desc="Don's main-stream television cooking show, currently airing on ITN TV, with episodes also on the Cook with Don YouTube channel and Facebook page."
-        data-img1="images/cook-with-don-cover.webp"
-        data-img2="images/cook-with-don-gallery-1.png"
-        data-img3="images/cook-with-don-gallery-2.png"
-        data-link1-label="YouTube"
-        data-link1-href="https://youtube.com/@cook_with_don?si=7GCXzn3Xeb8yXVwR"
-        data-link2-label="Facebook"
-        data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
-        <div class="show-card-photo">
-          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0">
-          <span class="show-card-play">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-        </div>
-        <div class="show-card-info">
-          <h3>Cook With Don</h3>
-          <span class="show-card-channels">ITN TV · YouTube · Facebook</span>
+          <span class="show-card-channels">Rupavahini · Every Tuesday 9:30 PM</span>
         </div>
       </div>
     </div>
@@ -1535,6 +1663,7 @@ window.addEventListener('pageshow', function(e){
         <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
         <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
         <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-5.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"><div class="perf-moment-scrim"></div></div>
       </div>
     </div>
   </div>
@@ -1602,8 +1731,8 @@ window.addEventListener('pageshow', function(e){
       <div class="career-media">
         <div class="career-media-main reveal-up"><img src="images/studio-wide.webp" alt="Don Sherman on his television cooking set" loading="lazy"></div>
         <div class="career-media-row">
-          <div class="reveal-up"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"></div>
-          <div class="reveal-up"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish on set" loading="lazy"></div>
+          <div class="reveal-up"><img src="images/media-image1.jpg" alt="Don Sherman plating on set" loading="lazy"></div>
+          <div class="reveal-up"><img src="images/campaign-apron.webp" alt="Don Sherman presenting a finished dish on set" loading="lazy"></div>
         </div>
       </div>
     </div>
@@ -1648,10 +1777,10 @@ window.addEventListener('pageshow', function(e){
     <div class="g-carousel-stage" id="gCarouselStage">
       <div class="g-carousel-ring" id="gCarouselRing">
         <div class="g-carousel-card" data-lightbox="images/studio-wide.webp"><img src="images/studio-wide.webp" alt="Don Sherman on his television cooking set" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">On Set</span></div>
-        <div class="g-carousel-card" data-lightbox="images/duck-pesto.webp"><img src="images/duck-pesto.webp" alt="Plated duck dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Signature Plate</span></div>
+        <div class="g-carousel-card" data-lightbox="images/awards.jpeg"><img src="images/awards.jpeg" alt="Awards" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Awards</span></div>
         <div class="g-carousel-card" data-lightbox="images/studio-smell.webp"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Behind the Scenes</span></div>
         <div class="g-carousel-card" data-lightbox="images/campaign-apron.webp"><img src="images/campaign-apron.webp" alt="Nature's Pearls campaign shoot" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Nature's Pearls</span></div>
-        <div class="g-carousel-card" data-lightbox="images/chicken-wide.webp"><img src="images/chicken-wide.webp" alt="Roasted chicken plated dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Plated &amp; Ready</span></div>
+        <div class="g-carousel-card" data-lightbox="images/sing.jpeg"><img src="images/sing.jpeg" alt="Roasted chicken plated dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Performing</span></div>
         <div class="g-carousel-card" data-lightbox="images/studio-tongs.webp"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">In the Kitchen</span></div>
         <div class="g-carousel-card" data-lightbox="images/mc-birthday.webp"><img src="images/mc-birthday.webp" alt="Don Sherman performing as an MC" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Live Hosting</span></div>
       </div>
@@ -1675,7 +1804,7 @@ window.addEventListener('pageshow', function(e){
     <h2 class="reveal-up">Let's create<br><em>something memorable.</em></h2>
     <p class="contact-sub reveal-up">For bookings, brand collaborations, media appearances, or event hosting — reach out below.</p>
     <div class="contact-links">
-      <a href="mailto:hello@donsherman.example" class="mag-btn"><span>hello@donsherman.example</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="mailto:shermandh@yahoo.com" class="mag-btn"><span>shermandh@yahoo.com</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
@@ -1691,8 +1820,8 @@ window.addEventListener('pageshow', function(e){
     </div>
     <div class="footer-social">
       <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener">Instagram</a>
-      <a href="#" target="_blank" rel="noopener">YouTube</a>
-      <a href="#" target="_blank" rel="noopener">Facebook</a>
+      <a href="http://www.youtube.com/@COOK_WITH_DON" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/share/18DZM8MYQS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1712,6 +1841,6 @@ window.addEventListener('pageshow', function(e){
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/three.min.js"></script>
 <script src="fluid-sim.js?v=6"></script>
-<script src="main.js?v=9"></script>
+<script src="main.js?v=14"></script>
 </body>
 </html>
