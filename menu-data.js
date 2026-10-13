@@ -8,7 +8,7 @@ const MENU_DATA = [
     {n:'Chillie Garlic Rice', d:'Flavorful rice tossed with a fiery punch of chili and robust garlic', p:'Rs. 1,200.00', img:'images/menu/chillie-garlic-rice.jpg'},
     {n:'Nasi - Georang - Mix', d:'A rich, mixed Indonesian-style fried rice dish combining various proteins and signature spices', p:'Rs. 2,100.00', img:'images/menu/nasi-georang-mix.jpg'},
     {n:'Thai Chicken Fried Rice', d:'Fragrant Thai-style fried rice cooked with tender chicken, vegetables, eggs, and aromatic seasonings for a delicious savory taste', p:'Rs. 1,680.00', img:'images/menu/thai-chicken-fried-rice.jpg'},
-    {n:'Special Singing Rice', d:'A rich and loaded rice dish prepared with prawns, cuttlefish, beef, pork, sausage, eggs, and chicken', p:'Rs. 3,800.00', img:'images/menu/special-singing-rice.jpg'},
+    {n:'Special Singing Chef Rice', d:'A rich and loaded rice dish prepared with prawns, cuttlefish, beef, pork, sausage, eggs, and chicken', p:'Rs. 3,800.00', img:'images/menu/special-singing-rice.jpg'},
     {n:'Hakka Fried Rice', d:'Indo-Chinese style Hakka fried rice featuring tossed grains, vegetables, and savory wok-tossed flavor', p:'Rs. 1,780.00', img:'images/menu/hakka-fried-rice.jpg'},
   ]},
   {cat:'Chicken', items:[

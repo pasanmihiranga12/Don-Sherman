@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Caveat:wght@600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -305,9 +305,9 @@ header#site-nav.menu-is-open .nav-pill{
   color:rgba(242,239,233,0.3);font-size:14px;
 }
 @media (max-width:760px){
-  .menu-overlay-inner{flex-direction:column;align-items:flex-start;justify-content:flex-start;padding-top:100px;}
+  .menu-overlay-inner{flex-direction:column;flex-wrap:nowrap;align-items:flex-start;justify-content:flex-start;padding-top:100px;overflow-x:hidden;}
   .menu-item .menu-word{font-size:clamp(32px,11vw,52px);}
-  .menu-side{flex-direction:row;flex-wrap:wrap;gap:20px;align-items:baseline;}
+  .menu-side{flex-direction:row;flex-wrap:wrap;gap:20px;align-items:baseline;min-width:0;width:100%;}
   .menu-side-tag{display:none;}
 }
 .nav-logo{
@@ -1337,14 +1337,20 @@ footer{
   display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;
 }
 .footer-credit{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
-  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
-  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+  display:inline-flex;align-items:baseline;gap:8px;
+  font-size:14px;letter-spacing:0;color:rgba(242,239,233,0.45);
+  transition:opacity .3s ease;
 }
-.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
-.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
-.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
+.footer-credit span{
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em;
+  background:linear-gradient(95deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  transition:filter .4s ease;
+}
+.footer-credit svg{width:12px;height:12px;flex-shrink:0;stroke:var(--gold);align-self:center;transition:transform .5s ease;}
+.footer-credit:hover{opacity:1;}
+.footer-credit:hover span{filter:brightness(1.2);}
+.footer-credit:hover svg{transform:translate(3px,-3px);}
 
 /* ---------- mobile hero override ---------- */
 @media (max-width:860px){
@@ -1814,7 +1820,7 @@ window.addEventListener('pageshow', function(e){
     <h2 class="reveal-up">Let's create<br><em>something memorable.</em></h2>
     <p class="contact-sub reveal-up">For bookings, brand collaborations, media appearances, or event hosting — reach out below.</p>
     <div class="contact-links">
-      <a href="mailto:shermandh@yahoo.com" class="mag-btn"><span>shermandh@yahoo.com</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="mailto:don@donsherman.com.au" class="mag-btn"><span>don@donsherman.com.au</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
@@ -1836,7 +1842,7 @@ window.addEventListener('pageshow', function(e){
   </div>
   <div class="footer-bottom">
     <span>© 2026 Don Sherman. All rights reserved.</span>
-    <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
+    <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>LYGEN Media</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <span>Chef · Singer · Entertainer · Storyteller</span>
   </div>
 </footer>

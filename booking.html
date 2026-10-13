@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -254,14 +254,20 @@ footer{padding:60px 0 40px;border-top:1px solid var(--line);}
 .footer-social a:hover{color:var(--gold);}
 .footer-bottom{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;}
 .footer-credit{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
-  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
-  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+  display:inline-flex;align-items:baseline;gap:8px;
+  font-size:14px;letter-spacing:0;color:rgba(242,239,233,0.45);
+  transition:opacity .3s ease;
 }
-.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
-.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
-.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
+.footer-credit span{
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em;
+  background:linear-gradient(95deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  transition:filter .4s ease;
+}
+.footer-credit svg{width:12px;height:12px;flex-shrink:0;stroke:var(--gold);align-self:center;transition:transform .5s ease;}
+.footer-credit:hover{opacity:1;}
+.footer-credit:hover span{filter:brightness(1.2);}
+.footer-credit:hover svg{transform:translate(3px,-3px);}
 </style>
 </head>
 <body>
@@ -411,7 +417,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--line);}
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Don Sherman. All rights reserved.</span>
-      <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
+      <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>LYGEN Media</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </footer>

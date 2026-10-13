@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -350,9 +350,9 @@ header#site-nav{
   box-shadow:0 8px 18px rgba(201,162,39,0.25);
 }
 @media (max-width:640px){
-  .r-menu-item .r-mi-body{padding:12px 14px 14px;}
+  .r-menu-item .r-mi-body{padding:12px 14px 14px;flex-direction:column;align-items:flex-start;gap:8px;}
   .r-menu-item h4{font-size:13px;}
-  .r-menu-item .r-mi-price-box{font-size:13px;padding:6px 10px;}
+  .r-menu-item .r-mi-price-box{font-size:13px;padding:6px 10px;align-self:flex-start;}
   .r-menu-item .r-mi-cat{font-size:9px;}
 }
 .r-menu-item p{margin-top:8px;font-size:13px;line-height:1.6;color:rgba(242,239,233,0.55);}
@@ -568,14 +568,20 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
   display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(242,239,233,0.4);flex-wrap:wrap;gap:10px;
 }
 .footer-credit{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;letter-spacing:.05em;color:rgba(242,239,233,0.45);
-  padding:8px 16px;border:1px solid rgba(201,162,39,0.4);border-radius:30px;
-  transition:border-color .3s ease, background .3s ease, transform .3s ease;
+  display:inline-flex;align-items:baseline;gap:8px;
+  font-size:14px;letter-spacing:0;color:rgba(242,239,233,0.45);
+  transition:opacity .3s ease;
 }
-.footer-credit span{color:var(--gold);font-weight:800;letter-spacing:.02em;}
-.footer-credit:hover{border-color:var(--gold);background:rgba(201,162,39,0.1);transform:translateY(-1px);}
-.footer-credit:hover span{color:var(--gold-soft, var(--gold));}
+.footer-credit span{
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em;
+  background:linear-gradient(95deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  transition:filter .4s ease;
+}
+.footer-credit svg{width:12px;height:12px;flex-shrink:0;stroke:var(--gold);align-self:center;transition:transform .5s ease;}
+.footer-credit:hover{opacity:1;}
+.footer-credit:hover span{filter:brightness(1.2);}
+.footer-credit:hover svg{transform:translate(3px,-3px);}
 
 /* ---------- WhatsApp floating button ---------- */
 .whatsapp-fab{
@@ -686,7 +692,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     <div class="pick-track" id="pickTrack">
       <div class="pick-spacer"></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-chef-noodles.jpg" alt="Special Singing Chef Noodles" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-rice.jpg" alt="Special Singing Rice" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Rice</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-rice.jpg" alt="Special Singing Chef Rice" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Chef Rice</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-seafood-platter.jpg" alt="Singin Chef Special Seafood Platter" loading="lazy" decoding="async"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omellette" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/pepper-mutton-stew.jpg" alt="Pepper Mutton Stew" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div></div>
@@ -796,7 +802,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     <div class="r-reviews-grid">
       <div class="r-review-card">
         <div class="stars">★★★★★</div>
-        <p>"The Special Singing Rice lives up to its name — genuinely the best mixed rice I've had in Colombo. Portions are generous too."</p>
+        <p>"The Special Singing Chef Rice lives up to its name — genuinely the best mixed rice I've had in Colombo. Portions are generous too."</p>
         <div class="r-review-name">Ishara W.</div>
         <div class="r-review-meta">Colombo 03 · Visited last month</div>
       </div>
@@ -847,7 +853,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
           </span>
           <div>
             <h3>Contact</h3>
-            <p>+94 77 123 4567<br>hello@singinchef.lk</p>
+            <p>+94 76 833 3332<br>don@donsherman.com.au</p>
           </div>
         </div>
       </div>
@@ -895,7 +901,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Singin' Chef Restaurant. All rights reserved.</span>
-      <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>Lygen Media</span></a>
+      <a class="footer-credit" href="https://lygenexlabs.com" target="_blank" rel="noopener">Made by <span>LYGEN Media</span><svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </footer>
