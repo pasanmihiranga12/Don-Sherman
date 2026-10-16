@@ -103,6 +103,21 @@ function initLenis(){
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
   gsap.ticker.lagSmoothing(0);
+
+  // Extra safety net, throttled to one check per frame: ScrollTrigger's
+  // onEnter and the IntersectionObserver fallback are the primary way
+  // .reveal-up content appears while scrolling, but on some devices
+  // (narrower viewports needing a different line-wrap, slower layout
+  // settling, etc.) a trigger point can end up miscalculated and never
+  // fire at all, leaving that content permanently stuck invisible.
+  // Re-checking what's actually on screen on every scroll tick catches
+  // that regardless of why the normal trigger missed it.
+  let sweepQueued = false;
+  lenis.on('scroll', ()=>{
+    if(sweepQueued) return;
+    sweepQueued = true;
+    requestAnimationFrame(()=>{ sweepQueued = false; sweepVisibleElements(); });
+  });
 }
 
 /* ---------------- Custom cursor ---------------- */
@@ -779,25 +794,39 @@ function initGalleryCarousel(){
   prevBtn?.addEventListener('click', ()=> goTo(rawIndex-1));
   nextBtn?.addEventListener('click', ()=> goTo(rawIndex+1));
 
-  cards.forEach((card, i)=>{
-    card.addEventListener('click', ()=>{
-      if(i===current){
-        const url = card.getAttribute('data-lightbox');
-        if(url) window.__openLightbox?.(url);
-      } else {
-        goToShortest(i);
-      }
-    });
-  });
-
-  // drag / swipe to rotate
-  let dragging = false, dragStartX = 0;
-  stage.addEventListener('pointerdown', e=>{ dragging = true; dragStartX = e.clientX; });
+  // Handling taps via a 'click' listener doesn't reliably work here: cards
+  // sit inside a perspective/preserve-3d ring, and relying on the browser
+  // to both (a) hit-test a click to the right 3D-transformed card and
+  // (b) synthesize that click at all from a touch tap is exactly the kind
+  // of thing that's inconsistent across browsers/devices. Instead, this
+  // resolves taps directly off the same pointerdown/pointerup pair already
+  // used for drag detection, using real pointer coordinates — no 'click'
+  // event involved anywhere, so there's nothing for a 3D-transform or a
+  // touch/mouse difference to break.
+  let dragging = false, dragStartX = 0, dragStartY = 0;
+  stage.addEventListener('pointerdown', e=>{ dragging = true; dragStartX = e.clientX; dragStartY = e.clientY; });
   window.addEventListener('pointerup', e=>{
     if(!dragging) return;
     dragging = false;
     const dx = e.clientX - dragStartX;
-    if(Math.abs(dx) > 40) goTo(rawIndex + (dx < 0 ? 1 : -1));
+    const dy = e.clientY - dragStartY;
+    if(Math.abs(dx) > 40){
+      goTo(rawIndex + (dx < 0 ? 1 : -1));
+      return;
+    }
+    if(Math.abs(dx) > 10 || Math.abs(dy) > 10) return; // not a clean tap, not a real drag either — ignore
+
+    const hit = document.elementFromPoint(e.clientX, e.clientY);
+    const card = hit?.closest('.g-carousel-card');
+    if(!card) return;
+    const i = cards.indexOf(card);
+    if(i === -1) return;
+    if(i===current){
+      const url = card.getAttribute('data-lightbox');
+      if(url) window.__openLightbox?.(url);
+    } else {
+      goToShortest(i);
+    }
   });
 
   window.addEventListener('resize', layout);
@@ -1203,6 +1232,17 @@ function initMobileLock(){
 function initSite(){
   document.body.style.overflow='';
   initLenis();
+  // Same scroll safety net as inside initLenis(), for the
+  // prefers-reduced-motion path where Lenis never initializes and the
+  // page just uses native scroll instead.
+  if(!lenis){
+    let sweepQueued = false;
+    window.addEventListener('scroll', ()=>{
+      if(sweepQueued) return;
+      sweepQueued = true;
+      requestAnimationFrame(()=>{ sweepQueued = false; sweepVisibleElements(); });
+    }, {passive:true});
+  }
   initCursor();
   initMobileLock();
   initMagnetic();

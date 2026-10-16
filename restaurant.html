@@ -8,8 +8,15 @@
 // If any image fails to load, fade it out silently instead of leaving the
 // browser's broken-image icon + alt text visible — a stray caption reading
 // like an image description looks like a missing AI-generated placeholder.
+// Elements like the lightbox/modal photo get their src swapped and reused
+// for many different images, so a failed load must only hide THAT one
+// attempt — the next successful load has to clear it again, or the
+// element stays permanently blank for everything shown through it after.
 document.addEventListener('error', function(e){
   if(e.target.tagName === 'IMG'){ e.target.style.opacity = '0'; e.target.style.pointerEvents = 'none'; }
+}, true);
+document.addEventListener('load', function(e){
+  if(e.target.tagName === 'IMG'){ e.target.style.opacity = ''; e.target.style.pointerEvents = ''; }
 }, true);
 </script>
 <link rel="icon" type="image/png" href="images/don-personal-logo.png">

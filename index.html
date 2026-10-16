@@ -8,8 +8,15 @@
 // If any image fails to load, fade it out silently instead of leaving the
 // browser's broken-image icon + alt text visible — a stray caption reading
 // like an image description looks like a missing AI-generated placeholder.
+// Elements like the lightbox/modal photo get their src swapped and reused
+// for many different images, so a failed load must only hide THAT one
+// attempt — the next successful load has to clear it again, or the
+// element stays permanently blank for everything shown through it after.
 document.addEventListener('error', function(e){
   if(e.target.tagName === 'IMG'){ e.target.style.opacity = '0'; e.target.style.pointerEvents = 'none'; }
+}, true);
+document.addEventListener('load', function(e){
+  if(e.target.tagName === 'IMG'){ e.target.style.opacity = ''; e.target.style.pointerEvents = ''; }
 }, true);
 </script>
 <link rel="icon" type="image/png" href="images/don-personal-logo.png">
@@ -969,6 +976,14 @@ section{position:relative;width:100%;}
 #shows h2{
   font-family:'Inter',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;
   font-size:clamp(22px,3.6vw,56px);margin-top:18px;white-space:nowrap;
+}
+/* the gradient/shimmer lives on an inner span rather than the h2 itself —
+   matching every other gold heading on the site. #shows h2's reveal-up
+   animation rewrites its innerHTML on load; a background-clip:text +
+   animation applied directly to that outer element (rather than a child)
+   could fail to repaint on some mobile browsers after that rewrite,
+   leaving the heading invisible. */
+#shows h2 span{
   background:linear-gradient(100deg, #8a6416 0%, #c9a227 25%, #f6e3a8 50%, #c9a227 75%, #8a6416 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;
@@ -1548,7 +1563,7 @@ window.addEventListener('pageshow', function(e){
 <section id="shows">
   <div class="wrap">
     <div class="eyebrow split"><span class="line">On Screen</span></div>
-    <h2 class="reveal-up">Three shows, still on air.</h2>
+    <h2 class="reveal-up"><span>Three shows, still on air.</span></h2>
 
     <div class="show-grid">
       <div class="show-card reveal-up" data-show
@@ -1865,6 +1880,6 @@ window.addEventListener('pageshow', function(e){
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/three.min.js" defer></script>
 <script src="fluid-sim.js?v=6" defer></script>
-<script src="main.js?v=14" defer></script>
+<script src="main.js?v=15" defer></script>
 </body>
 </html>
