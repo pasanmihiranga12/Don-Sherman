@@ -5,8 +5,8 @@ const MENU_DATA = [
     {n:'Chicken Fried Rice', d:'Savory fried rice cooked with tender pieces of chicken, vegetables, and aromatic spices', p:'Rs. 1,450.00', img:'images/menu/chicken-fried-rice.jpg'},
     {n:'Mixed Rice', d:'A hearty, loaded mixed rice dish prepared with a rich variety of proteins, including prawns, cuttlefish, beef, pork, sausage, eggs, and chicken', p:'Rs. 1,900.00', img:'images/menu/mixed-rice.jpg'},
     {n:'Seafood Fried Rice', d:'Delicious fried rice packed with a medley of fresh seafood and delicate seasonings.', p:'Rs. 1,900.00', img:'images/menu/seafood-fried-rice.jpg'},
-    {n:'Chillie Garlic Rice', d:'Flavorful rice tossed with a fiery punch of chili and robust garlic', p:'Rs. 1,200.00', img:'images/menu/chillie-garlic-rice.jpg'},
-    {n:'Nasi - Georang - Mix', d:'A rich, mixed Indonesian-style fried rice dish combining various proteins and signature spices', p:'Rs. 2,100.00', img:'images/menu/nasi-georang-mix.jpg'},
+    {n:'Chilli Garlic Rice', d:'Flavorful rice tossed with a fiery punch of chili and robust garlic', p:'Rs. 1,200.00', img:'images/menu/chillie-garlic-rice.jpg'},
+    {n:'Nasi Goreng Mix', d:'A rich, mixed Indonesian-style fried rice dish combining various proteins and signature spices', p:'Rs. 2,100.00', img:'images/menu/nasi-georang-mix.jpg'},
     {n:'Thai Chicken Fried Rice', d:'Fragrant Thai-style fried rice cooked with tender chicken, vegetables, eggs, and aromatic seasonings for a delicious savory taste', p:'Rs. 1,680.00', img:'images/menu/thai-chicken-fried-rice.jpg'},
     {n:'Special Singing Chef Rice', d:'A rich and loaded rice dish prepared with prawns, cuttlefish, beef, pork, sausage, eggs, and chicken', p:'Rs. 3,800.00', img:'images/menu/special-singing-rice.jpg'},
     {n:'Hakka Fried Rice', d:'Indo-Chinese style Hakka fried rice featuring tossed grains, vegetables, and savory wok-tossed flavor', p:'Rs. 1,780.00', img:'images/menu/hakka-fried-rice.jpg'},
@@ -14,10 +14,10 @@ const MENU_DATA = [
   {cat:'Chicken', items:[
     {n:'Chicken Stew', d:'Tender chicken simmered in a savory, spiced gravy', p:'Rs. 2,550.00', img:'images/menu/chicken-stew.jpg'},
     {n:'Chicken Wings', d:'Juicy chicken wings seasoned and cooked for a great bite', p:'Rs. 1,650.00', img:'images/menu/chicken-wings.jpg'},
-    {n:'Chillie chicken', d:'Tender chicken pieces stir-fried in a fiery chili sauce', p:'Rs. 2,700.00', img:'images/menu/chillie-chicken.jpg'},
-    {n:'Crispy chicken', d:'Extra crunchy, deep-fried chicken bites full of flavor', p:'Rs. 2,800.00', img:'images/menu/crispy-chicken.jpg'},
+    {n:'Chilli Chicken', d:'Tender chicken pieces stir-fried in a fiery chili sauce', p:'Rs. 2,700.00', img:'images/menu/chillie-chicken.jpg'},
+    {n:'Crispy Chicken', d:'Extra crunchy, deep-fried chicken bites full of flavor', p:'Rs. 2,800.00', img:'images/menu/crispy-chicken.jpg'},
     {n:'Devilled Chicken', d:'Spicy and tangy chicken tossed with bell peppers, onions, and chili sauce.', p:'Rs. 2,450.00', img:'images/menu/devilled-chicken.jpg'},
-    {n:'Fried chicken', d:'Crispy golden-fried chicken pieces cooked to perfection', p:'Rs. 2,300.00', img:'images/menu/fried-chicken.jpg'},
+    {n:'Fried Chicken', d:'Crispy golden-fried chicken pieces cooked to perfection', p:'Rs. 2,300.00', img:'images/menu/fried-chicken.jpg'},
   ]},
   {cat:'Beef', items:[
     {n:'Beef Stew', d:'Tender beef cooked in a rich, comforting, spiced gravy', p:'Rs. 2,790.00', img:'images/menu/beef-stew.jpg'},
@@ -26,7 +26,7 @@ const MENU_DATA = [
     {n:'Kang Kung Beef', d:'Savory beef stir-fried alongside crisp kang kung greens', p:'Rs. 2,850.00', img:'images/menu/kang-kung-beef.jpg'},
   ]},
   {cat:'Pork', items:[
-    {n:'Chillie Pork', d:'Spicy pork stir-fry packed with hot chilies and spices', p:'Rs. 2,650.00', img:'images/menu/chillie-pork.jpg'},
+    {n:'Chilli Pork', d:'Spicy pork stir-fry packed with hot chilies and spices', p:'Rs. 2,650.00', img:'images/menu/chillie-pork.jpg'},
     {n:'Devilled Pork', d:'Pork chunks tossed in a spicy, sweet-and-sour devilled sauce with onions and peppers', p:'Rs. 2,400.00', img:'images/menu/devilled-pork.jpg'},
     {n:'Fried Pork', d:'Crispy, seasoned fried pork bites', p:'Rs. 2,300.00', img:'images/menu/fried-pork.jpg'},
     {n:'Kang Kung Garlic Pork', d:'Stir-fried pork cooked with fresh water spinach (kang kung) and aromatic garlic', p:'Rs. 2,550.00', img:'images/menu/kang-kung-garlic-pork.jpg'},
@@ -59,26 +59,26 @@ const MENU_DATA = [
   {cat:'Kotthu', items:[
     {n:'Cheese Kotthu', d:'A popular Sri Lankan street food classic made with chopped godamba roti, vegetables, eggs, spices, and heavily tossed with a generous amount of melted cheese for a rich and savory flavor', p:'Rs. 1,100.00', img:'images/menu/cheese-kotthu.jpg'},
     {n:'Chicken & Cheese Kotthu', d:'A decadent combination of chopped roti, tender spiced chicken pieces, eggs, vegetables, and a rich layer of melted cheese, offering an extra-savory and comforting meal', p:'Rs. 1,250.00', img:'images/menu/chicken-cheese-kotthu.jpg'},
-    {n:'Egg Kotthu', d:'A rich and loaded rice dish prepared with prawns, cuttlefish, beef, pork, sausage, eggs, and chicken', p:'Rs. 900.00', img:'images/menu/egg-kotthu.jpg'},
+    {n:'Egg Kotthu', d:'Chopped godamba roti tossed with egg, vegetables, and classic kotthu spices for a simple, comforting favorite.', p:'Rs. 900.00', img:'images/menu/egg-kotthu.jpg'},
   ]},
   {cat:'Pasta', items:[
     {n:'Cheese Pasta', d:'Pasta tossed in a delicious, velvety cheese-based sauce', p:'Rs. 1,900.00', img:'images/menu/cheese-pasta.jpg'},
-    {n:'Chicken Pasta in white sauce', d:'Pasta served in a rich, creamy white sauce with tender chicken pieces', p:'Rs. 1,900.00', img:'images/menu/chicken-pasta-in-white-sauce.jpg'},
-    {n:'Seafood Pasta in white sauce', d:'Pasta combined with assorted seafood in a smooth and savory white sauce.', p:'Rs. 1,900.00', img:'images/menu/seafood-pasta-in-white-sauce.jpg'},
+    {n:'Chicken Pasta in White Sauce', d:'Pasta served in a rich, creamy white sauce with tender chicken pieces', p:'Rs. 1,900.00', img:'images/menu/chicken-pasta-in-white-sauce.jpg'},
+    {n:'Seafood Pasta in White Sauce', d:'Pasta combined with assorted seafood in a smooth and savory white sauce.', p:'Rs. 1,900.00', img:'images/menu/seafood-pasta-in-white-sauce.jpg'},
   ]},
-  {cat:'Omellete', items:[
-    {n:'Cheese Omellette', d:'Fluffy omelet folded with gooey, melted cheese', p:'Rs. 1,590.00', img:'images/menu/cheese-omellette.jpg'},
-    {n:'Chicken Omellette', d:'Hearty omelet stuffed with savory minced chicken', p:'Rs. 1,720.00', img:'images/menu/chicken-omellette.jpg'},
-    {n:'Singin Chef Special Omellette', d:'A loaded specialty omelet containing Mushroom, Baby Corn, Parsley, Onion, and Coriander', p:'Rs. 2,250.00', img:'images/menu/singin-chef-special-omellette.jpg'},
-    {n:'Sri Lankan Omellette', d:'Traditional local-style omelet loaded with onions, green chillies, and spices.', p:'Rs. 1,350.00', img:'images/menu/sri-lankan-omellette.jpg'},
+  {cat:'Omelette', items:[
+    {n:'Cheese Omelette', d:'Fluffy omelet folded with gooey, melted cheese', p:'Rs. 1,590.00', img:'images/menu/cheese-omellette.jpg'},
+    {n:'Chicken Omelette', d:'Hearty omelet stuffed with savory minced chicken', p:'Rs. 1,720.00', img:'images/menu/chicken-omellette.jpg'},
+    {n:'Singin Chef Special Omelette', d:'A loaded specialty omelet containing Mushroom, Baby Corn, Parsley, Onion, and Coriander', p:'Rs. 2,250.00', img:'images/menu/singin-chef-special-omellette.jpg'},
+    {n:'Sri Lankan Omelette', d:'Traditional local-style omelet loaded with onions, green chillies, and spices.', p:'Rs. 1,350.00', img:'images/menu/sri-lankan-omellette.jpg'},
   ]},
   {cat:'Specials', items:[
     {n:'Singin Chef Special Seafood Platter', d:'An ultimate seafood assortment featuring Cuttle fish, Prawns, Fish, Crab, and Fried Egg', p:'Rs. 5,800.00', img:'images/menu/singin-chef-special-seafood-platter.jpg'},
   ]},
   {cat:'Vegetables', items:[
     {n:'French Fries', d:'Classic, crispy golden french fries', p:'Rs. 1,650.00', img:'images/menu/french-fries.jpg'},
-    {n:'Fried Potato wedges', d:'Thick-cut potato wedges fried to a golden crunch', p:'Rs. 1,450.00', img:'images/menu/fried-potato-wedges.jpg'},
-    {n:'Mixed Boiled vegetables', d:'A healthy selection of lightly boiled, fresh seasonal vegetables', p:'Rs. 1,850.00', img:'images/menu/mixed-boiled-vegetables.jpg'},
+    {n:'Fried Potato Wedges', d:'Thick-cut potato wedges fried to a golden crunch', p:'Rs. 1,450.00', img:'images/menu/fried-potato-wedges.jpg'},
+    {n:'Mixed Boiled Vegetables', d:'A healthy selection of lightly boiled, fresh seasonal vegetables', p:'Rs. 1,850.00', img:'images/menu/mixed-boiled-vegetables.jpg'},
   ]},
   {cat:'Party Bites (Per Kilo)', items:[
     {n:'Beef', d:'Beef priced per kilo', p:'Rs. 4,800.00', img:'images/menu/beef.jpg'},
@@ -86,19 +86,19 @@ const MENU_DATA = [
     {n:'Chicken', d:'Fresh chicken available per kilo for party bites', p:'Rs. 3,850.00', img:'images/menu/chicken.jpg'},
     {n:'Cuttle Fish', d:'Cuttlefish offered per kilo', p:'Rs. 5,500.00', img:'images/menu/cuttle-fish.jpg'},
     {n:'Fish', d:'Fresh fish priced per kilo', p:'Rs. 4,250.00', img:'images/menu/fish.jpg'},
-    {n:'French Frice', d:'Crispy French fries available per kilo', p:'Rs. 3,400.00', img:'images/menu/french-frice.jpg'},
+    {n:'French Fries', d:'Crispy French fries available per kilo', p:'Rs. 3,400.00', img:'images/menu/french-frice.jpg'},
     {n:'Pork', d:'Pork available per kilo', p:'Rs. 4,300.00', img:'images/menu/pork.jpg'},
-    {n:'Prawns (medium Size)', d:'Medium-sized prawns priced per kilo', p:'Rs. 600.00', img:'images/menu/prawns-medium-size.jpg'},
+    {n:'Prawns (Medium Size)', d:'Medium-sized prawns priced per kilo', p:'Rs. 600.00', img:'images/menu/prawns-medium-size.jpg'},
   ]},
   {cat:'Wraps', items:[
     {n:'Tandoori Tempo Wrap with Crispy Chip Chorus', d:'Tandoori Chicken Wrap served with Chips', p:'Rs. 2,480.00', img:'images/menu/tandoori-tempo-wrap-with-crispy-chip-chorus.jpg'},
-    {n:'Seafood orchestra rap with Creamy Coastal Notes', d:'Cuttlefish & Shrimp Salad Wrap with homemade dressing', p:'Rs. 2,780.00', img:'images/menu/seafood-orchestra-rap-with-creamy-coastal-notes.jpg'},
+    {n:'Seafood Orchestra Wrap with Creamy Coastal Notes', d:'Cuttlefish & Shrimp Salad Wrap with homemade dressing', p:'Rs. 2,780.00', img:'images/menu/seafood-orchestra-rap-with-creamy-coastal-notes.jpg'},
   ]},
   {cat:'Served with two roasted bread', items:[
-    {n:'Black pork with Pol Sambol and Kiri Hodi', d:'', p:'Rs. 2,780.00', img:'images/menu/black-pork-with-pol-sambol-and-kiri-hodi.jpg'},
+    {n:'Black Pork with Pol Sambol and Kiri Hodi', d:'', p:'Rs. 2,780.00', img:'images/menu/black-pork-with-pol-sambol-and-kiri-hodi.jpg'},
     {n:'Jaffna Crab Curry with Pol Sambol', d:'', p:'Rs. 2,350.00', img:'images/menu/jaffna-crab-curry-with-pol-sambol.jpg'},
-    {n:'Devilled chicken, kirihodi and pol sambol', d:'', p:'Rs. 2,200.00', img:'images/menu/devilled-chicken-kirihodi-and-pol-sambol.jpg'},
-    {n:'Prawn Curry and Seeni sambol', d:'', p:'Rs. 3,100.00', img:'images/menu/prawn-curry-and-seeni-sambol.jpg'},
+    {n:'Devilled Chicken, Kiri Hodi and Pol Sambol', d:'', p:'Rs. 2,200.00', img:'images/menu/devilled-chicken-kirihodi-and-pol-sambol.jpg'},
+    {n:'Prawn Curry and Seeni Sambol', d:'', p:'Rs. 3,100.00', img:'images/menu/prawn-curry-and-seeni-sambol.jpg'},
     {n:'Vegetable Kurma and Pol Sambol', d:'', p:'Rs. 1,680.00', img:'images/menu/vegetable-kurma-and-pol-sambol.jpg'},
   ]},
   {cat:'Sausages', items:[
@@ -111,7 +111,7 @@ const MENU_DATA = [
     {n:'Hot Butter Mushroom', d:'Crispy mushrooms tossed in a rich, buttery, and slightly spicy glaze', p:'Rs. 1,780.00', img:'images/menu/hot-butter-mushroom.jpg'},
   ]},
   {cat:'Fruits', items:[
-    {n:'Assorted Fresh Fruit platte', d:'A refreshing selection of cut seasonal fresh fruits', p:'Rs. 2,800.00', img:'images/menu/assorted-fresh-fruit-platte.jpg'},
+    {n:'Assorted Fresh Fruit Platter', d:'A refreshing selection of cut seasonal fresh fruits', p:'Rs. 2,800.00', img:'images/menu/assorted-fresh-fruit-platte.jpg'},
   ]},
   {cat:'Waffles', items:[
     {n:'Melody Mayo Chicken with Spicy Veggie Backbeat', d:'Chicken Mayonnaise with Spicy Vegetable Salad', p:'Rs. 2,150.00', img:'images/menu/melody-mayo-chicken-with-spicy-veggie-backbeat.jpg'},
@@ -126,14 +126,14 @@ const MENU_DATA = [
   {cat:'Coffee', items:[
     {n:'Cappuccino', d:'A classic espresso topped with a rich layer of foamed milk', p:'Rs. 960.00', img:'images/menu/cappuccino.jpg'},
     {n:'Latte', d:'Smooth espresso combined with steamed milk and a light layer of foam.', p:'Rs. 1,100.00', img:'images/menu/latte.jpg'},
-    {n:'Moca', d:'A delightful blend of rich espresso, chocolate, and steamed milk', p:'Rs. 1,200.00', img:'images/menu/moca.jpg'},
+    {n:'Mocha', d:'A delightful blend of rich espresso, chocolate, and steamed milk', p:'Rs. 1,200.00', img:'images/menu/moca.jpg'},
   ]},
   {cat:'Fresh Juices', items:[
-    {n:'Amberalla Groove', d:'Golden ambarella with a zesty island rhythm', p:'Rs. 680.00', img:'images/menu/amberalla-groove.jpg'},
+    {n:'Ambarella Groove', d:'Golden ambarella with a zesty island rhythm', p:'Rs. 680.00', img:'images/menu/amberalla-groove.jpg'},
     {n:'Blood Melon on the Dance Floor', d:'Fizzy tropical fun with a juicy kick', p:'Rs. 680.00', img:'images/menu/blood-melon-on-the-dance-floor.jpg'},
     {n:'Mango Melody', d:'Smooth and velvety, the golden chart-topper.', p:'Rs. 760.00', img:'images/menu/mango-melody.jpg'},
     {n:'Pineapple Pop', d:'Fizzy tropical fun with a juicy kick', p:'Rs. 680.00', img:'images/menu/pineapple-pop.jpg'},
-    {n:'Pure Passion With nature\'s Lemon Grass', d:'A refreshing blend combining the vibrant taste of passion fruit with the natural, aromatic touch of lemongrass', p:'Rs. 780.00', img:'images/menu/pure-passion-with-nature-s-lemon-grass.jpg'},
+    {n:'Pure Passion With Nature\'s Lemon Grass', d:'A refreshing blend combining the vibrant taste of passion fruit with the natural, aromatic touch of lemongrass', p:'Rs. 780.00', img:'images/menu/pure-passion-with-nature-s-lemon-grass.jpg'},
     {n:'Starlight Serenade', d:'Refreshing star fruit symphony that shines bright', p:'Rs. 660.00', img:'images/menu/starlight-serenade.jpg'},
     {n:'Tangy Tamarind Tempo', d:'Sweet and sour harmony with a tropical twist', p:'Rs. 980.00', img:'images/menu/tangy-tamarind-tempo.jpg'},
     {n:'Wood Apple Blues', d:'This song is deep, rich, and earthy, making it a soulful island classic', p:'Rs. 780.00', img:'images/menu/wood-apple-blues.jpg'},
@@ -141,9 +141,9 @@ const MENU_DATA = [
   {cat:'Milk Shake', items:[
     {n:'Banana Ballad', d:'Ingredients: Banana, Vanilla Ice Cream, Milk, Honey Description: Smooth, mellow, and comforting — a sweet melody for your taste buds. A classic tune that never goes out of style.', p:'Rs. 1,000.00', img:'images/menu/banana-ballad.jpg'},
     {n:'Chocolate Crescendo', d:'Ingredients: Chocolate Ice Cream, Milk, Chocolate Syrup, Whipped Cream Description: A rich, indulgent symphony of chocolate notes. Turn up the cocoa and feel the crescendo', p:'Rs. 1,000.00', img:'images/menu/chocolate-crescendo.jpg'},
-    {n:'Moca Melody', d:'Ingredients: Coffee, Chocolate, Chocolate Ice Cream, Milk Description: A caffeinated chocolate groove — rich, smooth, and energising. A coffee-chocolate duet hitting all the right notes.', p:'Rs. 1,100.00', img:'images/menu/moca-melody.jpg'},
+    {n:'Mocha Melody', d:'Ingredients: Coffee, Chocolate, Chocolate Ice Cream, Milk Description: A caffeinated chocolate groove — rich, smooth, and energising. A coffee-chocolate duet hitting all the right notes.', p:'Rs. 1,100.00', img:'images/menu/moca-melody.jpg'},
     {n:'Strawberry Swing', d:'Ingredients: Fresh Strawberries, Strawberry Ice Cream, Milk Description: Fruity, vibrant, and full of energy — a playful dance of flavor. A juicy jam session in every sip.', p:'Rs. 1,250.00', img:'images/menu/strawberry-swing.jpg'},
-    {n:'Vanilla milk shake', d:'Creamy vanilla milkshake with a smooth, sweet flavor.', p:'Rs. 1,000.00', img:'images/menu/vanilla-milk-shake.jpg'},
+    {n:'Vanilla Milk Shake', d:'Creamy vanilla milkshake with a smooth, sweet flavor.', p:'Rs. 1,000.00', img:'images/menu/vanilla-milk-shake.jpg'},
   ]},
   {cat:'Energized Drinks', items:[
     {n:'Beet Beat', d:'Ingredients: Beetroot, Ginger, Lime Description: Bold, zesty, and energizing — earthy beet with a fiery ginger kick. Your daily rhythm in a glass!', p:'Rs. 1,000.00', img:'images/menu/beet-beat.jpg'},
@@ -166,6 +166,6 @@ const MENU_DATA = [
   ]},
   {cat:'Soup', items:[
     {n:'Cream of Chicken Soup', d:'A rich, warm, and velvety soup featuring tender pieces of chicken simmered in a creamy, seasoned broth loaded with herbs and finely diced vegetables.', p:'Rs. 1,100.00', img:'images/menu/cream-of-chicken-soup.jpg'},
-    {n:'Cream of Vegitable Soup', d:'A smooth, comforting, and wholesome soup made from a blend of fresh garden vegetables simmered and enriched with a creamy broth and delicate seasonings', p:'Rs. 980.00', img:'images/menu/cream-of-vegitable-soup.jpg'},
+    {n:'Cream of Vegetable Soup', d:'A smooth, comforting, and wholesome soup made from a blend of fresh garden vegetables simmered and enriched with a creamy broth and delicate seasonings', p:'Rs. 980.00', img:'images/menu/cream-of-vegitable-soup.jpg'},
   ]},
 ];

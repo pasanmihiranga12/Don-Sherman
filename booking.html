@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book Don For Your Event — Don Sherman</title>
+<script>
+// If any image fails to load, fade it out silently instead of leaving the
+// browser's broken-image icon + alt text visible — a stray caption reading
+// like an image description looks like a missing AI-generated placeholder.
+document.addEventListener('error', function(e){
+  if(e.target.tagName === 'IMG'){ e.target.style.opacity = '0'; e.target.style.pointerEvents = 'none'; }
+}, true);
+</script>
 <link rel="icon" type="image/png" href="images/don-personal-logo.png">
 <link rel="apple-touch-icon" href="images/don-personal-logo.png">
 <meta name="theme-color" content="#0a0a0a">

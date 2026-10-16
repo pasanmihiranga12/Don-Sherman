@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Singin' Chef Restaurant — Don Sherman</title>
+<script>
+// If any image fails to load, fade it out silently instead of leaving the
+// browser's broken-image icon + alt text visible — a stray caption reading
+// like an image description looks like a missing AI-generated placeholder.
+document.addEventListener('error', function(e){
+  if(e.target.tagName === 'IMG'){ e.target.style.opacity = '0'; e.target.style.pointerEvents = 'none'; }
+}, true);
+</script>
 <link rel="icon" type="image/png" href="images/don-personal-logo.png">
 <link rel="apple-touch-icon" href="images/don-personal-logo.png">
 <meta name="theme-color" content="#0a0a0a">
@@ -694,7 +702,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-chef-noodles.jpg" alt="Special Singing Chef Noodles" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>2,900</span><div class="pick-card-caption">Special Singing Chef Noodles</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/special-singing-rice.jpg" alt="Special Singing Chef Rice" loading="lazy" decoding="async" onerror="this.style.opacity=0"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>3,800</span><div class="pick-card-caption">Special Singing Chef Rice</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-seafood-platter.jpg" alt="Singin Chef Special Seafood Platter" loading="lazy" decoding="async"></div><span class="pick-sig-sticker">Signature</span><span class="pick-price-sticker">Rs.<br>5,800</span><div class="pick-card-caption">Special Seafood Platter</div></div></div>
-      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omellette" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omellette</div></div></div>
+      <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/singin-chef-special-omellette.jpg" alt="Singin Chef Special Omelette" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,250</span><div class="pick-card-caption">Special Omelette</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/pepper-mutton-stew.jpg" alt="Pepper Mutton Stew" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>3,650</span><div class="pick-card-caption">Pepper Mutton Stew</div></div></div>
       <div class="pick-card-wrap"><div class="pick-card" data-pick><div class="pick-card-photo"><img src="images/menu/hot-butter-cuttle-fish.jpg" alt="Hot Butter Cuttle Fish" loading="lazy" decoding="async"></div><span class="pick-price-sticker">Rs.<br>2,180</span><div class="pick-card-caption">Hot Butter Cuttle Fish</div></div></div>
       <div class="pick-spacer"></div>
@@ -741,47 +749,47 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
     <h2 class="reveal-up">The room, the pass, the plates.</h2>
     <div class="r-gallery-grid">
       <div class="r-g-item port-tall" data-lightbox="images/restaurant-gallery1.webp">
-        <img src="images/restaurant-gallery1.webp" alt="restaurent-gallery1" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery1.webp" alt="Singin' Chef Restaurant, photo 1" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-hero" data-lightbox="images/restaurant-gallery2.webp">
-        <img src="images/restaurant-gallery2.webp" alt="restaurent-gallery2" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery2.webp" alt="Singin' Chef Restaurant, photo 2" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-mid" data-lightbox="images/restaurant-gallery3.webp">
-        <img src="images/restaurant-gallery3.webp" alt="restaurent-gallery3" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery3.webp" alt="Singin' Chef Restaurant, photo 3" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-slim" data-lightbox="images/restaurant-gallery4.webp">
-        <img src="images/restaurant-gallery4.webp" alt="restaurent-gallery4" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery4.webp" alt="Singin' Chef Restaurant, photo 4" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-accent" data-lightbox="images/restaurant-gallery5.webp">
-        <img src="images/restaurant-gallery5.webp" alt="restaurent-gallery5" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery5.webp" alt="Singin' Chef Restaurant, photo 5" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-slim" data-lightbox="images/restaurant-gallery6.webp">
-        <img src="images/restaurant-gallery6.webp" alt="restaurent-gallery6" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery6.webp" alt="Singin' Chef Restaurant, photo 6" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-mid" data-lightbox="images/restaurant-gallery7.webp">
-        <img src="images/restaurant-gallery7.webp" alt="restaurent-gallery7" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery7.webp" alt="Singin' Chef Restaurant, photo 7" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-hero" data-lightbox="images/restaurant-gallery8.webp">
-        <img src="images/restaurant-gallery8.webp" alt="restaurent-gallery8" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery8.webp" alt="Singin' Chef Restaurant, photo 8" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
       <div class="r-g-item port-tall" data-lightbox="images/restaurant-gallery9.webp">
-        <img src="images/restaurant-gallery9.webp" alt="restaurent-gallery9" loading="lazy" decoding="async">
+        <img src="images/restaurant-gallery9.webp" alt="Singin' Chef Restaurant, photo 9" loading="lazy" decoding="async">
         <div class="r-g-item-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M15 15l6 6m-11-4a7 7 0 110-14 7 7 0 010 14zm0-9v4m-2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
         <div class="r-g-item-overlay"><span class="r-g-item-tag"></span></div>
       </div>
@@ -896,7 +904,7 @@ footer{background:var(--black);padding:70px 0 30px;border-top:1px solid var(--li
       <div class="footer-social">
         <a href="index.html">Don's Story</a>
         <a href="https://instagram.com/don_sherman_the_singing_chef" target="_blank" rel="noopener">Instagram</a>
-        <a href="#" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.facebook.com/share/18DZM8MYQS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1037,13 +1045,22 @@ function heroIntro(){
 
   function getFiltered(){
     const term = searchTerm.trim().toLowerCase();
+    const words = term.split(/\s+/).filter(Boolean);
     const out = [];
     MENU_DATA.forEach(cat=>{
       // a search term searches every category regardless of the
       // selected tab; with no search term, the tab filter applies
       if(!term && cat.cat !== activeCat) return;
       cat.items.forEach(it=>{
-        if(term && !(it.n.toLowerCase().includes(term) || it.d.toLowerCase().includes(term))) return;
+        // match against name, description AND the category name —
+        // searching "soft drinks" should find the Soft Drinks category
+        // even though no single item's name contains that phrase.
+        // Each word just needs to appear somewhere in that combined
+        // text, so word order / exact phrasing doesn't matter either.
+        if(term){
+          const haystack = `${it.n} ${it.d} ${cat.cat}`.toLowerCase();
+          if(!words.every(w => haystack.includes(w))) return;
+        }
         out.push({...it, cat: cat.cat});
       });
     });

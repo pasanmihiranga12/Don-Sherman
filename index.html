@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Don Sherman — The Singing Chef</title>
+<script>
+// If any image fails to load, fade it out silently instead of leaving the
+// browser's broken-image icon + alt text visible — a stray caption reading
+// like an image description looks like a missing AI-generated placeholder.
+document.addEventListener('error', function(e){
+  if(e.target.tagName === 'IMG'){ e.target.style.opacity = '0'; e.target.style.pointerEvents = 'none'; }
+}, true);
+</script>
 <link rel="icon" type="image/png" href="images/don-personal-logo.png">
 <link rel="apple-touch-icon" href="images/don-personal-logo.png">
 <meta name="theme-color" content="#0a0a0a">
@@ -1467,7 +1475,7 @@ window.addEventListener('pageshow', function(e){
     <span class="off">Cook</span><span class="on">Sing</span>
   </div>
   <div class="hero-content">
-    <div class="eyebrow hero-eyebrow split"><span class="line">Chef · Entertainer · Since 1991</span></div>
+    <div class="eyebrow hero-eyebrow split"><span class="line">Chef · Entertainer</span></div>
     <h1 class="split">
       <span class="line"><span class="w-sans">The</span> <span class="w-serif">Singing</span></span>
       <span class="line"><span class="w-sans">Chef</span></span>
@@ -1498,7 +1506,7 @@ window.addEventListener('pageshow', function(e){
       <div class="about-copy">
         <h2 class="reveal-up">Known around the world as <span class="about-accent">'The Singing Chef.'</span></h2>
         <p class="reveal-up">Don is renowned in his home country of Sri Lanka and around the world for a vibrant, unique style of presentation paired with dynamic culinary skill. Over 38 years, he's worked as a chef, TV personality, and restaurant owner — travelling the world to perform in food events, demonstrations, and shows.</p>
-        <p class="reveal-up">His main-stream television cooking show, <em>"Cook with Don,"</em> has brought joy into Sri Lankan households for over two and a half decades (24 years). He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
+        <p class="reveal-up">His mainstream television cooking show, <em>"Cook with Don,"</em> has brought joy into Sri Lankan households for over two and a half decades (24 years). He's been a brand ambassador for international names including Philips, Kenwood, and Panasonic — and his entertainment side has taken him further still: host, MC, and singer, performing in English, Sinhala, and Hindi.</p>
         <p class="reveal-up">Don writes and performs his own music, featured on his YouTube channel, and is passionate about fusing Eastern and Western flavours — innovations that have inspired popular cooking-song videos online. Today, alongside his performance work, Don serves as a Certificate III Trainer at a Registered Training Organisation.</p>
 
         <div class="role-list">
@@ -1556,7 +1564,7 @@ window.addEventListener('pageshow', function(e){
         data-link2-label="Facebook"
         data-link2-href="https://www.facebook.com/share/1DwqrZpsPX/?mibextid=wwXIfr">
         <div class="show-card-photo">
-          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
+          <img src="images/cook-with-don-cover.webp" alt="Cook With Don TV show" onerror="this.style.opacity=0" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1579,7 +1587,7 @@ window.addEventListener('pageshow', function(e){
         data-link1-label="Swarnawahini TV"
         data-link1-href="https://swarnavahini.lk/">
         <div class="show-card-photo">
-          <img src="images/goldi-taste-of-rhythm-cover.webp" alt="Goldi Taste of Rhythm TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
+          <img src="images/goldi-taste-of-rhythm-cover.webp" alt="Goldi Taste of Rhythm TV show" onerror="this.style.opacity=0" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1603,7 +1611,7 @@ window.addEventListener('pageshow', function(e){
         data-link1-label="Watch on YouTube"
         data-link1-href="https://youtube.com/playlist?list=PLkxTEvSDHo6pHG5MgRYtA9phgrPHZ6-D-&si=6pJ16H7RzFqzXGKM">
         <div class="show-card-photo">
-          <img src="images/freshx-cover.webp" alt="FreshX TV show" onerror="this.style.opacity=0"" loading="lazy" decoding="async">
+          <img src="images/freshx-cover.webp" alt="FreshX TV show" onerror="this.style.opacity=0" loading="lazy" decoding="async">
           <span class="show-card-play">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </span>
@@ -1675,11 +1683,11 @@ window.addEventListener('pageshow', function(e){
 
     <div class="wrap perf-moments">
       <div class="perf-moments-track">
-        <div class="perf-moment"><img src="images/onstage-moment-1.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
-        <div class="perf-moment"><img src="images/onstage-moment-5.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0"" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-1.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-2.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-3.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-4.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
+        <div class="perf-moment"><img src="images/onstage-moment-5.webp" alt="Don Sherman on stage" onerror="this.style.opacity=0" loading="lazy" decoding="async"><div class="perf-moment-scrim"></div></div>
       </div>
     </div>
   </div>
@@ -1717,8 +1725,8 @@ window.addEventListener('pageshow', function(e){
         <div class="t-dot"></div>
         <div class="t-eyebrow">Television</div>
         <h4>Cook With Don</h4>
-        <p>Don's main-stream television cooking show brought joy into Sri Lankan households, blending culinary instruction with his signature entertainment style.</p>
-        <div class="t-stat"><span class="num">10</span><span class="label">Years on Air</span></div>
+        <p>Don's mainstream television cooking show brought joy into Sri Lankan households, blending culinary instruction with his signature entertainment style.</p>
+        <div class="t-stat"><span class="num">24</span><span class="label">Years on Air</span></div>
       </div>
 
       <div class="t-item">
@@ -1796,7 +1804,7 @@ window.addEventListener('pageshow', function(e){
         <div class="g-carousel-card" data-lightbox="images/awards.jpeg"><img src="images/awards.jpeg" alt="Awards" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Awards</span></div>
         <div class="g-carousel-card" data-lightbox="images/studio-smell.webp"><img src="images/studio-smell.webp" alt="Don Sherman presenting a finished dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Behind the Scenes</span></div>
         <div class="g-carousel-card" data-lightbox="images/campaign-apron.webp"><img src="images/campaign-apron.webp" alt="Nature's Pearls campaign shoot" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Nature's Pearls</span></div>
-        <div class="g-carousel-card" data-lightbox="images/sing.jpeg"><img src="images/sing.jpeg" alt="Roasted chicken plated dish" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Performing</span></div>
+        <div class="g-carousel-card" data-lightbox="images/sing.jpeg"><img src="images/sing.jpeg" alt="Don Sherman singing into a microphone on stage" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Performing</span></div>
         <div class="g-carousel-card" data-lightbox="images/studio-tongs.webp"><img src="images/studio-tongs.webp" alt="Don Sherman plating on set" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">In the Kitchen</span></div>
         <div class="g-carousel-card" data-lightbox="images/mc-birthday.webp"><img src="images/mc-birthday.webp" alt="Don Sherman performing as an MC" loading="lazy"><div class="g-carousel-card-scrim"></div><span class="g-carousel-card-cap">Live Hosting</span></div>
       </div>
